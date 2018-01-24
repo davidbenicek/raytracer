@@ -1,7 +1,10 @@
 ﻿<Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="RayTracer Status">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RayTracer/Models/Elements/Ray.cs">
     <Files>
-      <File FileName="RayTracer Status" />
+      <File FileName="RayTracer/Models/Elements/Point3D.cs" Line="87" Column="10" />
+      <File FileName="RayTracer/Models/Elements/Vector3D.cs" Line="61" Column="10" />
+      <File FileName="back_end Status" />
+      <File FileName="RayTracer/Models/Elements/Ray.cs" Line="8" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

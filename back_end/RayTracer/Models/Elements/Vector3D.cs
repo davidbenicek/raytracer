@@ -49,12 +49,12 @@ namespace RayTracer.Models.Elements
         {
             return new Vector3D(-1 * vector.x, -1 * vector.y, -1 * vector.z);
         }
-        //This function overload the multiply operation between two vectors and return a new vector
+        //This function overload the multiplication of a vector by a scale
         public static Vector3D operator *(Vector3D vector, double Scale)
         {
             return new Vector3D(vector.x * Scale, vector.y * Scale, vector.z * Scale);
         }
-        //This function overload the multiplication of a vector by a scale
+        //This function overload the multiplication of a scale by a vector
         public static Vector3D operator *(double Scale, Vector3D vector)
         {
             return new Vector3D(vector.x * Scale, vector.y * Scale, vector.z * Scale);

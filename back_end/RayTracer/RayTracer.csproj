@@ -80,6 +80,7 @@
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
     <Folder Include="Models\Elements\" />
+    <Folder Include="Models\Util\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -96,6 +97,7 @@
     <Compile Include="Models\Elements\Point3D.cs" />
     <Compile Include="Models\Elements\Vector3D.cs" />
     <Compile Include="Models\Elements\Ray.cs" />
+    <Compile Include="Models\Elements\ColorRGB.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

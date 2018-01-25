@@ -10,7 +10,7 @@ namespace RayTracer.Models.Materials
         public double specularCoeff;
         public double specular;
         public double lightColorInf;
-        public double ambientCoeff = 0.2;
+        public double ambientCoeff = Config.AMBIENT_COEFF;
         public ColorRGB rgbColor;
 
         public Material()

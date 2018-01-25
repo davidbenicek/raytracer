@@ -12,7 +12,7 @@ namespace RayTracer.Models.Geometric
         public Sphere()
         {
             center = new Point3D();
-            radius = 1;
+            radius = Config.DEFAULT_RADIUS;
         }
 
         public Sphere(Point3D center, float radius)

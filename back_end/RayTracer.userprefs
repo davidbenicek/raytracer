@@ -1,18 +1,16 @@
 ﻿<Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="RayTracer/Models/Geometric/Sphere.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="back_end Status">
     <Files>
-      <File FileName="RayTracer/Models/Elements/Point3D.cs" Line="10" Column="20" />
-      <File FileName="RayTracer/Models/Elements/Vector3D.cs" Line="57" Column="75" />
+      <File FileName="RayTracer/Models/SceneElements/Scene.cs" Line="27" Column="34" />
       <File FileName="back_end Status" />
-      <File FileName="RayTracer/Models/Elements/Ray.cs" Line="7" Column="19" />
-      <File FileName="RayTracer/Models/Elements/ColorRGB.cs" Line="5" Column="6" />
-      <File FileName="RayTracer Status" />
-      <File FileName="RayTracer/Models/Materials/Material.cs" Line="6" Column="2" />
-      <File FileName="RayTracer/Models/Util/Config.cs" Line="10" Column="13" />
-      <File FileName="RayTracer/Models/Geometric/GeometryObject.cs" Line="27" Column="38" />
-      <File FileName="RayTracer/Models/Util/HitInfo.cs" Line="13" Column="41" />
-      <File FileName="RayTracer/Models/Geometric/Sphere.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="RayTracer" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

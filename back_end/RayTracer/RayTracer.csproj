@@ -83,6 +83,9 @@
     <Folder Include="Models\Util\" />
     <Folder Include="Models\Materials\" />
     <Folder Include="Models\Geometric\" />
+    <Folder Include="Models\Cameras\" />
+    <Folder Include="Models\Lights\" />
+    <Folder Include="Models\SceneElements\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -105,6 +108,10 @@
     <Compile Include="Models\Geometric\GeometryObject.cs" />
     <Compile Include="Models\Util\HitInfo.cs" />
     <Compile Include="Models\Geometric\Sphere.cs" />
+    <Compile Include="Models\Cameras\Camera.cs" />
+    <Compile Include="Models\Lights\Light.cs" />
+    <Compile Include="Models\SceneElements\Scene.cs" />
+    <Compile Include="Models\SceneElements\WindowFrame.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

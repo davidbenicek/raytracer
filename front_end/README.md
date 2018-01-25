@@ -1,3 +1,10 @@
 #Frontend
 
-In this folder you will find the frontend code
+In this folder you will find the frontend code.
+
+To bundle the code and transpile it from ES6 to browser runnable JS (using browserify) follow these steps:
+
+* Make sure you have `npm` installed on your machine (which npm should resolve to a path if you have it)
+* Run `npm install` from this root directory (i.e. raytracer/front_end/)
+* Run `npm run bundle` to run browserify once, `npm run dev` for hot reloading (you may need to have previously ran bundle)
+

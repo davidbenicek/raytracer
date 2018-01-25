@@ -81,6 +81,8 @@
     <Folder Include="Scripts\" />
     <Folder Include="Models\Elements\" />
     <Folder Include="Models\Util\" />
+    <Folder Include="Models\Materials\" />
+    <Folder Include="Models\Geometric\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -98,6 +100,11 @@
     <Compile Include="Models\Elements\Vector3D.cs" />
     <Compile Include="Models\Elements\Ray.cs" />
     <Compile Include="Models\Elements\ColorRGB.cs" />
+    <Compile Include="Models\Materials\Material.cs" />
+    <Compile Include="Models\Util\Config.cs" />
+    <Compile Include="Models\Geometric\GeometryObject.cs" />
+    <Compile Include="Models\Util\HitInfo.cs" />
+    <Compile Include="Models\Geometric\Sphere.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

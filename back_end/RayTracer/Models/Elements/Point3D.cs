@@ -44,13 +44,13 @@ namespace RayTracer.Models.Elements
         //This overloads the method + to make it add a point with a vector, and return a point
         public static Point3D operator +(Point3D point, Vector3D vector)
         {
-            return new Point3D(point.x + vector.x, point.y + vector.Y, point.z + vector.z);
+            return new Point3D(point.x + vector.x, point.y + vector.y, point.z + vector.z);
         }
         //This function overloads the subtraction of two points, and return a point
 
         public static Point3D operator -(Point3D point, Vector3D vector)
         {
-            return new Point3D(point.X - vector.X, point.Y - vector.Y, point.Z - vector.Z);
+            return new Point3D(point.x - vector.x, point.y - vector.y, point.z - vector.z);
         }
 
         //This function overloads the subtraction of two points, and return a vector

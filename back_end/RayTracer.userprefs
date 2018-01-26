@@ -1,48 +1,28 @@
 ﻿<Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="RayTracer/Models/Json/JsonObject.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RayTracer/Models/Elements/Ray.cs">
     <Files>
       <File FileName="RayTracer/Models/SceneElements/Scene.cs" Line="13" Column="21" />
       <File FileName="RayTracer/packages.config" Line="1" Column="1" />
       <File FileName="RayTracer.Tests/Controllers/Test.cs" Line="11" Column="10" />
       <File FileName="RayTracer.Tests/packages.config" Line="1" Column="1" />
-      <File FileName="RayTracer/Controllers/RenderController.cs" Line="31" Column="10" />
       <File FileName="RayTracer/App_Start/WebApiConfig.cs" Line="11" Column="30" />
       <File FileName="RayTracer/Global.asax" Line="1" Column="1" />
       <File FileName="RayTracer/Models/Geometric/GeometryObject.cs" Line="4" Column="16" />
-      <File FileName="RayTracer/Models/Geometric/Sphere.cs" Line="1" Column="1" />
+      <File FileName="RayTracer/Models/Geometric/Sphere.cs" Line="24" Column="44" />
       <File FileName="RayTracer/Models/Lights/Light.cs" Line="1" Column="1" />
       <File FileName="RayTracer/Models/Materials/Material.cs" Line="6" Column="2" />
       <File FileName="RayTracer/Models/SceneElements/WindowFrame.cs" Line="9" Column="37" />
-      <File FileName="back_end Status" />
       <File FileName="RayTracer/Models/Json/EnvironmentJSON.cs" Line="1" Column="1" />
       <File FileName="RayTracer/Models/Json/GeometryJSON.cs" Line="16" Column="24" />
-      <File FileName="RayTracer/Models/Json/JsonObject.cs" Line="7" Column="18" />
+      <File FileName="RayTracer/Models/Json/JsonObject.cs" Line="7" Column="6" />
+      <File FileName="RayTracer/Models/Util/HitInfo.cs" Line="7" Column="18" />
+      <File FileName="RayTracer/Models/Elements/Ray.cs" Line="5" Column="18" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="RayTracer" expanded="True">
-            <Node name="RayTracer" expanded="True">
-              <Node name="Models" expanded="True">
-                <Node name="Json" expanded="True">
-                  <Node name="GeometryJSON.cs" selected="True" />
-                </Node>
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="RayTracer" expanded="True" selected="True" />
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/othmanalkhamra/Documents/GitHub/raytracer/back_end/RayTracer/Controllers/RenderController.cs" relfile="RayTracer/Controllers/RenderController.cs" line="15" column="1" />
+      <Breakpoint file="/Users/obimmatimothy/Documents/GitHub/raytracer/back_end/RayTracer/Controllers/RenderController.cs" relfile="RayTracer/Controllers/RenderController.cs" line="15" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

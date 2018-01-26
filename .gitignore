@@ -1,3 +1,5 @@
 front_end/node_modules/*
 front_end/dist
 .DS_Store
+front_end/.nyc_output/
+front_end/coverage/

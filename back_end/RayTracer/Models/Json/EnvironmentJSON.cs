@@ -25,5 +25,56 @@ namespace RayTracer.Models.Json
             this.light = light;
             this.camera = camera;
         }
+
+        public void setFileName(string fileName)
+        {
+            this.fileName = fileName;
+        }
+
+        public string getFileName()
+        {
+            return fileName;
+        }
+
+        public void setWinFrame(WindowFrame winFrame)
+        {
+            this.winFrame = winFrame;
+        }
+
+        public WindowFrame getWinFrame()
+        {
+            return winFrame;
+        }
+
+        public void setBackground(ColorRGB background)
+        {
+            this.background = background;
+        }
+
+        public ColorRGB getBackground()
+        {
+            return background;
+        }
+
+        public void setLight(Light light)
+        {
+            this.light = light;
+        }
+
+        public Light getLight()
+        {
+            return light;
+        }
+
+        public void setCamera(Camera camera)
+        {
+            this.camera = camera;
+        }
+
+        public Camera GetCamera()
+        {
+            return camera;
+        }
+        
     }
 }

@@ -14,67 +14,26 @@ namespace RayTracer.Models.Json
         string fileName;
         WindowFrame winFrame;
         ColorRGB background;
-        Light light;
+        List<Light> lights;
         Camera camera;
 
-        public EnvironmentJSON(string fileName, WindowFrame winFrame, ColorRGB background, Light light, Camera camera)
+        public EnvironmentJSON(string fileName, WindowFrame winFrame, ColorRGB background, List<Light> lights, Camera camera)
         {
             this.fileName = fileName;
             this.winFrame = winFrame;
             this.background = background;
-            this.light = light;
+            this.lights = lights;
             this.camera = camera;
         }
 
-        public void setFileName(string fileName)
+        public void SetFileName(string fileName)
         {
             this.fileName = fileName;
         }
 
-        public string getFileName()
+        public string GetFileName()
         {
             return fileName;
         }
-
-        public void setWinFrame(WindowFrame winFrame)
-        {
-            this.winFrame = winFrame;
-        }
-
-        public WindowFrame getWinFrame()
-        {
-            return winFrame;
-        }
-
-        public void setBackground(ColorRGB background)
-        {
-            this.background = background;
-        }
-
-        public ColorRGB getBackground()
-        {
-            return background;
-        }
-
-        public void setLight(Light light)
-        {
-            this.light = light;
-        }
-
-        public Light getLight()
-        {
-            return light;
-        }
-
-        public void setCamera(Camera camera)
-        {
-            this.camera = camera;
-        }
-
-        public Camera GetCamera()
-        {
-            return camera;
-        }
-        
     }
 }

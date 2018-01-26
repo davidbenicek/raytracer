@@ -320,12 +320,5 @@ ASALocalRun/
 
 # MSBuild Binary and Structured Log
 *.binlog
-
-# General ignores
-.DS_Store
-
-# Ignores for front end
-front_end/node_modules/*
-front_end/dist
-front_end/.nyc_output/
-front_end/coverage/
+ 
+packages/

@@ -7,11 +7,32 @@ namespace RayTracer.Models.Json
     {
 
         List<GeometryJSON> objects;
-        EnvironmentJSON environment;
+        EnvironmentJSON environmentJSON;
 
-        public JsonObject()
+        public JsonObject(List<GeometryJSON> objects, EnvironmentJSON environmentJSON)
         {
-            
+            this.objects = objects;
+            this.environmentJSON = environmentJSON;
+        }
+
+        public void SetJsonObject(List<GeometryJSON> objects)
+        {
+            this.objects = objects;
+        }
+
+        public List<GeometryJSON> GetJsonObject()
+        {
+            return objects;
+        }
+
+        public void SetEnvironmentJSON(EnvironmentJSON environmentJSON)
+        {
+            this.environmentJSON = environmentJSON;
+        }
+
+        public EnvironmentJSON GetEnvironmentJSON()
+        {
+            return environmentJSON;
         }
     }
 }

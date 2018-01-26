@@ -37,6 +37,14 @@ namespace RayTracer.Models.Util
             }
         }
 
+        public static string DEFAULT_MATERIAL
+        {
+            get
+            {
+                return "metal";
+            }
+        }
+
         public static double AMBIENT_COEFF
         {
             get

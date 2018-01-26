@@ -16,4 +16,5 @@ To bundle the code and transpile it from ES6 to browser runnable JS (using brows
 * To run tests simply make sure you have previously ran the code as discribed above
 * Run the `npm test` command
 
+If you wish to see a comprehensive coverage report for the fron end files, run `npm run coverage`. This will create a new folder in the directory called coverage, /coverage/index.html will show you a graphical view of all tested files.
 

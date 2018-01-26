@@ -1,16 +1,8 @@
 ﻿<Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="back_end Status">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RayTracer/Models/SceneElements/Scene.cs">
     <Files>
       <File FileName="RayTracer/Models/SceneElements/Scene.cs" Line="27" Column="34" />
-      <File FileName="back_end Status" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="RayTracer" expanded="True" selected="True" />
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

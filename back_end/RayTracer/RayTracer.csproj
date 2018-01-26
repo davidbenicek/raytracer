@@ -118,6 +118,7 @@
     <Compile Include="Models\Lights\Light.cs" />
     <Compile Include="Models\SceneElements\Scene.cs" />
     <Compile Include="Models\SceneElements\WindowFrame.cs" />
+    <Compile Include="Models\Json\JsonObject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

@@ -7,11 +7,11 @@ namespace RayTracer.Models.Geometric
 {
     public abstract class GeometryObject
     {
-        protected Material material { set; get; }
+        public Material material = Config.DEFAULT_MATERIAL_OBJECT;
 
         public GeometryObject()
         {
-
+            
         }
 
         public GeometryObject(Material material)

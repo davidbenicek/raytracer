@@ -7,26 +7,34 @@ namespace RayTracer.Models.Lights
 {
     public class Light
     {
-        protected double intensity;
-        protected ColorRGB rgbColor;
-        protected Point3D position;
+        public double intensity = Config.DEFAULT_INTENSITY;
+        public ColorRGB rgbColor;
+        public Point3D position;
 
         public Light()
         {
 
         }
 
+        public Light(Point3D Position, ColorRGB RGBColor)
+        {
+            this.position = Position;
+            this.rgbColor = RGBColor;
+        }
+
         public Light(Point3D Position, ColorRGB RGBColor, double intensity)
         {
             this.position = Position;
-            this.intensity = intensity;
             this.rgbColor = RGBColor;
+            this.intensity = intensity;
         }
 
         public Light(Light LightObj)
         {
             this.intensity = LightObj.intensity;
             this.rgbColor = LightObj.rgbColor;
+            this.position = LightObj.position;
+
         }
 
     }

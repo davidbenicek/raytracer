@@ -21,7 +21,7 @@ namespace RayTracer.Models.SceneElements
         {
             this.lightsList = new List<Light>();
             this.objectsList = new List<GeometryObject>();
-            this.finalPixels = new ColorRGB[winFrame.Width * winFrame.Height];
+            this.finalPixels = new ColorRGB[winFrame.width * winFrame.height];
             this.winFrame = winFrame;
             background = Config.DEFAULT_COLOR;
             this.camera = camera;
@@ -29,11 +29,8 @@ namespace RayTracer.Models.SceneElements
 
         public Scene(Scene sceneObj)
         {
-            lightsList = new List<Light>();
-            lightsList.AddRange(sceneObj.lightsList);
-
-            objectsList = new List<GeometryObject>();
-            objectsList.AddRange(sceneObj.objectsList);
+            SetLights(sceneObj.lightsList);
+            SetObjects(sceneObj.objectsList);
 
             if (sceneObj.background != null)
             {
@@ -42,19 +39,16 @@ namespace RayTracer.Models.SceneElements
 
             winFrame = sceneObj.winFrame;
 
-            finalPixels = new ColorRGB[winFrame.Width * winFrame.Height];
+            finalPixels = new ColorRGB[winFrame.width * winFrame.height];
         }
 
-        public Scene(List<Light> Lights, List<GeometryObject> objectsList, ColorRGB Background, WindowFrame winFrame, Camera camera)
+        public Scene(List<Light> lights, List<GeometryObject> objectsList, ColorRGB Background, WindowFrame winFrame, Camera camera)
         {
-            lightsList = new List<Light>();
-            Lights.AddRange(Lights);
-
-            objectsList = new List<GeometryObject>();
-            objectsList.AddRange(objectsList);
+            SetLights(lights);
+            SetObjects(objectsList);
             background = new ColorRGB(Background);
             this.winFrame = winFrame;
-            finalPixels = new ColorRGB[winFrame.Width * winFrame.Height];
+            finalPixels = new ColorRGB[winFrame.width * winFrame.height];
             this.camera = camera;
         }
 
@@ -73,6 +67,17 @@ namespace RayTracer.Models.SceneElements
             return background;
         }
 
+        public void SetLights(List<Light> lights)
+        {
+            lightsList = new List<Light>();
+            lightsList.AddRange(lights);
+        }
+
+        public void SetObjects(List<GeometryObject> objects)
+        {
+            objectsList = new List<GeometryObject>();
+            objectsList.AddRange(objectsList);
+        }
 
         public List<Light> GetLights()
         {

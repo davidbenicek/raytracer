@@ -11,42 +11,43 @@ namespace RayTracer.Models.Materials
         public double specular;
         public double lightColorInf;
         public double ambientCoeff = Config.AMBIENT_COEFF;
-        public ColorRGB rgbColor;
+        public ColorRGB rgbColor = Config.WHITE;
 
         public Material()
         {
-            this.rgbColor = Config.WHITE;
+
         }
 
         public Material(ColorRGB rgbColor)
         {
-            if (rgbColor == null)
-            {
-                this.rgbColor = Config.WHITE;
-            }
-            else
-            {
-                this.rgbColor = rgbColor;
-            }
+            SetColor(rgbColor);
         }
 
         public Material(ColorRGB rgbColor, double diffusionCoeff, double specularCoeff, double specular, double lightColorInf)
         {
-            if (rgbColor == null)
-            {
-                rgbColor = Config.WHITE;
-            }
-
-            this.rgbColor = rgbColor;
+            SetColor(rgbColor);
             this.diffusionCoeff = diffusionCoeff;
             this.specularCoeff = specularCoeff;
             this.specular = specular;
             this.lightColorInf = lightColorInf;
         }
 
-        public Material(Material Material)
+        public Material(Material material)
         {
-            rgbColor = Material.rgbColor;
+            SetColor(material.rgbColor);
+            diffusionCoeff = material.diffusionCoeff;
+            specular = material.specular;
+            lightColorInf = material.lightColorInf;
+            ambientCoeff = material.ambientCoeff;
+            rgbColor = material.rgbColor;
+        }
+
+        public void SetColor(ColorRGB rgbColor)
+        {
+            if (rgbColor != null)
+            {
+                this.rgbColor = rgbColor;
+            }
         }
 
     }

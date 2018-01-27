@@ -83,7 +83,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +119,9 @@
     <Compile Include="Models\SceneElements\Scene.cs" />
     <Compile Include="Models\SceneElements\WindowFrame.cs" />
     <Compile Include="Models\Json\JsonObject.cs" />
+    <Compile Include="Controllers\RenderController.cs" />
+    <Compile Include="Models\Materials\Flat.cs" />
+    <Compile Include="Models\Lights\AmbientLight.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

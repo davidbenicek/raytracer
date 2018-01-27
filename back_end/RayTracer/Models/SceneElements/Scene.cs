@@ -5,6 +5,7 @@ using RayTracer.Models.Cameras;
 using RayTracer.Models.Lights;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Util;
+using RayTracer.Models.Elements;
 
 namespace RayTracer.Models.SceneElements
 {
@@ -103,6 +104,60 @@ namespace RayTracer.Models.SceneElements
         public Light GetAmbientLight()
         {
             return ambientLight;
+        }
+
+        /* In this method, we will loop over the whole objects in the scene,
+         * to check which object did the ray hit, also, we if there are 
+         * many objects which were hit by the ray, return the closest one
+         * of theses objects in a an object called HitInfo, also check, if 
+         * this object is in the ignore objects, and if it is there, so don't do
+         * anything on that object
+        */
+        public HitInfo GetHitInfo(Ray ray, List<GeometryObject> ignoreObjects = null)
+        {
+            try
+            {
+                /* Create an object of hitInfo, and assign a value to it's tMin,
+                 * to be the maximum possible of a double, to check that 
+                 * with the values returned from the loop over objects
+                */
+
+                HitInfo hitInfo = new HitInfo();
+                hitInfo.tMin = double.MaxValue;
+
+                foreach (GeometryObject geoObj in objectsList)
+                {
+                    /* Check if the geoObj is in the ignore list of objects and so
+                     * if it is there then just continue and do nothing
+                     */
+                    if (ignoreObjects != null && ignoreObjects.Contains(geoObj))
+                    {
+                        continue;
+                    }
+
+                    HitInfo intersectInfo = geoObj.Intersect(ray);
+                    /* If the ray didn't hit the object, then just continue,
+                     * and ignore that object, else check the hit info with the current ones
+                     * to check if it is smaller than the current, and so take them,
+                     * this will be based on the tMin value
+                    */
+                    if (!intersectInfo.hasHit)
+                    {
+                        continue;
+                    }
+
+                    if (intersectInfo.tMin < hitInfo.tMin)
+                    {
+                        hitInfo = new HitInfo(intersectInfo);
+                    }
+                }
+
+                return hitInfo;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

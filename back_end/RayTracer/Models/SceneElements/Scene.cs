@@ -16,6 +16,7 @@ namespace RayTracer.Models.SceneElements
         WindowFrame winFrame;
         ColorRGB[] finalPixels;
         Camera camera;
+        Light ambientLight;
 
         public Scene(WindowFrame winFrame, Camera camera)
         {
@@ -92,6 +93,16 @@ namespace RayTracer.Models.SceneElements
         public ColorRGB[] GetFinalPixels()
         {
             return finalPixels;
+        }
+
+        public void SetAmbientLight(Light ambientLight)
+        {
+            this.ambientLight = (AmbientLight)ambientLight;
+        }
+
+        public Light GetAmbientLight()
+        {
+            return ambientLight;
         }
     }
 }

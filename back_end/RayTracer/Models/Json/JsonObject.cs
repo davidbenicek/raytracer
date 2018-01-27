@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using rayTracer.Models.Elements;
+using System.Linq;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Lights;
 using RayTracer.Models.Materials;
@@ -52,7 +52,23 @@ namespace RayTracer.Models.Json
                     throw new ArgumentNullException(exceptionMessage);
                 }
 
-                scene.SetLights(environment.lights);
+                /* The first light received will be considered as the ambient,
+                 * which means that it will be the main light in the scene,
+                 * that's why, the lights list is sent without the first element
+                 * and that's done by using the skip function which is one of the 
+                 * LINQ functions.
+                */
+
+                scene.SetAmbientLight(environment.lights.FirstOrDefault());
+
+                List<Light> lightsList = environment.lights.Skip(1).ToList();
+
+                if(lightsList == null || lightsList.Count == 0)
+                {
+                    lightsList = new List<Light>();
+                }
+
+                scene.SetLights(lightsList);
 
                 return scene;
             }

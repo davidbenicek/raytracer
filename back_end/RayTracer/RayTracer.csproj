@@ -121,6 +121,7 @@
     <Compile Include="Models\Json\JsonObject.cs" />
     <Compile Include="Controllers\RenderController.cs" />
     <Compile Include="Models\Materials\Flat.cs" />
+    <Compile Include="Models\Lights\AmbientLight.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

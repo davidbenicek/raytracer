@@ -10,11 +10,11 @@ namespace RayTracer.Models.Json
 {
     public class GeometryJSON
     {
-        string shape;
-        Point3D size;
-        Point3D point;
-        ColorRGB color;
-        string material;
+        public string shape;
+        public Point3D size;
+        public Point3D point;
+        public ColorRGB color;
+        public string material;
 
         public GeometryJSON(string shape, Point3D size, Point3D point, ColorRGB color = null, string material = null)
         {
@@ -38,56 +38,6 @@ namespace RayTracer.Models.Json
                 this.material = material;
             }
             this.shape = shape;
-        }
-
-        public void SetShape(string matType)
-        {
-            this.shape = matType;
-        }
-
-        public string GetShape()
-        {
-            return shape;
-        }
-
-        public void SetSize(Point3D size)
-        {
-            this.size = size;
-        }
-
-        public Point3D GetSize()
-        {
-            return size;
-        }
-
-        public void SetPoint(Point3D point)
-        {
-            this.point = point;
-        }
-
-        public Point3D GetPoint()
-        {
-            return point;
-        }
-
-        public void SetColor(ColorRGB color)
-        {
-            this.color = color;
-        }
-
-        public ColorRGB GetColor()
-        {
-            return color;
-        }
-
-        public void SetMaterial(string material)
-        {
-            this.material = material;
-        }
-
-        public string GetMaterial()
-        {
-            return material;
         }
     }
 }

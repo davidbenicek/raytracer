@@ -25,7 +25,6 @@ namespace RayTracer.Models.Geometric
         {
             HitInfo checker= new HitInfo();
             double t;
-            //throw new NotImplementedException();
             //return Hitinfo details if true and the ray hits an object
             /* In this function we need to solve a quadratic equation, to find the closest point
             * which hits the sphere, the equation is in this format

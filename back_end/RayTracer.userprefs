@@ -1,4 +1,4 @@
-﻿<Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
+<Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="back_end Status">
     <Files>
       <File FileName="RayTracer/Models/Json/JsonObject.cs" Line="59" Column="35" />

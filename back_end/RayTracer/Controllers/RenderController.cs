@@ -18,7 +18,7 @@ namespace RayTracer.Controllers
     public class RenderController : ApiController
     {
         [HttpPost]
-        public HttpResponseMessage Get([FromBody] JsonObject requestJSON)
+        public HttpResponseMessage Post([FromBody] JsonObject requestJSON)
         {
             try
             {
@@ -71,6 +71,7 @@ namespace RayTracer.Controllers
                 //result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                 //result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
                 //result.Content.Headers.ContentDisposition.FileName = "Picture.jpg";
+
 
                 return new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent(String.Empty)};
 

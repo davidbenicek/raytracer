@@ -4,7 +4,7 @@ using RayTracer.Models.Util;
 
 namespace RayTracer.Models.Materials
 {
-    public class Material
+    public abstract class Material
     {
         public double diffusionCoeff;
         public double specularCoeff;
@@ -49,6 +49,12 @@ namespace RayTracer.Models.Materials
                 this.rgbColor = rgbColor;
             }
         }
+
+        /* In this function we'll calculate the shadow of the object,
+         * but it depends on the material, and the values of different
+         * coefficients provided with each material.
+        */ 
+        public abstract ColorRGB CalculateShadow(HitInfo hitInfo);
 
     }
 }

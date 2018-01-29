@@ -32,6 +32,14 @@ namespace RayTracer.Models.Util
             }
         }
 
+        public static Vector3D DEFAULT_UP_VECTOR
+        {
+            get
+            {
+                return new Vector3D(0, 1, 0);
+            }
+        }
+
         public static Point3D DEFAULT_POINT
         {
             get
@@ -72,6 +80,14 @@ namespace RayTracer.Models.Util
             }
         }
 
+        public static double SHADE_MIN
+        {
+            get
+            {
+                return 0.45;
+            }
+        }
+
         public static double DEFAULT_INTENSITY
         {
             get
@@ -95,6 +111,14 @@ namespace RayTracer.Models.Util
                 Dictionary<string, Material> materials = new Dictionary<string, Material>();
                 materials.Add("flat", new Flat());
                 return materials;
+            }
+        }
+
+        public static double KEPSILON_VALUE
+        {
+            get
+            {
+                return 0.00001;
             }
         }
        

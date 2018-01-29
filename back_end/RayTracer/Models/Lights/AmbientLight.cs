@@ -18,6 +18,12 @@ namespace RayTracer.Models.Lights
          * oriented issues, and inheritance issues
         */
 
+        public AmbientLight(ColorRGB rgbColor, double intensity)
+        {
+            this.intensity = intensity;
+            this.rgbColor = rgbColor;
+        }
+
         public override double GetDistance(Point3D surfacePoint)
         {
             return 0;

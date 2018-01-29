@@ -23,7 +23,7 @@ namespace RayTracer.Models.Geometric
 
         public override HitInfo Intersect(Ray ray)
         {
-            HitInfo checker= new HitInfo();
+            HitInfo intersectionObject= new HitInfo();
             double t;
             //return Hitinfo details if true and the ray hits an object
             /* In this function we need to solve a quadratic equation, to find the closest point
@@ -50,8 +50,8 @@ namespace RayTracer.Models.Geometric
 
             if(discriminant<0.0)
             {
-                checker.hasHit = false;
-                return checker;
+                intersectionObject.hasHit = false;
+                return intersectionObject;
             }
 
             double discSqrt = Math.Sqrt(discriminant);
@@ -60,8 +60,8 @@ namespace RayTracer.Models.Geometric
             //check if denominator is equal to zero
             if(denominator==0.0)
             {
-                checker.hasHit = false;
-                return checker;
+                intersectionObject.hasHit = false;
+                return intersectionObject;
             }
             //We check for -b-sqrt(b^2-4ac)/2a
             /*We need to check if the value of the smaller rootis smaller than a given threshold value*/
@@ -69,15 +69,15 @@ namespace RayTracer.Models.Geometric
 
             if(t>double.MinValue)
             {
-                checker.hasHit = true;
-                checker.tMin = t;
-                checker.hitObject = this;
-                checker.RayObject = ray;
+                intersectionObject.hasHit = true;
+                intersectionObject.tMin = t;
+                intersectionObject.hitObject = this;
+                intersectionObject.RayObject = ray;
                 //This represents the point where the ray hits the object
-                checker.hitPoint = ray.origin + (ray.direction * t);
+                intersectionObject.hitPoint = ray.origin + (ray.direction * t);
                 //Check
-                checker.normalAtHit = (tempVector + (ray.direction)) / radius;
-                return checker;
+                intersectionObject.normalAtHit = (tempVector + (ray.direction)) / radius;
+                return intersectionObject;
             }
 
             //Next We check for -b-sqrt(b^2-4ac)/2a
@@ -88,22 +88,22 @@ namespace RayTracer.Models.Geometric
 
             if (t > double.MinValue)
             {
-                checker.hasHit = true;
-                checker.tMin = t;
-                checker.hitObject = this;
-                checker.RayObject = ray;
+                intersectionObject.hasHit = true;
+                intersctionObject.tMin = t;
+                intersctionObject.hitObject = this;
+                intersctionObject.RayObject = ray;
                 //This represents the point where the ray hits the object
-                checker.hitPoint = ray.origin + (ray.direction * t);
+                intersctionObject.hitPoint = ray.origin + (ray.direction * t);
                 //Check
-                checker.normalAtHit = (tempVector + (ray.direction)) / radius;
-                return checker;
+                intersctionObject.normalAtHit = (tempVector + (ray.direction)) / radius;
+                return intersctionObject;
             }
 
             /*If there is no solution greater than the threshold, then this ray didn't hit
                  * the sphere and so it will return false
                  */
-            checker.hasHit = false;
-            return checker;
+            intersctionObject.hasHit = false;
+            return intersctionObject;
 
         }
     }

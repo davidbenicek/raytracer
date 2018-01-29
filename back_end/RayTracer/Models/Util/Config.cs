@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using rayTracer.Models.Elements;
 using RayTracer.Models.Elements;
+using RayTracer.Models.Materials;
 
 namespace RayTracer.Models.Util
 {
     public class Config
     {
-        public static ColorRGB WHITE{
+        public static ColorRGB WHITE
+        {
             get
             {
                 return new ColorRGB(1);
@@ -41,7 +44,7 @@ namespace RayTracer.Models.Util
         {
             get
             {
-                return "metal";
+                return "flat";
             }
         }
 
@@ -61,5 +64,39 @@ namespace RayTracer.Models.Util
             }
         }
 
+        public static double DEFAULT_DISTANCE_VIEW
+        {
+            get
+            {
+                return 1.0;
+            }
+        }
+
+        public static double DEFAULT_INTENSITY
+        {
+            get
+            {
+                return 1.0;
+            }
+        }
+
+        public static Material DEFAULT_MATERIAL_OBJECT
+        {
+            get
+            {
+                return new Flat(DEFAULT_COLOR);
+            }
+        }
+
+        public static Dictionary<string, Material> MATERIALS_DICTIONARY
+        {
+            get
+            {
+                Dictionary<string, Material> materials = new Dictionary<string, Material>();
+                materials.Add("flat", new Flat());
+                return materials;
+            }
+        }
+       
     }
 }

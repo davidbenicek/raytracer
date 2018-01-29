@@ -1,0 +1,28 @@
+<Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="back_end Status">
+    <Files>
+      <File FileName="RayTracer/Models/Json/JsonObject.cs" Line="59" Column="35" />
+      <File FileName="RayTracer/Models/Util/Config.cs" Line="1" Column="1" />
+      <File FileName="RayTracer/Models/Materials/Material.cs" Line="1" Column="1" />
+      <File FileName="RayTracer.Tests/Controllers/Test.cs" Line="11" Column="10" />
+      <File FileName="RayTracer/Models/SceneElements/Scene.cs" Line="99" Column="10" />
+      <File FileName="RayTracer/Models/Lights/Light.cs" Line="75" Column="10" />
+      <File FileName="RayTracer/Models/Lights/AmbientLight.cs" Line="1" Column="1" />
+      <File FileName="back_end Status" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/othmanalkhamra/Documents/GitHub/raytracer/back_end/RayTracer/Models/Json/JsonObject.cs" relfile="RayTracer/Models/Json/JsonObject.cs" line="32" column="1" />
+      <Breakpoint file="/Users/othmanalkhamra/Documents/GitHub/raytracer/back_end/RayTracer/Models/Json/JsonObject.cs" relfile="RayTracer/Models/Json/JsonObject.cs" line="167" column="1" />
+      <Breakpoint file="/Users/othmanalkhamra/Documents/GitHub/raytracer/back_end/RayTracer/Controllers/RenderController.cs" relfile="RayTracer/Controllers/RenderController.cs" line="75" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="RayTracer/Controllers/RenderController.cs" line="44" offsetX="611" offsetY="645" expression="json" liveUpdate="False" />
+    <Watch file="RayTracer/Controllers/RenderController.cs" line="44" offsetX="690" offsetY="646" expression="json" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+  <MonoDevelop.Ide.ItemProperties.RayTracer PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>

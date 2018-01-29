@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 ﻿<Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="RayTracer/Models/Geometric/Sphere.cs">
+=======
+<Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="back_end Status">
+>>>>>>> 26284adae0a203a3c8c85f9d0c6dbc0161391e2b
     <Files>
       <File FileName="RayTracer/Controllers/RenderController.cs" Line="1" Column="1" />
       <File FileName="back_end Status" />

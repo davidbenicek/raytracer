@@ -70,12 +70,12 @@ namespace RayTracer.Models.Geometric
             /*We need to check if the value of the smaller rootis smaller than a given threshold value*/
             t = ((-1 * b) - discSqrt) / denominator;
 
-            if(t>double.MinValue)
+            if(t>Config.KEPSILON_VALUE)
             {
                 intersectionObject.hasHit = true;
                 intersectionObject.tMin = t;
                 intersectionObject.hitObject = this;
-                intersectionObject.RayObject = ray;
+                intersectionObject.ray = ray;
                 //This represents the point where the ray hits the object
                 intersectionObject.hitPoint = ray.origin + (ray.direction * t);
                 //Check
@@ -89,24 +89,24 @@ namespace RayTracer.Models.Geometric
              * as well*/
             t = ((-1 * b) + discSqrt) / denominator;
 
-            if (t > double.MinValue)
+            if (t > Config.KEPSILON_VALUE)
             {
                 intersectionObject.hasHit = true;
-                intersctionObject.tMin = t;
-                intersctionObject.hitObject = this;
-                intersctionObject.RayObject = ray;
+                intersectionObject.tMin = t;
+                intersectionObject.hitObject = this;
+                intersectionObject.ray = ray;
                 //This represents the point where the ray hits the object
-                intersctionObject.hitPoint = ray.origin + (ray.direction * t);
+                intersectionObject.hitPoint = ray.origin + (ray.direction * t);
                 //Check
-                intersctionObject.normalAtHit = (tempVector + (ray.direction)) / radius;
-                return intersctionObject;
+                intersectionObject.normalAtHit = (tempVector + (ray.direction)) / radius;
+                return intersectionObject;
             }
 
             /*If there is no solution greater than the threshold, then this ray didn't hit
                  * the sphere and so it will return false
                  */
-            intersctionObject.hasHit = false;
-            return intersctionObject;
+            intersectionObject.hasHit = false;
+            return intersectionObject;
 
         }
     }

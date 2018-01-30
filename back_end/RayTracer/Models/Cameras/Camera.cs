@@ -1,33 +1,29 @@
 ﻿using System;
 using RayTracer.Models.Elements;
+using RayTracer.Models.SceneElements;
 using RayTracer.Models.Util;
 
 namespace RayTracer.Models.Cameras
 {
-    public class Camera
+    public abstract class Camera
     {
-        public Point3D eye;
-        public Point3D lookAt;
-        public double distanceViewPlane = Config.DEFAULT_DISTANCE_VIEW;
+        /* The position of the camera or called the eye, which represents,
+         * where the camera is located.
+        */
+        public Point3D position;
 
         public Camera()
         {
-            eye = new Point3D();
-            lookAt = new Point3D();
+            position = new Point3D();
         }
 
-        public Camera(Point3D eye, Point3D lookAt)
+        public Camera(Point3D position)
         {
-            this.eye = eye;
-            this.lookAt = lookAt;
+            this.position = position;
         }
 
-        public Camera(Point3D eye, Point3D lookAt, double distanceViewPlane)
-        {
-            this.eye = eye;
-            this.lookAt = lookAt;
-            this.distanceViewPlane = distanceViewPlane;
-        }
+        public abstract void Render(Scene scene);
 
+        public abstract Vector3D FindRayDirection(Point2D point);
     }
 }

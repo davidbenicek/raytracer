@@ -1,14 +1,16 @@
+<<<<<<< HEAD
+﻿<Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RayTracer/Models/Geometric/Sphere.cs">
+=======
 <Properties StartupConfiguration="{E7016944-4EBD-4FB0-9113-DA838BAA1D98}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="back_end Status">
+>>>>>>> 26284adae0a203a3c8c85f9d0c6dbc0161391e2b
     <Files>
-      <File FileName="RayTracer/Models/Json/JsonObject.cs" Line="59" Column="35" />
-      <File FileName="RayTracer/Models/Util/Config.cs" Line="1" Column="1" />
-      <File FileName="RayTracer/Models/Materials/Material.cs" Line="1" Column="1" />
-      <File FileName="RayTracer.Tests/Controllers/Test.cs" Line="11" Column="10" />
-      <File FileName="RayTracer/Models/SceneElements/Scene.cs" Line="99" Column="10" />
-      <File FileName="RayTracer/Models/Lights/Light.cs" Line="75" Column="10" />
-      <File FileName="RayTracer/Models/Lights/AmbientLight.cs" Line="1" Column="1" />
+      <File FileName="RayTracer/Controllers/RenderController.cs" Line="1" Column="1" />
       <File FileName="back_end Status" />
+      <File FileName="RayTracer/Models/Cameras/Camera.cs" Line="68" Column="9" />
+      <File FileName="Cameras Status" />
+      <File FileName="RayTracer/Models/Geometric/Sphere.cs" Line="22" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -16,7 +18,7 @@
     <BreakpointStore>
       <Breakpoint file="/Users/othmanalkhamra/Documents/GitHub/raytracer/back_end/RayTracer/Models/Json/JsonObject.cs" relfile="RayTracer/Models/Json/JsonObject.cs" line="32" column="1" />
       <Breakpoint file="/Users/othmanalkhamra/Documents/GitHub/raytracer/back_end/RayTracer/Models/Json/JsonObject.cs" relfile="RayTracer/Models/Json/JsonObject.cs" line="167" column="1" />
-      <Breakpoint file="/Users/othmanalkhamra/Documents/GitHub/raytracer/back_end/RayTracer/Controllers/RenderController.cs" relfile="RayTracer/Controllers/RenderController.cs" line="75" column="1" />
+      <Breakpoint file="/Users/othmanalkhamra/Documents/GitHub/raytracer/back_end/RayTracer/Controllers/RenderController.cs" relfile="RayTracer/Controllers/RenderController.cs" line="76" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

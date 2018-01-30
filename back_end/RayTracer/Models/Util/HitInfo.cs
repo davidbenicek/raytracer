@@ -9,7 +9,7 @@ namespace RayTracer.Models.Util
         public bool hasHit;
         public Point3D hitPoint;
         public Vector3D normalAtHit;
-        public Ray RayObject;
+        public Ray ray;
         public GeometryObject hitObject;
         public double tMin;
 
@@ -18,7 +18,7 @@ namespace RayTracer.Models.Util
             hasHit = false;
             hitPoint = new Point3D();
             normalAtHit = new Vector3D();
-            RayObject = new Ray();
+            ray = new Ray();
         }
 
         public HitInfo(HitInfo hitInfo)

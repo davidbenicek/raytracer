@@ -85,11 +85,15 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
     <Folder Include="Controllers\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Models\Tracing\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -122,6 +126,10 @@
     <Compile Include="Controllers\RenderController.cs" />
     <Compile Include="Models\Materials\Flat.cs" />
     <Compile Include="Models\Lights\AmbientLight.cs" />
+    <Compile Include="Models\Cameras\Perspective.cs" />
+    <Compile Include="Models\Elements\Point2D.cs" />
+    <Compile Include="Models\Tracing\Tracer.cs" />
+    <Compile Include="Models\Util\Utility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

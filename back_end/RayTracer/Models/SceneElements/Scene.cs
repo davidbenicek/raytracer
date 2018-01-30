@@ -6,6 +6,9 @@ using RayTracer.Models.Lights;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Util;
 using RayTracer.Models.Elements;
+using RayTracer.Models.Tracing;
+using RayTracer.Models.Materials;
+using System.Drawing;
 
 namespace RayTracer.Models.SceneElements
 {
@@ -15,18 +18,20 @@ namespace RayTracer.Models.SceneElements
         List<GeometryObject> objectsList;
         ColorRGB background;
         WindowFrame winFrame;
-        ColorRGB[] finalPixels;
+        ColorRGB[,] finalPixels;
         Camera camera;
         Light ambientLight;
+        Tracer tracer;
 
         public Scene(WindowFrame winFrame, Camera camera)
         {
-            this.lightsList = new List<Light>();
-            this.objectsList = new List<GeometryObject>();
-            this.finalPixels = new ColorRGB[winFrame.width * winFrame.height];
+            lightsList = new List<Light>();
+            objectsList = new List<GeometryObject>();
+            finalPixels = new ColorRGB[winFrame.width, winFrame.height];
             this.winFrame = winFrame;
             background = Config.DEFAULT_COLOR;
             this.camera = camera;
+            tracer = new Tracer(this);
         }
 
         public Scene(Scene sceneObj)
@@ -40,8 +45,8 @@ namespace RayTracer.Models.SceneElements
             }
 
             winFrame = sceneObj.winFrame;
-
-            finalPixels = new ColorRGB[winFrame.width * winFrame.height];
+            finalPixels = new ColorRGB[winFrame.width, winFrame.height];
+            tracer = sceneObj.tracer;
         }
 
         public Scene(List<Light> lights, List<GeometryObject> objectsList, ColorRGB Background, WindowFrame winFrame, Camera camera)
@@ -50,8 +55,9 @@ namespace RayTracer.Models.SceneElements
             SetObjects(objectsList);
             background = new ColorRGB(Background);
             this.winFrame = winFrame;
-            finalPixels = new ColorRGB[winFrame.width * winFrame.height];
+            finalPixels = new ColorRGB[winFrame.width, winFrame.height];
             this.camera = camera;
+            tracer = new Tracer(this);
         }
 
         public void AddObject(GeometryObject geoObj)
@@ -91,7 +97,7 @@ namespace RayTracer.Models.SceneElements
             return objectsList;
         }
 
-        public ColorRGB[] GetFinalPixels()
+        public ColorRGB[,] GetFinalPixels()
         {
             return finalPixels;
         }
@@ -104,6 +110,39 @@ namespace RayTracer.Models.SceneElements
         public Light GetAmbientLight()
         {
             return ambientLight;
+        }
+
+        public void SetWidth(int width)
+        {
+            winFrame.width = width;
+        }
+
+        public int GetWidth()
+        {
+            return winFrame.width;
+        }
+
+        public void SetHeight(int height)
+        {
+            winFrame.height = height;
+        }
+
+        public int GetHeight()
+        {
+            return winFrame.height;
+        }
+
+        public Tracer GetTracer()
+        {
+            return tracer;
+        }
+
+        public void Render()
+        {
+            if (camera != null)
+            {
+                camera.Render(this);
+            }
         }
 
         /* In this method, we will loop over the whole objects in the scene,
@@ -154,7 +193,85 @@ namespace RayTracer.Models.SceneElements
 
                 return hitInfo;
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void DisplayPixel(int x, int y, ColorRGB PixelColor)
+        {
+            ColorRGB tempColor = new ColorRGB
+            {
+                r = Math.Min(PixelColor.r, 1.0f),
+                g = Math.Min(PixelColor.g, 1.0f),
+                b = Math.Min(PixelColor.b, 1.0f)
+            };
+
+            finalPixels[x, y] = new ColorRGB(tempColor);
+        }
+
+        public void CreateScene()
+        {
+            //camera = new Perspective(new Point3D(0, 0, 500), new Point3D(-5, 0, 0), 850);
+
+            background = new ColorRGB(0.2,0.4,0.4);
+
+            // Build lights
+            Light ambient_ptr = new AmbientLight(new ColorRGB(.3, .3, .3), 1);
+            SetAmbientLight(ambient_ptr);
+
+            Light point_ptr = new Light(new Point3D(0, 55, 95), new ColorRGB(1, 0, 0), 0.5);
+            AddLight(point_ptr);
+
+            Light point_ptr2 = new Light(new Point3D(50, 55, 75), new ColorRGB(0, 1, 0),0.4);
+            AddLight(point_ptr2);
+
+            // Build objects
+            Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Flat(new ColorRGB(0.0, 0.0, 1)));
+            AddObject(metal_sphere);
+
+            Sphere plastic_sphere = new Sphere(new Point3D(50, 0, 0), 40, new Flat(Config.WHITE));
+            AddObject(plastic_sphere);
+
+            Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 40, new Flat(new ColorRGB(1,0,0)));
+            AddObject(mirror_sphere);
+
+            Sphere water_sphere = new Sphere(new Point3D(0, -30, 100), 70, new Flat(new ColorRGB(1,0,1)));
+            AddObject(water_sphere);
+
+        }
+
+        public void FinalPicture()
+        {
+            try
+            {
+
+                //SaveImage();
+                Bitmap bitmap = new Bitmap(winFrame.width, winFrame.height);
+
+                for (int Xcount = 0; Xcount < winFrame.width; Xcount++)
+                {
+                    for (int Ycount = 0; Ycount < winFrame.height; Ycount++)
+                    {
+                        ColorRGB pixel = finalPixels[Xcount, Ycount];
+
+                        int blue = (int)(Utility.Clamp(0, 1, pixel.b) * 255.0f);
+                        int green = (int)(Utility.Clamp(0, 1, pixel.g) * 255.0f);
+                        int red = (int)(Utility.Clamp(0, 1, pixel.r) * 255.0f);
+
+                        byte[] color = { (byte)blue, (byte)green, (byte)red };
+
+                        bitmap.SetPixel(Xcount, Ycount, Color.FromArgb(red, green, blue));
+                    }
+                }
+
+                bitmap.RotateFlip(RotateFlipType.Rotate180FlipX);
+
+                bitmap.Save("./tester.png");
+
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

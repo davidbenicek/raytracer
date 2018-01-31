@@ -13,7 +13,6 @@ namespace RayTracer.Models.Cameras
          * it is the same of w but without normalization.
         */
 
-        public Point3D lookAt;
         public double distanceViewPlane = Config.DEFAULT_DISTANCE_VIEW;
 
         /* This vector will be (0,1,0), which is the Up vector as shown in the report
@@ -33,14 +32,12 @@ namespace RayTracer.Models.Cameras
         public Perspective()
             : base()
         {
-            lookAt = new Point3D();
             CalculateUVW();
         }
 
         public Perspective(Point3D position, Point3D lookAt)
-            : base(position)
+            : base(position,lookAt)
         {
-            this.lookAt = lookAt;
             CalculateUVW();
         }
 
@@ -49,6 +46,14 @@ namespace RayTracer.Models.Cameras
             this.position = position;
             this.lookAt = lookAt;
             this.distanceViewPlane = distanceViewPlane;
+            CalculateUVW();
+        }
+
+        public Perspective(Perspective camera)
+        {
+            this.position = camera.position;
+            this.lookAt = camera.lookAt;
+            this.distanceViewPlane = camera.distanceViewPlane;
             CalculateUVW();
         }
 
@@ -75,24 +80,28 @@ namespace RayTracer.Models.Cameras
             Ray ray = new Ray();
             ray.origin = position;
 
-            for (int i = 0; i < scene.GetWidth(); ++i)
+            for (int row = 0; row < scene.GetHeight(); ++row) // We are going up in the window frame
             {
-                for (int j = 0; j < scene.GetHeight(); ++j)
-                {
+                for (int col = 0; col < scene.GetWidth(); ++col)
+                { // We are going on the horizontal part, in other words
+                   // across the same row.
                     ColorRGB pixel_color = new ColorRGB();
 
                     Point2D pixel =
-                    new Point2D(i - 0.5 * scene.GetWidth(),
-                                j - 0.5 * scene.GetHeight());
+                    new Point2D(col - 0.5 * scene.GetWidth(),
+                                row - 0.5 * scene.GetHeight());
 
                     ray.direction = FindRayDirection(pixel);
-
                     /* Now we need to call the tracer that we have to find the color
                      * to find the color of that pixel.
                     */ 
-
                     pixel_color = scene.GetTracer().TraceRay(ray);
-                    scene.DisplayPixel(i, j, pixel_color);
+                    /* Here the x axis will be equal to column; since it is related to the width in the final image
+                     * And the y axis will be based on the height, but since we are moving from down to up;
+                     * the j will be height - currentHeightValue(row) - 1; and the -1 for programming issues;
+                     * since the index of first one will be 0 not 1; that's y wee need -1;
+                    */ 
+                    scene.DisplayPixel(col, scene.GetHeight()- row - 1, pixel_color);
                 }
             }
         }

@@ -22,16 +22,29 @@ namespace RayTracer.Models.SceneElements
         Camera camera;
         Light ambientLight;
         Tracer tracer;
+        string fileName;
 
-        public Scene(WindowFrame winFrame, Camera camera)
+        public Scene(WindowFrame winFrame)
         {
             lightsList = new List<Light>();
             objectsList = new List<GeometryObject>();
             finalPixels = new ColorRGB[winFrame.width, winFrame.height];
             this.winFrame = winFrame;
             background = Config.DEFAULT_COLOR;
-            this.camera = camera;
+            this.camera = new Perspective();
             tracer = new Tracer(this);
+        }
+
+        public Scene(WindowFrame winFrame, string fileName, ColorRGB background, Camera camera)
+        {
+            lightsList = new List<Light>();
+            objectsList = new List<GeometryObject>();
+            finalPixels = new ColorRGB[winFrame.width, winFrame.height];
+            this.winFrame = winFrame;
+            tracer = new Tracer(this);
+            this.camera = camera;
+            this.fileName = fileName;
+            this.background = background;
         }
 
         public Scene(Scene sceneObj)
@@ -47,6 +60,7 @@ namespace RayTracer.Models.SceneElements
             winFrame = sceneObj.winFrame;
             finalPixels = new ColorRGB[winFrame.width, winFrame.height];
             tracer = sceneObj.tracer;
+            camera = sceneObj.camera;
         }
 
         public Scene(List<Light> lights, List<GeometryObject> objectsList, ColorRGB Background, WindowFrame winFrame, Camera camera)
@@ -73,6 +87,11 @@ namespace RayTracer.Models.SceneElements
         public ColorRGB GetBackgroundColor()
         {
             return background;
+        }
+
+        public void SetCamera(Perspective camera)
+        {
+            this.camera = new Perspective(camera);
         }
 
         public void SetLights(List<Light> lights)
@@ -104,7 +123,7 @@ namespace RayTracer.Models.SceneElements
 
         public void SetAmbientLight(Light ambientLight)
         {
-            this.ambientLight = (AmbientLight)ambientLight;
+            this.ambientLight = ambientLight;
         }
 
         public Light GetAmbientLight()
@@ -142,7 +161,13 @@ namespace RayTracer.Models.SceneElements
             if (camera != null)
             {
                 camera.Render(this);
+                FinalPicture();
             }
+        }
+
+        public void SetFileName(string fileName)
+        {
+            this.fileName = fileName;
         }
 
         /* In this method, we will loop over the whole objects in the scene,
@@ -213,7 +238,7 @@ namespace RayTracer.Models.SceneElements
 
         public void CreateScene()
         {
-            //camera = new Perspective(new Point3D(0, 0, 500), new Point3D(-5, 0, 0), 850);
+            camera = new Perspective(new Point3D(0, 0, 500), new Point3D(-5, 0, 0), 850);
 
             background = new ColorRGB(0.2,0.4,0.4);
 
@@ -266,15 +291,20 @@ namespace RayTracer.Models.SceneElements
                     }
                 }
 
-                bitmap.RotateFlip(RotateFlipType.Rotate180FlipX);
+                //bitmap.RotateFlip(RotateFlipType.Rotate180FlipX);
 
-                bitmap.Save("./tester.png");
+                bitmap.Save("./" + fileName + ".jpg");
 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        public void SetCamera(Camera camera)
+        {
+            this.camera = camera;
         }
     }
 }

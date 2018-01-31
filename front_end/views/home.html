@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Ray Tracer</h2>
+    <form>
+      <h3>Choose object specification</h3>
+
+      <div class="form-group" id="type">
+          <label for="type">Type</label>
+          <select class="form-control" id="type">
+            <option>Sphere</option>
+            <option>Cube</option>
+          </select>
+      </div>
+
+      <label for="size">Size</label>
+      <div class="form-group row" id="size">
+          <div class="col-xs-2">
+              <label for="size_x">x</label>
+              <input class="form-control" id="size_x" type="text">
+            </div>
+            <div class="col-xs-2">
+              <label for="size_y">y</label>
+              <input class="form-control" id="size_y" type="text">
+            </div>
+            <div class="col-xs-2">
+              <label for="size_z">z</label>
+              <input class="form-control" id="size_z" type="text">
+            </div>
+      </div>
+
+      <label for="position">Position</label>
+      <div class="form-group row" id="position">
+          <div class="col-xs-2">
+            <label for="pos_x">x</label>
+            <input class="form-control" id="pos_x" type="text">
+          </div>
+          <div class="col-xs-2">
+            <label for="pos_y">y</label>
+            <input class="form-control" id="pos_y" type="text">
+          </div>
+          <div class="col-xs-2">
+            <label for="pos_z">z</label>
+            <input class="form-control" id="pos_z" type="text">
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label for="colour">Colour</label>
+          <input type="text" class="form-control" id="color">
+      </div>
+
+      <label for="material">Material</label>
+      <div class="form-group" id="material">
+          <select class="form-control" id="material">
+            <option>Plastic</option>
+            <option>Metal</option>
+            <option>Glass</option>
+          </select>
+        </div>
+
+        <br>
+        <h3>Choose environment specification</h3>
+
+        <div class="form-group">
+            <label for="filename">Filename</label>
+            <input type="text" class="form-control" id="filename">
+        </div>
+
+        <label for="scene">Scene Size</label>
+        <div class="form-group row" id="scene">
+            <div class="col-xs-2">
+              <label for="scene_x">x</label>
+              <input class="form-control" id="scene_x" type="text">
+            </div>
+            <div class="col-xs-2">
+              <label for="scene_y">y</label>
+              <input class="form-control" id="scene_y" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="background">Background</label>
+            <input type="text" class="form-control" id="background">
+        </div>
+
+
+        <h4>Choose light specification</h4>
+
+        <label for="light_position">Position</label>
+        <div class="form-group row" id="light_position">
+            <div class="col-xs-2">
+              <label for="light_x">x</label>
+              <input class="form-control" id="light_x" type="text">
+            </div>
+            <div class="col-xs-2">
+              <label for="light_y">y</label>
+              <input class="form-control" id="light_y" type="text">
+            </div>
+            <div class="col-xs-2">
+              <label for="light_z">z</label>
+              <input class="form-control" id="light_z" type="text">
+            </div>
+        </div>
+  
+        <div class="form-group">
+            <label for="colour">Colour</label>
+            <input type="text" class="form-control" id="color">
+        </div>
+
+        <div class="form-group">
+            <label for="intensity">Intensity</label>
+            <input type="text" class="form-control" id="intensity">
+        </div>
+
+        <h4>Choose camera specification</h4>
+
+        <label for="cam_position">Position</label>
+        <div class="form-group row" id="cam_position">
+            <div class="col-xs-2">
+              <label for="cam_x">x</label>
+              <input class="form-control" id="cam_x" type="text">
+            </div>
+            <div class="col-xs-2">
+              <label for="cam_y">y</label>
+              <input class="form-control" id="cam_y" type="text">
+            </div>
+            <div class="col-xs-2">
+              <label for="cam_z">z</label>
+              <input class="form-control" id="cam_z" type="text">
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+</body>
+</html>

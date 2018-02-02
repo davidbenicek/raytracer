@@ -38,16 +38,17 @@ exports.convertToSvg = function (jsonObj, env, dimension) {
   try {
 
     let svg = `<svg ` +
-      `width="${env.scene_size.x}"` +
-      `height="${env.scene_size.y}"` +
+      `width="${env.winFrame.Width}"` +
+      `height="${env.winFrame.height}"` +
       `style="fill:rgb(${env.background.r},${env.background.g},${env.background.b});"` +
       `>`
 
     svg += jsonObj.map((obj) => {
-      switch (obj.type) {
-        case "sphere":
+      //TODO: This is wrong, we need shape just once not twice - object too deep
+      switch (obj.shape.shape) {
+        case "Sphere":
           return exports.getSVGForSphere(obj, dimension);
-        case "cube":
+        case "Cube":
           return exports.getSVGForCube(obj, dimension);
         default:
           return "<text x=20 y=20>Object type not supported</text>";

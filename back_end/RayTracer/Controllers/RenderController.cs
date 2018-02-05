@@ -65,15 +65,17 @@ namespace RayTracer.Controllers
 
                 Scene scene = requestJSON.ProcessJSON();
 
-                //HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
-                //var stream = new FileStream("Picture.jpg", FileMode.Open);
-                //result.Content = new StreamContent(stream);
-                //result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                //result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                //result.Content.Headers.ContentDisposition.FileName = "Picture.jpg";
+                scene.Render();
 
 
-                return new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent(String.Empty)};
+                HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+                var stream = new FileStream(requestJSON.environment.fileName+".jpg", FileMode.Open);
+                result.Content = new StreamContent(stream);
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                result.Content.Headers.ContentDisposition.FileName = requestJSON.environment.fileName + ".jpg";
+
+                return result;
 
             }
             catch(ArgumentNullException ex)

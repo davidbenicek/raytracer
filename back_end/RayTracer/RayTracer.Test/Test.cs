@@ -4,7 +4,7 @@ using RayTracer.Models.SceneElements;
 using RayTracer.Models.Cameras;
 using RayTracer.Models.Elements;
 
-namespace RayTracer.Test
+namespace RayTracer.Tests
 {
     [TestFixture()]
     public class Test

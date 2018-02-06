@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayTracer", "RayTracer.csproj", "{E7016944-4EBD-4FB0-9113-DA838BAA1D98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayTracer.Test", "RayTracer.Test\RayTracer.Test.csproj", "{8CC3A168-3008-4A1A-9A1C-78E47B27B738}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayTracer.Tests", "RayTracer.Test\RayTracer.Tests.csproj", "{8CC3A168-3008-4A1A-9A1C-78E47B27B738}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

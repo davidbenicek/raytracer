@@ -11,8 +11,7 @@ namespace RayTracer.Controllers
 {
     public class RenderController : ApiController
     {
-        [HttpPost]
-        public HttpResponseMessage Post([FromBody] JsonObject requestJSON)
+        public HttpResponseMessage Post(JsonObject requestJSON)
         {
             try
             {

@@ -8,7 +8,6 @@ const api = require('../js/sendToApi.js');
 
 window.harvestAndSend = function(){
     const res = exports.harvest();
-    console.log(res);
     api.sendToApi(res);
 }
 

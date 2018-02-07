@@ -3,22 +3,15 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web.Script.Serialization;
 using System.Web.Http;
 using RayTracer.Models.Json;
-using System.Collections.Generic;
-using RayTracer.Models.Lights;
-using RayTracer.Models.Cameras;
-using rayTracer.Models.Elements;
-using Newtonsoft.Json;
 using RayTracer.Models.SceneElements;
 
 namespace RayTracer.Controllers
 {
     public class RenderController : ApiController
     {
-        [HttpPost]
-        public HttpResponseMessage Post([FromBody] JsonObject requestJSON)
+        public HttpResponseMessage Post(JsonObject requestJSON)
         {
             try
             {
@@ -32,7 +25,7 @@ namespace RayTracer.Controllers
                 {
                     string exceptionMessage = "The input doesn't contain any object";
                     throw new ArgumentNullException(exceptionMessage);
-                }
+                }   
 
                 if(requestJSON.environment == null)
                 {

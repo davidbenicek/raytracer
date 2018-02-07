@@ -38,9 +38,10 @@ namespace RayTracer.Models.Tracing
             }   
         }
 
-        /* This will check, if the shade from the hitting point, and in the direction
-         * of the light will hit another object (be on the another object) or not.
-         * The check will be done on each object not in ignore list.
+        /* This will check, if the color at the hitting point is affected by a shade
+         * caused from other objects as a result of the ligth. And it will return back
+         * a value between 0 and 1, which will be mulitplied by the value obtained from
+         * the Calculate shadow method.
         */ 
         private double TraceShadeRay(HitInfo shadeHitInfo)
         {

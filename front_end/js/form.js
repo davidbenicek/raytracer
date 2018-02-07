@@ -5,12 +5,25 @@ const $ = require('jquery');
 
 const render = require('../js/render.js');
 const cp = require('../js/colour_picker.js');
+const api = require('../js/sendToApi.js');
+
+window.harvestAndSend = function(){
+    const res = exports.harvest();
+    api.sendToApi(res);
+}
+
+exports.harvest = function(){
+    const res = {};
+    res.objects = [exports.getHarvest("object")];
+    res.environment = exports.getHarvest("env");
+    res.uv = exports.getHarvest("user_view");
+    return res;
+}
 
 exports.getHarvest = function (spec) {
-
     const objectSpecClasses = $("." + spec + "_spec");
-
-    let object = {}
+    
+    const object = {};
     for (var i = 0; i < objectSpecClasses.length; i++) {
         object[objectSpecClasses[i].name] = exports.getFormValues($("#" + objectSpecClasses[i].id).serializeArray());
     }
@@ -20,20 +33,18 @@ exports.getHarvest = function (spec) {
 
 //TODO: Write a test for this
 exports.getFormValues = function (dataArray) {
-    let len = dataArray.length,
+    const len = dataArray.length,
         dataObj = {};
 
-    for (i = 0; i < len; i++) {
+    for (let i = 0; i < len; i++) {
         dataObj[dataArray[i].name] = dataArray[i].value;
     }
     return dataObj;
 }
 
 function renderSvg(){
-    let res = {};
-        res.object = exports.getHarvest("object");
-        res.env = exports.getHarvest("env");
-        res.uv = exports.getHarvest("user_view");
+     const res = exports.harvest()
+
 
         //console.log(res.uv.user_view.view);
 
@@ -49,6 +60,6 @@ function renderSvg(){
         }
 }
 $(document).ready(function () {
-    $(".form-control").keyup(renderSvg)
+    $(".form-control").focusout(renderSvg)
     renderSvg();
 })

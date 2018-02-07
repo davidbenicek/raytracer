@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RayTracer.Models.Cameras;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Lights;
 using RayTracer.Models.Materials;
@@ -59,7 +60,7 @@ namespace RayTracer.Models.Json
                  * LINQ functions.
                 */
 
-                scene.SetAmbientLight(environment.lights.FirstOrDefault());
+                scene.SetAmbientLight(GetAmbientLight(environment.lights.FirstOrDefault()));
 
                 List<Light> lightsList = environment.lights.Skip(1).ToList();
 
@@ -135,7 +136,13 @@ namespace RayTracer.Models.Json
                     throw new ArgumentNullException(exceptionMessage);
                 }
 
-                Scene scene = new Scene(environment.winFrame, environment.camera);
+                if (string.IsNullOrEmpty(environment.fileName))
+                {
+                    string exceptionMessage = "No file name in the JSON object";
+                    throw new ArgumentNullException(exceptionMessage);
+                }
+
+                Scene scene = new Scene(environment.winFrame, environment.fileName, environment.background, environment.camera);
                 return scene;
 
             }
@@ -170,10 +177,10 @@ namespace RayTracer.Models.Json
                     return sphere;
                 }
 
-                else if (shape.Equals("cube"))
-                {
-                    //Return cube
-                }
+                //else if (shape.Equals("cube"))
+                //{
+                //    //Return cube
+                //}
 
                 string exceMessage = "Shape is not defined";
                 throw new ArgumentException(exceMessage);
@@ -228,5 +235,13 @@ namespace RayTracer.Models.Json
                 throw ex;
             }
         }
+
+        public AmbientLight GetAmbientLight(Light light)
+        {
+            AmbientLight ambientLight = new AmbientLight(light.rgbColor, light.intensity);
+            return ambientLight;
+        }
+
      }
+
 }

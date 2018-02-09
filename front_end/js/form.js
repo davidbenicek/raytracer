@@ -49,12 +49,12 @@ function renderSvg(){
         //console.log(res.uv.user_view.view);
 
         if (res.uv.user_view.view == "Side View") {
-            const svg = render.convertToSvg([res.object], res.env, "y");
+            const svg = render.convertToSvg(res.objects, res.environment, "y");
             $("#svg").html(svg)
             console.log("Side view");
         }
         if (res.uv.user_view.view == "Top Down") {
-            const svg = render.convertToSvg([res.object], res.env, "z");
+            const svg = render.convertToSvg(res.objects, res.environment, "z");
             $("#svg").html(svg)
             console.log("Top view");
         }

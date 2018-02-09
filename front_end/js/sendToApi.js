@@ -27,7 +27,7 @@ exports.sendToApi = function(dataJSON){
 
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:1200/api/Render',
+        url: 'http://10.75.219.64:1200/api/Render',
         data: JSON.stringify(dataJSON),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',

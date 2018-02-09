@@ -20,12 +20,9 @@ function hexToRgb(hex) {
 
 $(document).ready(function () {
     $("#color_picker").change(function () {
-        console.log('yooo');
         let hex = document.getElementById("color_picker").value;
-        //console.log("hex value: " + hex);
-        var cp = hexToRgb(hex);
-        console.log($("#colour_r"));
-        
+        var cp = hexToRgb(hex);        
+ 
         $("#colour_r")[0].value = cp.r;
         $("#colour_g")[0].value = cp.g;
         $("#colour_b")[0].value = cp.b;

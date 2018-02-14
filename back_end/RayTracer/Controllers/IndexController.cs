@@ -25,6 +25,12 @@ namespace RayTracer.Controllers
             var f = System.IO.File.ReadAllText(path);
             return f;
         }
+        public String css()
+        {
+            var path = "../../front_end/css/stylesheet.css";
+            var f = System.IO.File.ReadAllText(path);
+            return f;
+        }
 
         public ActionResult Details(int id)
         {

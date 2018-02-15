@@ -26,6 +26,8 @@ To bundle the code and transpile the individual JS files from ES6 to browser run
 * Run `npm install` from the Public directory (i.e. src/RayTracer/Public/)
 * Run `npm run bundle` to run browserify once, `npm run dev` for hot reloading (you will need to have previously ran `npm run bundle` for this to work...or have the `dist/bundle.js` file already created)
 
+Please note, if you wish to run the front end without the backend, you can simple open the html files in views in your browser and it should work.
+
 
 #### Running Tests
 

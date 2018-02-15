@@ -89,7 +89,6 @@
   <ItemGroup>
     <Folder Include="Content\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Scripts\" />
     <Folder Include="Views\Index\" />
   </ItemGroup>
   <ItemGroup>
@@ -98,7 +97,6 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Views\Index\Index.cshtml" />
-    <Content Include="Scripts\bundle.js" />
     <Content Include="Public\dist\bundle.js" />
     <Content Include="Public\js\colour_picker.js" />
     <Content Include="Public\js\form.js" />

@@ -90,12 +90,15 @@
     <Folder Include="Content\" />
     <Folder Include="Controllers\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\Index\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
     <Content Include="Web.config" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
+    <Content Include="Views\Index\Index.cshtml" />
+    <Content Include="Scripts\bundle.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -122,6 +125,7 @@
     <Compile Include="Controllers\RenderController.cs" />
     <Compile Include="Models\Materials\Flat.cs" />
     <Compile Include="Models\Lights\AmbientLight.cs" />
+    <Compile Include="Controllers\IndexController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

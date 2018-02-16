@@ -7,6 +7,7 @@ namespace RayTracer
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -15,7 +16,6 @@ namespace RayTracer
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
         }
     }
 }

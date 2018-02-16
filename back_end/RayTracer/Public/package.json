@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha 'js/test/*.js'",
-    "coverage": "nyc --reporter=html mocha 'js/*.test.js'",
+    "coverage": "nyc --reporter=html mocha 'js/test/*.js'",
     "bundle": "browserify js/*.js --standalone module -o dist/bundle.js",
     "dev": "watchify -p browserify-hmr js/*.js -o dist/bundle.js"
   },

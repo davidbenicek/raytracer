@@ -324,9 +324,10 @@ ASALocalRun/
 # General ignores
 .DS_Store
 
-# Ignores for front end
-front_end/node_modules/*
-front_end/dist
-front_end/.nyc_output/
-front_end/coverage/
 *.userprefs
+
+# Ignores for front end
+node_modules/
+dist
+.nyc_output/
+coverage/

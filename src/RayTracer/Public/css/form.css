@@ -1,0 +1,12 @@
+#svg {
+    float:right; 
+    width:50%;
+}
+#svg > svg {
+    border-style: solid;
+    border-width: 1px;
+}
+#user_input {
+    float:left; 
+    width:50%;
+}

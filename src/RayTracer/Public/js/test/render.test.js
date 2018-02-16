@@ -5,7 +5,7 @@ var render = require('../render.js');
 
 //TODO: Fix tests - the JSON is wrong... needs height/width not x y for the env
 const sphere = [{
-  "type": "sphere",
+  "shape": "Sphere",
   "size": { "x": 50, "y": 50, "z": 50 },
   "point": { "x": 50, "y": 50, "z": 50 },
   "color": { "r": 0, "g": 100, "b": 0 },
@@ -13,7 +13,7 @@ const sphere = [{
 }]
 
 const cube = [{
-  "type": "cube",
+  "shape": "Cube",
   "size": { "x": 50, "y": 50, "z": 50 },
   "point": { "x": 50, "y": 50, "z": 50 },
   "color": { "r": 0, "g": 100, "b": 0 },
@@ -21,13 +21,13 @@ const cube = [{
 }]
 
 const shpereAndCube = [{
-  "type": "sphere",
+  "shape": "Sphere",
   "size": { "x": 50, "y": 50, "z": 50 },
   "point": { "x": 50, "y": 50, "z": 50 },
   "color": { "r": 0, "g": 100, "b": 0 },
   "material": "metal"
 }, {
-  "type": "cube",
+  "shape": "Cube",
   "size": { "x": 50, "y": 50, "z": 50 },
   "point": { "x": 50, "y": 50, "z": 50 },
   "color": { "r": 0, "g": 100, "b": 0 },
@@ -36,7 +36,7 @@ const shpereAndCube = [{
 
 const env = {
   "fileName": "render.png",
-  "scene_size": { "x": 500, "y": 500 },
+  "winFrame":{"Width": 500, "Height": 500 },
   "background": { "r": 255, "g": 0, "b": 0 }
 };
 
@@ -90,7 +90,7 @@ describe('2D Render front end functions', function () {
     it('handles invalid shape as input', function () {
 
       var obj = [{
-        "type": "invalid",
+        "shape": "invalid",
         "size": { "x": 250, "y": 500, "z": 50 },
         "point": { "x": 400, "y": 400, "z": 400 },
         "color": { "r": 100, "g": 0, "b": 0 },
@@ -104,7 +104,7 @@ describe('2D Render front end functions', function () {
     it('handles shape with invalid body format as input', function () {
 
       var obj = [{
-        "type": "sphere",
+        "shape": "Sphere",
         "size": { "x": 250, "y": 500, "z": 50 },
         //Missing point here
         "color": { "r": 100, "g": 0, "b": 0 },

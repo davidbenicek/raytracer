@@ -133,6 +133,9 @@
     <Compile Include="Models\Tracing\Tracer.cs" />
     <Compile Include="Models\Util\Utility.cs" />
     <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Models\Geometric\Plane.cs" />
+    <Compile Include="Models\Materials\Phong.cs" />
+    <Compile Include="Models\Materials\Chalk.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

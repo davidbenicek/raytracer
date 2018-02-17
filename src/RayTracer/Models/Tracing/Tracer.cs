@@ -30,7 +30,7 @@ namespace RayTracer.Models.Tracing
 
             if (hitDetails != null && hitDetails.hasHit)
             {
-                return hitDetails.hitObject.GetMaterial().CalculateShadow(hitDetails) * TraceShadeRay(hitDetails);
+                return hitDetails.hitObject.GetMaterial().CalculateShade(hitDetails, scene) * TraceShadeRay(hitDetails);
             }
             else
             {

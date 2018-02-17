@@ -36,7 +36,7 @@ exports.convertToSvg = function (jsonObj, env, dimension) {
   }
 
   try {
-
+    console.log(env);
     let svg = `<svg ` +
       `width="${env.winFrame.Width}"` +
       `height="${env.winFrame.Height}"` +

@@ -1,4 +1,4 @@
-# Raytracer
+# Raytracer [![Build Status](https://travis-ci.org/davidbenicek/raytracer.svg?branch=master)](https://travis-ci.org/davidbenicek/raytracer)
 
 Welcome to the RayTracer project, create for the KCL Group Project 2017/18.
 
@@ -11,7 +11,17 @@ Team members:
 1755013 Obimma, Timothy Uzochukwu <br />
 1783087 Vaddiraju, Nagarjuna <br />
 
-#Instalation and running the code
+# Contribution guidelines for team members
+
+Since this is a university project we cannot accept any external pull requests, therefore this section is only useful for the team members listed above.
+
+Please **always** work on a branch and label your branches in the following convention
+`(issue number)/(name of branch)`
+
+Once your branch is ready to be merged (that is, it has been run localy, tested and Travis is passing), please raise a pull request and get someone from the other work unit to review it. 
+
+
+# Instalation and running the code
 
 To run the code, follow the these steps:
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using rayTracer.Models.Elements;
+﻿using System.Collections.Generic;
 using RayTracer.Models.Elements;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Lights;

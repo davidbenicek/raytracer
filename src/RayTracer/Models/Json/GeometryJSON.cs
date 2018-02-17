@@ -1,10 +1,5 @@
-﻿using rayTracer.Models.Elements;
-using RayTracer.Models.Elements;
+﻿using RayTracer.Models.Elements;
 using RayTracer.Models.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace RayTracer.Models.Json
 {

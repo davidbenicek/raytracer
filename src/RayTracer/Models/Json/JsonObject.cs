@@ -270,7 +270,7 @@ namespace RayTracer.Models.Json
                     return Config.DEFAULT_MATERIAL_OBJECT;
                 }
                 //Set the color of the object, to the color received by the JSON, if not received it will be the default color
-                materialObject.rgbColor = geoObj.color;
+                materialObject.SetColor(geoObj.color);
 
                 return materialObject;
 

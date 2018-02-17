@@ -1,6 +1,4 @@
-﻿using System;
-using rayTracer.Models.Elements;
-using RayTracer.Models.Elements;
+﻿using RayTracer.Models.Elements;
 using RayTracer.Models.SceneElements;
 using RayTracer.Models.Util;
 
@@ -64,7 +62,7 @@ namespace RayTracer.Models.Cameras
         */
         public override Vector3D FindRayDirection(Point2D point)
         {
-            Vector3D rayDirection = point.x * u + point.y * v + distanceViewPlane * w;
+            Vector3D rayDirection = point.x * u + point.y * v - distanceViewPlane * w;
             rayDirection.Normalize();
             return rayDirection;
         }
@@ -95,7 +93,7 @@ namespace RayTracer.Models.Cameras
                     /* Now we need to call the tracer that we have to find the color
                      * to find the color of that pixel.
                     */ 
-                    pixel_color = scene.GetTracer().TraceRay(ray);
+                    pixel_color += scene.GetTracer().TraceRay(ray);
                     /* Here the x axis will be equal to column; since it is related to the width in the final image
                      * And the y axis will be based on the height, but since we are moving from down to up;
                      * the j will be height - currentHeightValue(row) - 1; and the -1 for programming issues;
@@ -106,7 +104,6 @@ namespace RayTracer.Models.Cameras
             }
         }
 
-
         /* This function will do the calculations of:
          * w: by subtracting eye's position from eye's lookAt, then normalize the value
          * u: by finding the cross product between the up vector which has a default value
@@ -115,7 +112,7 @@ namespace RayTracer.Models.Cameras
         */
         void CalculateUVW()
         {
-            w = lookAt - position;
+            w = position - lookAt;
             w.Normalize();
             u = up.CrossProduct(w);
             u.Normalize();

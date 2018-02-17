@@ -1,5 +1,4 @@
-﻿using rayTracer.Models.Elements;
-using RayTracer.Models.Elements;
+﻿using RayTracer.Models.Elements;
 using RayTracer.Models.Util;
 
 namespace RayTracer.Models.Lights

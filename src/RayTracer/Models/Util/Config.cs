@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using rayTracer.Models.Elements;
+﻿using System.Collections.Generic;
 using RayTracer.Models.Elements;
 using RayTracer.Models.Materials;
 
@@ -110,6 +108,10 @@ namespace RayTracer.Models.Util
             {
                 Dictionary<string, Material> materials = new Dictionary<string, Material>();
                 materials.Add("flat", new Flat());
+                materials.Add("chalk", new Chalk());
+                materials.Add("metal", new Metal());
+                materials.Add("mirror", new Mirror());
+                materials.Add("plastic", new Plastic());
                 return materials;
             }
         }

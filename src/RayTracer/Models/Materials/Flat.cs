@@ -1,4 +1,4 @@
-﻿using rayTracer.Models.Elements;
+﻿using RayTracer.Models.Elements;
 using RayTracer.Models.SceneElements;
 using RayTracer.Models.Util;
 

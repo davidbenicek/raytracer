@@ -1,4 +1,5 @@
 ﻿using RayTracer.Models.Elements;
+using RayTracer.Models.Sampling;
 using RayTracer.Models.SceneElements;
 using RayTracer.Models.Util;
 
@@ -78,6 +79,8 @@ namespace RayTracer.Models.Cameras
             Ray ray = new Ray();
             ray.origin = position;
 
+            Sampler sampler = scene.GetSampler();
+
             for (int row = 0; row < scene.GetHeight(); ++row) // We are going up in the window frame
             {
                 for (int col = 0; col < scene.GetWidth(); ++col)
@@ -85,15 +88,22 @@ namespace RayTracer.Models.Cameras
                    // across the same row.
                     ColorRGB pixel_color = new ColorRGB();
 
-                    Point2D pixel =
-                    new Point2D(col - 0.5 * scene.GetWidth(),
-                                row - 0.5 * scene.GetHeight());
+                    for (int sampling = 0; sampling < sampler.GetNoSamples(); sampling++)
+                    {
+                        Point2D sample = sampler.NextSample();
 
-                    ray.direction = FindRayDirection(pixel);
-                    /* Now we need to call the tracer that we have to find the color
-                     * to find the color of that pixel.
-                    */ 
-                    pixel_color += scene.GetTracer().TraceRay(ray);
+                        Point2D pixel =
+                            new Point2D(col - 0.5 * scene.GetWidth() + sample.x,
+                                        row - 0.5 * scene.GetHeight() + sample.y);
+
+                        ray.direction = FindRayDirection(pixel);
+                        /* Now we need to call the tracer that we have to find the color
+                         * to find the color of that pixel.
+                        */
+                        pixel_color += scene.GetTracer().TraceRay(ray);
+                    }
+
+                    pixel_color /= sampler.GetNoSamples();
                     /* Here the x axis will be equal to column; since it is related to the width in the final image
                      * And the y axis will be based on the height, but since we are moving from down to up;
                      * the j will be height - currentHeightValue(row) - 1; and the -1 for programming issues;

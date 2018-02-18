@@ -8,6 +8,7 @@ using RayTracer.Models.Elements;
 using RayTracer.Models.Tracing;
 using RayTracer.Models.Materials;
 using System.Drawing;
+using RayTracer.Models.Sampling;
 
 namespace RayTracer.Models.SceneElements
 {
@@ -22,6 +23,7 @@ namespace RayTracer.Models.SceneElements
         Light ambientLight;
         Tracer tracer;
         string fileName;
+        Sampler sampler;
 
         public Scene(WindowFrame winFrame)
         {
@@ -32,6 +34,7 @@ namespace RayTracer.Models.SceneElements
             background = Config.DEFAULT_COLOR;
             this.camera = new Perspective();
             tracer = new Tracer(this);
+            sampler = new Regular(Config.NUM_OF_SAMPLES, Config.NUM_OF_SETS);
         }
 
         public Scene(WindowFrame winFrame, string fileName, ColorRGB background, Camera camera)
@@ -44,6 +47,7 @@ namespace RayTracer.Models.SceneElements
             this.camera = camera;
             this.fileName = fileName;
             this.background = background;
+            sampler = new Regular(Config.NUM_OF_SAMPLES, Config.NUM_OF_SETS);
         }
 
         public Scene(Scene sceneObj)
@@ -60,6 +64,7 @@ namespace RayTracer.Models.SceneElements
             finalPixels = new ColorRGB[winFrame.width, winFrame.height];
             tracer = sceneObj.tracer;
             camera = sceneObj.camera;
+            sampler = sceneObj.sampler;
         }
 
         public Scene(List<Light> lights, List<GeometryObject> objectsList, ColorRGB Background, WindowFrame winFrame, Camera camera)
@@ -71,6 +76,7 @@ namespace RayTracer.Models.SceneElements
             finalPixels = new ColorRGB[winFrame.width, winFrame.height];
             this.camera = camera;
             tracer = new Tracer(this);
+            sampler = new Regular(Config.NUM_OF_SAMPLES, Config.NUM_OF_SETS);
         }
 
         public void AddObject(GeometryObject geoObj)
@@ -133,6 +139,11 @@ namespace RayTracer.Models.SceneElements
         public void SetWidth(int width)
         {
             winFrame.width = width;
+        }
+
+        public Sampler GetSampler()
+        {
+            return sampler;
         }
 
         public int GetWidth()

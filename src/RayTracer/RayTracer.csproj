@@ -95,6 +95,7 @@
     <Folder Include="Scripts\" />
     <Folder Include="Models\Tracing\" />
     <Folder Include="Views\Index\" />
+    <Folder Include="Models\Sampling\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -139,6 +140,8 @@
     <Compile Include="Models\Materials\Metal.cs" />
     <Compile Include="Models\Materials\Plastic.cs" />
     <Compile Include="Models\Materials\Mirror.cs" />
+    <Compile Include="Models\Sampling\Sampler.cs" />
+    <Compile Include="Models\Sampling\Regular.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

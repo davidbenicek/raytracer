@@ -131,5 +131,21 @@ namespace RayTracer.Models.Util
                 return 0.00001;
             }
         }
+
+        public static int NUM_OF_SETS
+        {
+            get
+            {
+                return 5;
+            }
+        }
+
+        public static int NUM_OF_SAMPLES
+        {
+            get
+            {
+                return 5;
+            }
+        }
     }
 }

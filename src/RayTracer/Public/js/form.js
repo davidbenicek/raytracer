@@ -41,19 +41,22 @@ exports.getFormValues = function (dataArray) {
     return dataObj;
 }
 
-function renderSvg() {
+exports.renderSvg = function() {
     const res = exports.harvest()
 
     if (res.uv.user_view.view == "Side View") {
+        console.log("side");
         const svg = render.convertToSvg(res.objects, res.environment, "y");
         $("#svg").html(svg)
     }
     if (res.uv.user_view.view == "Top Down") {
+        console.log("top");
         const svg = render.convertToSvg(res.objects, res.environment, "z");
         $("#svg").html(svg)
     }
 }
 $(document).ready(function () {
-    $(".form-control").focusout(renderSvg)
-    renderSvg();
+    $(".form-control").change(exports.renderSvg)
+    $("#view").change(exports.renderSvg)
+    exports.renderSvg();
 })

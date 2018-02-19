@@ -61,7 +61,7 @@ namespace RayTracer.Models.Geometric
             double denominator = 2 * a;
 
             //check if denominator is equal to zero
-            if(denominator==0.0)
+            if(denominator.Equals(0))
             {
                 intersectionObject.hasHit = false;
                 return intersectionObject;
@@ -79,7 +79,7 @@ namespace RayTracer.Models.Geometric
                 //This represents the point where the ray hits the object
                 intersectionObject.hitPoint = ray.origin + (ray.direction * t);
                 //Check
-                intersectionObject.normalAtHit = (tempVector + (ray.direction)) / radius;
+                intersectionObject.normalAtHit = (tempVector + (ray.direction * t)) / radius;
                 return intersectionObject;
             }
 
@@ -98,7 +98,7 @@ namespace RayTracer.Models.Geometric
                 //This represents the point where the ray hits the object
                 intersectionObject.hitPoint = ray.origin + (ray.direction * t);
                 //Check
-                intersectionObject.normalAtHit = (tempVector + (ray.direction)) / radius;
+                intersectionObject.normalAtHit = (tempVector + (ray.direction * t)) / radius;
                 return intersectionObject;
             }
 

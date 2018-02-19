@@ -1,6 +1,4 @@
-﻿using System;
-using rayTracer.Models.Elements;
-using RayTracer.Models.Elements;
+﻿using RayTracer.Models.Elements;
 using RayTracer.Models.Util;
 
 namespace RayTracer.Models.Lights
@@ -34,11 +32,11 @@ namespace RayTracer.Models.Lights
             this.intensity = intensity;
         }
 
-        public Light(Light LightObj)
+        public Light(Light lightObj)
         {
-            this.intensity = LightObj.intensity;
-            this.rgbColor = LightObj.rgbColor;
-            this.position = LightObj.position;
+            this.intensity = lightObj.intensity;
+            this.rgbColor = lightObj.rgbColor;
+            this.position = lightObj.position;
 
         }
 

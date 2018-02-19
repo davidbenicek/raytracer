@@ -1,4 +1,4 @@
-﻿using rayTracer.Models.Elements;
+﻿using RayTracer.Models.Elements;
 using RayTracer.Models.SceneElements;
 using RayTracer.Models.Util;
 
@@ -47,6 +47,10 @@ namespace RayTracer.Models.Materials
             if (rgbColor != null)
             {
                 this.rgbColor = rgbColor;
+            }
+            else
+            {
+                this.rgbColor = Config.DEFAULT_COLOR;
             }
         }
 

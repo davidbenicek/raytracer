@@ -136,6 +136,9 @@
     <Compile Include="Models\Geometric\Plane.cs" />
     <Compile Include="Models\Materials\Phong.cs" />
     <Compile Include="Models\Materials\Chalk.cs" />
+    <Compile Include="Models\Materials\Metal.cs" />
+    <Compile Include="Models\Materials\Plastic.cs" />
+    <Compile Include="Models\Materials\Mirror.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

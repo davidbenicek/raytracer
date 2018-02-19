@@ -16,14 +16,16 @@ namespace RayTracer.Models.Json
         public ColorRGB background;
         public List<Light> lights;
         public Perspective camera;
+        public double wallPosition;
 
-        public EnvironmentJSON(string fileName, WindowFrame winFrame, ColorRGB background, List<Light> lights, Perspective camera)
+        public EnvironmentJSON(string fileName, WindowFrame winFrame, ColorRGB background, List<Light> lights, Perspective camera, double wallPosition)
         {
             this.fileName = fileName;
             this.winFrame = winFrame;
             this.background = background;
             this.lights = lights;
             this.camera = new Perspective(camera);
+            this.wallPosition = wallPosition;
         }
     }
 }

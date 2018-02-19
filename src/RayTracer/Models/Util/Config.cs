@@ -121,6 +121,13 @@ namespace RayTracer.Models.Util
                 return 0.00001;
             }
         }
-       
+
+        public static double KEpsilonPlane
+        {
+            get
+            {
+                return 0.00001;
+            }
+        }
     }
 }

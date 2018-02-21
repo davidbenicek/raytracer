@@ -6,6 +6,7 @@ const $ = require('jquery');
 const render = require('../js/render.js');
 const api = require('../js/sendToApi.js');
 
+
 window.harvestAndSend = function () {
     const res = exports.harvest();
     api.sendToApi(res);
@@ -45,12 +46,10 @@ exports.renderSvg = function() {
     const res = exports.harvest()
 
     if (res.uv.user_view.view == "Side View") {
-        console.log("side");
         const svg = render.convertToSvg(res.objects, res.environment, "y");
         $("#svg").html(svg)
     }
     if (res.uv.user_view.view == "Top Down") {
-        console.log("top");
         const svg = render.convertToSvg(res.objects, res.environment, "z");
         $("#svg").html(svg)
     }

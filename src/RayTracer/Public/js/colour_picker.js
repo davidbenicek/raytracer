@@ -44,7 +44,7 @@ $(document).ready(function () {
         form.renderSvg();        
     })
     
-    changeColourPickerValue()
+    // changeColourPickerValue()
     $("#colour_r, #colour_g, #colour_b").keyup(changeColourPickerValue)
 }
 )

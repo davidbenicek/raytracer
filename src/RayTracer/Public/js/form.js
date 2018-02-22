@@ -5,11 +5,40 @@ const $ = require('jquery');
 
 const render = require('../js/render.js');
 const api = require('../js/sendToApi.js');
+// const render3D = require('../js/render3D.js');
 
+let objectsJson =
+    [
+        {"shape":"Sphere","size":{"x":30,"y":30,"z":30},"point":{"x":200,"y":300,"z":160},
+        "color":{"r":0.0,"g":0.0,"b":1},"material":"flat"},
+        {"shape":"Cube","size":{"x":40,"y":100,"z":40},"point":{"x":200,"y":100,"z":200},
+        "color":{"r":1,"g":1,"b":1},"material":"flat"}
+    ]
+;
 
 window.harvestAndSend = function () {
     const res = exports.harvest();
     api.sendToApi(res);
+}
+
+window.routeToView = function () {
+    console.log("Calling route");
+    const res = exports.harvest()
+    const view = $('input[name=chosen-view]:checked')[0].value;
+    let svg;
+    switch(view) {
+        case "3D":
+            console.log("render3D.init(objectsJson,res.environment)");
+            break;
+        case "Top":
+            svg = render.convertToSvg(objectsJson, res.environment, "z");
+            $("#svg-container").html(svg)
+            break;
+        default:
+            svg = render.convertToSvg(objectsJson, res.environment, "y");
+            $("#svg-container").html(svg)
+            break;
+    }
 }
 
 exports.harvest = function () {
@@ -42,20 +71,8 @@ exports.getFormValues = function (dataArray) {
     return dataObj;
 }
 
-exports.renderSvg = function() {
-    const res = exports.harvest()
-
-    if (res.uv.user_view.view == "Side View") {
-        const svg = render.convertToSvg(res.objects, res.environment, "y");
-        $("#svg").html(svg)
-    }
-    if (res.uv.user_view.view == "Top Down") {
-        const svg = render.convertToSvg(res.objects, res.environment, "z");
-        $("#svg").html(svg)
-    }
-}
 $(document).ready(function () {
-    $(".form-control").change(exports.renderSvg)
-    $("#view").change(exports.renderSvg)
-    exports.renderSvg();
+    $(".form-control").change(window.routeToView)
+    $("#view").change(window.routeToView)
+    window.routeToView()
 })

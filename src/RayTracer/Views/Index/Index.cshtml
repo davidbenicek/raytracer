@@ -7,6 +7,7 @@
   <script src="../../Public/dist/bundle.js"></script>
   <link rel="stylesheet" href="../../Public/css/form.css">
   <link rel="stylesheet" href="../../Public/css/index.css">
+  <link rel="stylesheet" href="../../Public/css/render-space.css">
   <!--Third party imports -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -142,14 +143,14 @@
               </div>
         </div>
         <div class="col-sm-8" id="render-space">
-            <div class="row">
+            <div class="row inventory-container">
               <svg id="inventory" width="500" height="100" x="0" y="0">
-                  <circle id="curve1" class="inventory-object" on cx="80" cy="36" r="35" />
-                  <rect id="curve2" class="inventory-object" x="150" y="0" width="60" height="60"/>
+                  <circle id="curve1" class="inventory-object" onmousedown="window.startObjectDrag('circle')"  cx="80" cy="50" r="35" />
+                  <rect id="curve2" class="inventory-object" onmousedown="window.startObjectDrag('rect')" x="150" y="15" width="70" height="70"/>
               </svg>
             </div>
             <div class="row">
-              <div id="svg-container" />
+              <div id="svg-container"/>
             </div>
         </div>
       </div>

@@ -1,92 +1,164 @@
-// // define meta objects
-// var drag = null;
+const $ = require('jquery');
 
-// var canvas = {};
-// var inventory = {};
-	
-// document.onclick = function() {
-		
-//     canvas = document.getElementById("canvas");
-// 	inventory = document.getElementById("inventory");
-// 	// attach events listeners
-// 	AttachListeners();
-// }
+const form = require('../js/form.js');
 
-// function AttachListeners() {
-// 	var ttt = document.getElementsByClassName('inventory'), i;
-// 	for (i = 0; i < ttt.length; i++) {
-//         document.getElementsByClassName("inventory")[i].onmousedown=Drag;
-// 	}
-//     document.getElementById("svg1").onmousemove=Drag;
-// 	document.getElementById("svg1").onmouseup=Drag;
-// }
+let count = 0;
+let new_object = "";
+let dragged_id = "";
 
-// // Drag function that needs to be modified;//
-// function Drag(e) {
-// 	let t = e.target; 
-// 	let id = t.id;
-// 	let et = e.type;  
-// 	let m = MousePos(e);
+
+$(document).ready(function() {
+
+  console.log("yolo");
   
-// 	if (!drag && (et == "mousedown")) {
-				
-// 		if (t.className.baseVal=="inventory") { //if its inventory class item, this should get cloned into draggable?
-//             copy = t.cloneNode(true);
-// 			copy.onmousedown = Drag;
-//             copy.removeAttribute("id");
-//             copy._x = 0;
-//             copy._y = 0;
-// 			canvas.appendChild(copy);
-// 			drag = copy;
-// 			dPoint = m;
-// 		} 
-// 		else if (t.className.baseVal=="draggable")	{ //if its just draggable class - it can be dragged around
-// 			drag = t;
-// 			dPoint = m;
-// 		}
-// 	}
+});
 
-//     // drag the spawned/copied draggable element now
-// 	if (drag && (et == "mousemove")) {
-// 		drag._x += m.x - dPoint.x;
-// 		drag._y += m.y - dPoint.y;
-// 		dPoint = m;
-		
-// 	 	if(drag.nodeName == "rect"){
-// 			drag.setAttribute("x", dPoint.x);
-// 			drag.setAttribute("y", dPoint.y);
-// 		}
-// 		else if(drag.nodeName == "circle"){
-// 			drag.setAttribute("cx", dPoint.x);
-// 			drag.setAttribute("cy", dPoint.y);
-// 		}
- 
-		
-// 	}
-		
-//     // stop drag
-// 	if (drag && (et == "mouseup")) {
-//         drag.className.baseVal="draggable";
-//         console.log("x: "+drag._x+" y: "+drag._y);
-//         document.getElementById("pos_x").value = dPoint.x;
-// 		document.getElementById("pos_y").value = dPoint.y;
-// 		//the shape that is being added
-// 		//console.log(drag);
-// 		console.log(svg);
-//         drag = null;
-        
-// 	}
-// }
-         
-// // adjust mouse position to the matrix of SVG & screen size
-// function MousePos(event) {
-// 		var p = svg1.createSVGPoint();
-// 		p.x = event.clientX;
-// 		p.y = event.clientY;
-// 		var matrix = svg1.getScreenCTM();
-//         p = p.matrixTransform(matrix.inverse());
-// 		return {
-// 			x: p.x,
-// 			y: p.y
-// 		}
-// }
+window.startObjectDrag = function(shape){
+  console.log("mouse drag!")
+
+  const id = "object"+(count++);
+
+  dragged_id = id;
+  new_object = shape;
+  
+}
+
+window.clearObjectDrag = function(){
+
+  dragged_id = "";
+  new_object = "";
+  
+}
+
+window.showObjectDrag = function(){
+  console.log("mouse enter!")
+  let entrant;
+  console.log(this.e);
+  if(dragged_id != "" && new_object != ""){
+    let x_svg = $("#svg").position().left;
+    let y_svg = $("#svg").position().top;
+    console.log(new_object)
+
+    $("#svg").mousemove(function(e) {
+      let x_new = e.pageX - $("#svg").position().left;
+      let y_new = e.pageY - $("#svg").position().top;
+      
+      entrant = createDefaultShape(new_object,dragged_id,x_new,y_new);
+      entrant.appendTo($("#svg"));
+      addToJSON(new_object,dragged_id,x_new,y_new);
+      $("#svg").unbind("mousemove");
+
+      $(".svg-object").mousedown(function(e){
+        //Have to disable pointer events and all objects except for the one I am dragging
+        //this is because if I drag the target object over an object that is rendered above it the focus of the even changes!
+        $(".svg-object").not(e.target).css( 'pointer-events', 'none' );
+        $("#svg").mousemove(function(e){
+          if(e.target.id != dragged_id){
+            console.log("LOST IT!");
+            $("#"+dragged_id).trigger("mouseup");
+          }
+          //Calculate position of the cursor in reference to the SVG
+          let x_new = e.pageX - $("#svg").position().left;
+          let y_new = e.pageY - $("#svg").position().top;
+
+          //Update in JSON
+          updateJSONWithMove(e.target.id,"y",x_new,y_new);
+          //Move object in SVG
+          if(e.target.tagName == "rect")
+            moveRect(e.target,x_new,y_new);
+          else
+            moveCircle(e.target,x_new,y_new);
+        })
+      })
+      $(".svg-object").mouseup(function(){
+        console.log("UP");
+        //Re-enable pointer events
+        $(".svg-object").css( 'pointer-events', 'auto' );
+        //Stop tracking the mouse movements
+        $("#svg").unbind("mousemove");
+      })
+      $("#"+dragged_id).trigger("mousedown");
+      new_object = "";
+    });
+
+  }
+  
+}
+
+function findObjectInJSON(id){
+  for(i in window.objectsJSON){
+    console.log(window.objectsJSON[i],id);
+    if(window.objectsJSON[i].id == id){
+
+      return i;
+    }
+  }
+  return -1;
+}
+
+function addToJSON(shape,id,x,yz){
+  if(findObjectInJSON(id) == -1){
+    let shape_name = "";
+    switch (shape){
+      case "rect":
+        shape_name = "Cube"
+        break;
+      default:
+        shape_name = "Sphere"
+        break;
+    }
+
+    const obj = {
+      "shape": shape_name,
+      "id" : id,
+      "size":{"x":70,"y":70,"z":70},
+      "point":{"x":x,"y":yz,"z":yz},
+      "color":{"r":0.0,"g":0.0,"b": 0.0},
+      "material":"flat"
+    };
+    console.log("ADD",obj)
+    window.objectsJSON.push(obj)
+  }
+}
+
+function updateJSONWithMove(id,dimension,x,yz){
+  const i = findObjectInJSON(id);
+  console.log(i);
+  if(i != -1){
+    window.objectsJSON[i].point.x = x;
+    window.objectsJSON[i].point[dimension] = yz;
+    console.log("UPDATED",window.objectsJSON[i].point);
+  }
+}
+
+function moveCircle(target,x,y){
+  $(target).attr("cx",x).attr("cy",y);
+}
+
+function moveRect(target,x,y){
+  x -= target.width.baseVal.value/2
+  y -= target.height.baseVal.value/2
+  $(target).attr("x",x).attr("y",y);
+}
+
+function createDefaultShape(shape,id,pos_x,pos_yz){
+  let svg = document.createElementNS('http://www.w3.org/2000/svg', shape)
+  switch(shape) {
+    case "rect":
+      pos_x -= 35;
+      pos_yz -= 35;
+      return $(svg).attr('x', pos_x)
+      .attr('y', pos_yz)
+      .attr('width', 70)
+      .attr('height', 70)
+      .attr('class','svg-object')
+      .attr('id', id)
+    default:
+      return $(svg).attr('cx', pos_x)
+      .attr('cy', pos_yz)
+      .attr('r', 45)
+      .attr('class','svg-object')
+      .attr('id', id)
+  }
+}
+

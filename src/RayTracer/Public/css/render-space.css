@@ -5,3 +5,7 @@ svg {
 .inventory-container {
   height: 100px;
 }
+
+.svg-object {
+  cursor: move;
+}

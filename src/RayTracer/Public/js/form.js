@@ -5,6 +5,8 @@ const $ = require('jquery');
 
 const render = require('../js/render.js');
 const api = require('../js/sendToApi.js');
+const drag_drop = require('./drag_drop.js');
+
 // const render3D = require('../js/render3D.js');
 
 window.objectsJSON =[
@@ -31,10 +33,12 @@ window.routeToView = function () {
         case "Top":
             svg = render.convertToSvg(window.objectsJSON, res.environment, "z");
             $("#svg-container").html(svg)
+            drag_drop.bindListeners()
             break;
         default:
             svg = render.convertToSvg(window.objectsJSON, res.environment, "y");
             $("#svg-container").html(svg)
+            drag_drop.bindListeners(); 
             break;
     }
 }

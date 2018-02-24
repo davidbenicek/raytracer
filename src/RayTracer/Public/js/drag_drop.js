@@ -7,11 +7,11 @@ let new_object = "";
 let dragged_id = "";
 
 
-$(document).ready(function() {
+// $(document).ready(function() {
 
-  console.log("yolo");
+//   console.log("yolo");
   
-});
+// });
 
 window.startObjectDrag = function(shape){
   console.log("mouse drag!")
@@ -35,8 +35,6 @@ window.showObjectDrag = function(){
   let entrant;
   console.log(this.e);
   if(dragged_id != "" && new_object != ""){
-    let x_svg = $("#svg").position().left;
-    let y_svg = $("#svg").position().top;
     console.log(new_object)
 
     $("#svg").mousemove(function(e) {
@@ -48,35 +46,8 @@ window.showObjectDrag = function(){
       addToJSON(new_object,dragged_id,x_new,y_new);
       $("#svg").unbind("mousemove");
 
-      $(".svg-object").mousedown(function(e){
-        //Have to disable pointer events and all objects except for the one I am dragging
-        //this is because if I drag the target object over an object that is rendered above it the focus of the even changes!
-        $(".svg-object").not(e.target).css( 'pointer-events', 'none' );
-        $("#svg").mousemove(function(e){
-          if(e.target.id != dragged_id){
-            console.log("LOST IT!");
-            $("#"+dragged_id).trigger("mouseup");
-          }
-          //Calculate position of the cursor in reference to the SVG
-          let x_new = e.pageX - $("#svg").position().left;
-          let y_new = e.pageY - $("#svg").position().top;
+      bindListeners();
 
-          //Update in JSON
-          updateJSONWithMove(e.target.id,"y",x_new,y_new);
-          //Move object in SVG
-          if(e.target.tagName == "rect")
-            moveRect(e.target,x_new,y_new);
-          else
-            moveCircle(e.target,x_new,y_new);
-        })
-      })
-      $(".svg-object").mouseup(function(){
-        console.log("UP");
-        //Re-enable pointer events
-        $(".svg-object").css( 'pointer-events', 'auto' );
-        //Stop tracking the mouse movements
-        $("#svg").unbind("mousemove");
-      })
       $("#"+dragged_id).trigger("mousedown");
       new_object = "";
     });
@@ -85,11 +56,46 @@ window.showObjectDrag = function(){
   
 }
 
+function bindListeners(){
+  $(".svg-object").mousedown(function(e){
+    dragged_id = e.target.id;
+    //Have to disable pointer events and all objects except for the one I am dragging
+    //this is because if I drag the target object over an object that is rendered above it the focus of the even changes!
+    $(".svg-object").not(e.target).css( 'pointer-events', 'none' );
+    $("#svg").mousemove(function(e){
+      if(e.target.id != dragged_id){
+        console.log(e.target.id , dragged_id)
+        console.log("LOST IT!");
+        $("#"+dragged_id).trigger("mouseup");
+      }
+
+      //Calculate position of the cursor in reference to the SVG
+      let x_new = e.pageX - $("#svg").position().left;
+      let y_new = e.pageY - $("#svg").position().top;
+
+      //Update in JSON
+      updateJSONWithMove(e.target.id,"y",x_new,y_new);
+      //Move object in SVG
+      if(e.target.tagName == "rect")
+        moveRect(e.target,x_new,y_new);
+      else
+        moveCircle(e.target,x_new,y_new);
+    })
+  })
+  $(".svg-object").mouseup(function(){
+    console.log("UP",dragged_id);
+    //Re-enable pointer events
+    $(".svg-object").css( 'pointer-events', 'auto' );
+    //Stop tracking the mouse movements
+    $("#svg").unbind("mousemove");
+    dragged_id = "";
+  })
+}
+
 function findObjectInJSON(id){
   for(i in window.objectsJSON){
-    console.log(window.objectsJSON[i],id);
     if(window.objectsJSON[i].id == id){
-
+      console.log("Object ",id," exists")
       return i;
     }
   }
@@ -123,11 +129,9 @@ function addToJSON(shape,id,x,yz){
 
 function updateJSONWithMove(id,dimension,x,yz){
   const i = findObjectInJSON(id);
-  console.log(i);
   if(i != -1){
     window.objectsJSON[i].point.x = x;
     window.objectsJSON[i].point[dimension] = yz;
-    console.log("UPDATED",window.objectsJSON[i].point);
   }
 }
 
@@ -162,3 +166,7 @@ function createDefaultShape(shape,id,pos_x,pos_yz){
   }
 }
 
+
+module.exports = {
+  bindListeners
+}

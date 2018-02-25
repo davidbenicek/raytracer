@@ -33,8 +33,8 @@ exports.convertToSvg = function (jsonObj, env, dimension) {
   }
 
   try {
-    let svg = `<svg id="svg"
-      onmouseenter="window.showObjectDrag()" ` +
+    let svg = `<svg id="svg"` +
+      `onmouseenter="module.showObjectDrag()" ` +
       `width="${env.winFrame.Width}"` +
       `height="${env.winFrame.Height}"` +
       `style="fill:rgb(${env.background.r},${env.background.g},${env.background.b});"` +
@@ -52,8 +52,6 @@ exports.convertToSvg = function (jsonObj, env, dimension) {
             return "<text x=20 y=20>Object type not supported</text>";
         }
       }).join('')
-
-    // svg += shapes;
 
     svg += "</svg>";
     return svg;

@@ -23,11 +23,11 @@
       <div class="row">
           <div id="render-view-picker" class="btn-group" data-toggle="buttons">
               <label class="btn btn-primary">
-                  <input type="radio" onchange="window.routeToView()" name="chosen-view" value="Side" checked/>Side</label>
+                  <input type="radio" onchange="module.routeToView()" name="chosen-view" value="Side" checked/>Side</label>
               <label class="btn btn-primary">
-                  <input type="radio" onchange="window.routeToView()" name="chosen-view" value="Top" />Top</label>
+                  <input type="radio" onchange="module.routeToView()" name="chosen-view" value="Top" />Top</label>
               <label class="btn btn-primary">
-                  <input type="radio" onchange="window.routeToView()" name="chosen-view" value="3D" />3D</label>
+                  <input type="radio" onchange="module.routeToView()" name="chosen-view" value="3D" />3D</label>
           </div>
       </div>
       <div class="row bottom-half">
@@ -138,15 +138,15 @@
                   </div>
                 </form>
             
-                <button type="button" onclick="window.harvestAndSend()" id="submit">Render!</button>
+                <button type="button" onclick="module.harvestAndSend()" id="submit">Render!</button>
             
               </div>
         </div>
         <div class="col-sm-8" id="render-space">
             <div class="row inventory-container">
               <svg id="inventory" width="500" height="100" x="0" y="0">
-                  <circle id="curve1" class="inventory-object" onmousedown="window.startObjectDrag('circle')"  cx="80" cy="50" r="35" />
-                  <rect id="curve2" class="inventory-object" onmousedown="window.startObjectDrag('rect')" x="150" y="15" width="70" height="70"/>
+                  <circle id="curve1" class="inventory-object" onmousedown="module.startObjectDrag('circle')"  cx="80" cy="50" r="35" />
+                  <rect id="curve2" class="inventory-object" onmousedown="module.startObjectDrag('rect')" x="150" y="15" width="70" height="70"/>
               </svg>
             </div>
             <div class="row">

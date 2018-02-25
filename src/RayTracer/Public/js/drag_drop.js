@@ -1,55 +1,56 @@
 const $ = require('jquery');
 
-const form = require('../js/form.js');
+const form = require("./form.js")
 
+//Keeps id of generic created objs
 let count = 0;
-let new_object = "";
-let dragged_id = "";
 
+//Exported for testing
+module.exports.new_object = "";
+module.exports.dragged_id = "";
 
-// $(document).ready(function() {
-
-//   console.log("yolo");
-  
-// });
-
-window.startObjectDrag = function(shape){
-  console.log("mouse drag!")
+//Triggered on mouse down
+function startObjectDrag(shape){
 
   const id = "object"+(count++);
 
-  dragged_id = id;
-  new_object = shape;
+  module.exports.dragged_id = id;
+  module.exports.new_object = shape;
   
 }
 
-window.clearObjectDrag = function(){
+//Triggered on drag end
+function clearObjectDrag(){
 
-  dragged_id = "";
-  new_object = "";
+  module.exports.dragged_id = "";
+  module.exports.new_object = "";
   
 }
 
-window.showObjectDrag = function(){
-  console.log("mouse enter!")
+function showObjectDrag(){
   let entrant;
-  console.log(this.e);
-  if(dragged_id != "" && new_object != ""){
-    console.log(new_object)
-
+  //If we are dragging in a new object
+  if(module.exports.dragged_id != "" && module.exports.new_object != ""){
+    //Monitor movement within #svg element
     $("#svg").mousemove(function(e) {
+      //Calculating relative position within #svg by getting cursor pos and taking away top right corner of #svg
       let x_new = e.pageX - $("#svg").position().left;
       let y_new = e.pageY - $("#svg").position().top;
       
-      entrant = createDefaultShape(new_object,dragged_id,x_new,y_new);
+      //Create the default SVG shape
+      entrant = createDefaultShape(module.exports.new_object,module.exports.dragged_id,x_new,y_new);
+      //Add it to the actual #svg element
       entrant.appendTo($("#svg"));
-      addToJSON(new_object,dragged_id,x_new,y_new);
+      //Also update JSON
+      addToJSON(module.exports.new_object,module.exports.dragged_id,x_new,y_new);
+      //Now that we are inside the SVG and not dragging a new object in, we want to replace the mouse move listener
       $("#svg").unbind("mousemove");
-
+      
       bindListeners();
-
-      $("#"+dragged_id).trigger("mousedown");
-      new_object = "";
+      //Trigger movement of the element we just moved in
+      $("#"+module.exports.dragged_id).trigger("mousedown");
+      //This object is no loger new
+      module.exports.new_object = "";
     });
 
   }
@@ -58,15 +59,13 @@ window.showObjectDrag = function(){
 
 function bindListeners(){
   $(".svg-object").mousedown(function(e){
-    dragged_id = e.target.id;
+    module.exports.dragged_id = e.target.id;
     //Have to disable pointer events and all objects except for the one I am dragging
-    //this is because if I drag the target object over an object that is rendered above it the focus of the even changes!
+    //this is because if I drag the target object over an object that is rendered above it, the focus of the event changes!
     $(".svg-object").not(e.target).css( 'pointer-events', 'none' );
     $("#svg").mousemove(function(e){
-      if(e.target.id != dragged_id){
-        console.log(e.target.id , dragged_id)
-        console.log("LOST IT!");
-        $("#"+dragged_id).trigger("mouseup");
+      if(e.target.id != module.exports.dragged_id){
+        $(".svg-object").trigger("mouseup");
       }
 
       //Calculate position of the cursor in reference to the SVG
@@ -82,20 +81,20 @@ function bindListeners(){
         moveCircle(e.target,x_new,y_new);
     })
   })
+
   $(".svg-object").mouseup(function(){
-    console.log("UP",dragged_id);
     //Re-enable pointer events
     $(".svg-object").css( 'pointer-events', 'auto' );
     //Stop tracking the mouse movements
     $("#svg").unbind("mousemove");
-    dragged_id = "";
+    module.exports.dragged_id = "";
   })
+  
 }
 
 function findObjectInJSON(id){
-  for(i in window.objectsJSON){
-    if(window.objectsJSON[i].id == id){
-      console.log("Object ",id," exists")
+  for(i in form.objectsJSON){
+    if(form.objectsJSON[i].id == id){
       return i;
     }
   }
@@ -122,27 +121,26 @@ function addToJSON(shape,id,x,yz){
       "color":{"r":0.0,"g":0.0,"b": 0.0},
       "material":"flat"
     };
-    console.log("ADD",obj)
-    window.objectsJSON.push(obj)
+    form.objectsJSON.push(obj)
   }
 }
 
 function updateJSONWithMove(id,dimension,x,yz){
   const i = findObjectInJSON(id);
   if(i != -1){
-    window.objectsJSON[i].point.x = x;
-    window.objectsJSON[i].point[dimension] = yz;
+    form.objectsJSON[i].point.x = x;
+    form.objectsJSON[i].point[dimension] = yz;
   }
 }
 
-function moveCircle(target,x,y){
-  $(target).attr("cx",x).attr("cy",y);
+function moveCircle(target,x,yz){
+  $(target).attr("cx",x).attr("cy",yz);
 }
 
-function moveRect(target,x,y){
+function moveRect(target,x,yz){
   x -= target.width.baseVal.value/2
-  y -= target.height.baseVal.value/2
-  $(target).attr("x",x).attr("y",y);
+  yz -= target.height.baseVal.value/2
+  $(target).attr("x",x).attr("y",yz);
 }
 
 function createDefaultShape(shape,id,pos_x,pos_yz){
@@ -166,7 +164,13 @@ function createDefaultShape(shape,id,pos_x,pos_yz){
   }
 }
 
-
 module.exports = {
-  bindListeners
-}
+  bindListeners,
+  showObjectDrag,
+  startObjectDrag,
+  clearObjectDrag,
+  findObjectInJSON,
+  addToJSON,
+  updateJSONWithMove,
+  createDefaultShape
+} 

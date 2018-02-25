@@ -41,8 +41,6 @@ exports.convertToSvg = function (jsonObj, env, dimension) {
       `>`
     if (jsonObj && jsonObj.length > 0) 
       svg += jsonObj.map((obj) => {
-        //TODO: This is wrong, we need shape just once not twice - object too deep
-        //does this matter? if it does then its to do with the .serialisearray in getHarvest - form.js
         switch (obj.shape) {
           case "Sphere":
             return exports.getSVGForSphere(obj, dimension);

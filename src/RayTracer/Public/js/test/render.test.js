@@ -3,7 +3,6 @@ const expect = chai.expect;
 
 var render = require('../render.js');
 
-//TODO: Fix tests - the JSON is wrong... needs height/width not x y for the env
 const sphere = [{
   "shape": "Sphere",
   "size": { "x": 50, "y": 50, "z": 50 },

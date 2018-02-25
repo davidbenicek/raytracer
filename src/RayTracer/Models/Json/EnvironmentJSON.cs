@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using RayTracer.Models.Util;
 
 namespace RayTracer.Models.Json
 {
@@ -25,6 +26,11 @@ namespace RayTracer.Models.Json
             this.background = background;
             this.lights = lights;
             this.camera = new Perspective(camera);
+            this.wallPosition = wallPosition;
+            if(wallPosition.Equals(0.0))
+            {
+                wallPosition = Config.DEFAULT_WALL_POSITION;
+            }
             this.wallPosition = wallPosition;
         }
     }

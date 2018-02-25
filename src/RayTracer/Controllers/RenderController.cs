@@ -57,9 +57,7 @@ namespace RayTracer.Controllers
                 }
 
                 Scene scene = requestJSON.ProcessJSON();
-
                 scene.Render();
-
 
                 HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
                 var stream = new FileStream(requestJSON.environment.fileName+".jpg", FileMode.Open);

@@ -147,5 +147,13 @@ namespace RayTracer.Models.Util
                 return 5;
             }
         }
+
+        public static double DEFAULT_WALL_POSITION
+        {
+            get
+            {
+                return 100.0;
+            }
+        }
     }
 }

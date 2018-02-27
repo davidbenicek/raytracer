@@ -142,6 +142,7 @@
     <Compile Include="Models\Materials\Mirror.cs" />
     <Compile Include="Models\Sampling\Sampler.cs" />
     <Compile Include="Models\Sampling\Regular.cs" />
+    <Compile Include="Models\Geometric\Cube.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

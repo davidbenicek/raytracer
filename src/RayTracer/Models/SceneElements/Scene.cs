@@ -252,7 +252,7 @@ namespace RayTracer.Models.SceneElements
             background = new ColorRGB(0.2,0.4,0.4);
 
             // Build lights
-            camera = new Perspective(new Point3D(0, 0, 300), new Point3D(-5, 0, 0), 850);
+            camera = new Perspective(new Point3D(0, 30, 300), new Point3D(-5, 0, 0), 850);
             tracer = new Tracer(this);
 
             Plane floor = new Plane(new Point3D(0, -100, 0), new Vector3D(0, 1, 0));
@@ -289,15 +289,18 @@ namespace RayTracer.Models.SceneElements
             Light point_ptr2 = new Light(new Point3D(50, 55, 75), new ColorRGB(0, 1, 0), 1);
             AddLight(point_ptr2);
 
-            // Build objects
-            Sphere plastic_sphere = new Sphere(new Point3D(50, 0, 0), 40, new Plastic(new ColorRGB(1, 0, 0)));
-            AddObject(plastic_sphere);
+            Cube cube = new Cube(new Point3D(0), new Point3D(70), new Plastic(new ColorRGB(1, 0, 0)));
+            AddObject(cube);
 
-            Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Metal(new ColorRGB(1,0, 0)));
-            AddObject(metal_sphere);
+            //// Build objects
+            //Sphere plastic_sphere = new Sphere(new Point3D(50, 0, 0), 40, new Plastic(new ColorRGB(1, 0, 0)));
+            //AddObject(plastic_sphere);
 
-            Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
-            AddObject(mirror_sphere);
+            //Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Metal(new ColorRGB(1,0, 0)));
+            //AddObject(metal_sphere);
+
+            //Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
+            //AddObject(mirror_sphere);
         }
 
         public void FinalPicture()

@@ -225,12 +225,11 @@ namespace RayTracer.Models.Json
                     Sphere sphere = new Sphere(geoObj.point, geoObj.size.x, GetMaterial(geoObj));
                     return sphere;
                 }
-
-                //else if (shape.Equals("cube"))
-                //{
-                //    //Return cube
-                //}
-
+                else if(shape.Equals("cube"))
+                {
+                    Cube cube = new Cube(geoObj.point, geoObj.size, GetMaterial(geoObj));
+                    return cube;
+                }
                 string exceMessage = "Shape is not defined";
                 throw new ArgumentException(exceMessage);
             }

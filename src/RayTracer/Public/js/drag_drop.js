@@ -100,7 +100,10 @@ function findObjectInJSON(id){
   }
   return -1;
 }
-
+/*We take the last value to be both y and z, 
+the reason for this is that method is used to create the object in the SVG when it's dragged in initially. 
+The 'drag in' always happens in one of the 2D views so you never know both the Z and the Y - always just one at a time. 
+Therefore, we set the value of z and y to be wherever the cursor entered the svg and then we update the position as the user drags the object around in the 2D views */
 function addToJSON(shape,id,x,yz){
   if(findObjectInJSON(id) == -1){
     let shape_name = "";

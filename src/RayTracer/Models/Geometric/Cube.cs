@@ -19,13 +19,6 @@ namespace RayTracer.Models.Geometric
             maxPoint = new Point3D();
         }
 
-        //public Cube(Point3D minPoint, Point3D maxPoint, Material material)
-        //    : base(material)
-        //{
-        //    this.minPoint = minPoint;
-        //    this.maxPoint = maxPoint;
-        //}
-
         //New Implementation
         public Cube(Point3D Point, Point3D size, Material material)
             : base(material)

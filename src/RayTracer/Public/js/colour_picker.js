@@ -28,7 +28,6 @@ function changeColourPickerValue(){
     const green = $("#colour_g")[0].value;
     const blue = $("#colour_b")[0].value;
     const hex = rgbToHex(red,green,blue);
-    console.log(hex);
     document.getElementById("color_picker").value = hex;
 }
 
@@ -45,7 +44,7 @@ $(document).ready(function () {
         form.renderSvg();        
     })
     
-    changeColourPickerValue()
+    // changeColourPickerValue()
     $("#colour_r, #colour_g, #colour_b").keyup(changeColourPickerValue)
 }
 )

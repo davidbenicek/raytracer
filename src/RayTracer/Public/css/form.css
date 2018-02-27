@@ -1,12 +1,36 @@
-#svg {
-    float:right; 
-    width:50%;
-}
-#svg > svg {
-    border-style: solid;
-    border-width: 1px;
-}
 #user_input {
     float:left; 
     width:50%;
 }
+g {
+    stroke-width: 4;
+    stroke: #000;
+    stroke-linecap: round;
+}
+
+g.fill {
+    fill: #3ff;
+}
+
+body {
+    -ms-touch-action: none;
+}
+
+#canvasBackground {
+    fill: lightgrey;
+}
+
+#inventoryBackground {
+    fill: grey;
+}
+
+.inventory {
+    fill: red;
+}
+
+.draggable {
+    fill: green;
+    stroke-width: 0;
+    cursor: move;
+}
+

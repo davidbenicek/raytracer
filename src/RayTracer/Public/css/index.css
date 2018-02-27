@@ -1,0 +1,24 @@
+#render-view-picker {
+  display: block;
+  margin: auto;
+  width: 20%;
+}
+#render-view-form {
+  display: flex;
+}
+
+.render-view-radio {
+  width: 33%;
+  border: 1px black solid;
+}
+
+#environment-input {
+  /* margin-top: 50px;
+  width: 30%;
+  margin-left: 50px; */
+}
+
+.bottom-half {
+  padding-top: 50px;
+}
+

@@ -5,14 +5,14 @@ const $ = require('jquery');
 
 const render = require('../js/render.js');
 const api = require('../js/sendToApi.js');
-// const render3D = require('../js/render3D.js');
+const d3 = require('../js/render-3d.js');
 
 let objectsJson =
     [
-        {"shape":"Sphere","size":{"x":30,"y":30,"z":30},"point":{"x":200,"y":300,"z":160},
-        "color":{"r":0.0,"g":0.0,"b":1},"material":"flat"},
-        {"shape":"Cube","size":{"x":40,"y":100,"z":40},"point":{"x":200,"y":100,"z":200},
-        "color":{"r":1,"g":1,"b":1},"material":"flat"}
+        {"shape":"Sphere","size":{"x":30,"y":30,"z":30},"point":{"x":200,"y":300,"z":0},
+        "color":{"r":0,"g":0,"b":255},"material":"flat"},
+        {"shape":"Cube","size":{"x":40,"y":100,"z":40},"point":{"x":200,"y":100,"z":0},
+        "color":{"r":138,"g":43,"b":226},"material":"flat"}
     ]
 ;
 
@@ -23,18 +23,32 @@ window.harvestAndSend = function () {
 
 window.routeToView = function () {
     console.log("Calling route");
-    const res = exports.harvest()
+    let res = exports.harvest()
     const view = $('input[name=chosen-view]:checked')[0].value;
     let svg;
     switch(view) {
         case "3D":
-            console.log("render3D.init(objectsJson,res.environment)");
+            //TODO: Get new environment values everytime it clicks "3D" and fix css - help lol
+            $(".2d-views").hide();
+            $("#environment-input").hide();
+            $("#ThreeJS").show();
+            d3.init(res.environment.background,res.environment.camera,res.environment.position);
+            d3.animate();
+            d3.jsonToShape(objectsJson);
             break;
         case "Top":
+            $(".2d-views").show();
+            $("#svg-container").show();
+            $("#environment-input").show();
+            $("#ThreeJS").hide();
             svg = render.convertToSvg(objectsJson, res.environment, "z");
             $("#svg-container").html(svg)
             break;
         default:
+            $(".2d-views").show();
+            $("#svg-container").show();
+            $("#environment-input").show();
+            $("#ThreeJS").hide();
             svg = render.convertToSvg(objectsJson, res.environment, "y");
             $("#svg-container").html(svg)
             break;

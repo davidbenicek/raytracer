@@ -33,4 +33,6 @@ body {
     stroke-width: 0;
     cursor: move;
 }
-
+#ThreeJS {
+    width:50%;
+}

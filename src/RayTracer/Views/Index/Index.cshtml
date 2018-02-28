@@ -14,6 +14,7 @@
   <script src="../../Public/dist/bundle.js"></script>
   <link rel="stylesheet" href="../../Public/css/form.css">
   <link rel="stylesheet" href="../../Public/css/index.css">
+  <link rel="stylesheet" href="../../Public/css/render-space.css">
   <!--Third party imports -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,11 +31,11 @@
       <div class="row">
           <div id="render-view-picker" class="btn-group" data-toggle="buttons">
               <label class="btn btn-primary">
-                  <input type="radio" onchange="window.routeToView()" name="chosen-view" value="Side" checked/>Side</label>
+                  <input type="radio" onchange="module.routeToView()" name="chosen-view" value="Side" checked/>Side</label>
               <label class="btn btn-primary">
-                  <input type="radio" onchange="window.routeToView()" name="chosen-view" value="Top" />Top</label>
+                  <input type="radio" onchange="module.routeToView()" name="chosen-view" value="Top" />Top</label>
               <label class="btn btn-primary">
-                  <input type="radio" onchange="window.routeToView()" name="chosen-view" value="3D" />3D</label>
+                  <input type="radio" onchange="module.routeToView()" name="chosen-view" value="3D" />3D</label>
           </div>
       </div>
       <div class="row bottom-half">
@@ -145,15 +146,15 @@
                   </div>
                 </form>
             
-                <button type="button" id="submit">Render!</button>
+                <button type="button" onclick="module.harvestAndSend()" id="submit">Render!</button>
             
               </div>
         </div>
         <div class="col-sm-8" id="render-space">
-            <div class="row 2d-views">
+            <div class="row 2d-views inventory-container">
               <svg id="inventory" width="500" height="100" x="0" y="0">
-                  <circle id="curve1" class="inventory-object" on cx="80" cy="36" r="35" />
-                  <rect id="curve2" class="inventory-object" x="150" y="0" width="60" height="60"/>
+                  <circle id="curve1" class="inventory-object" onmousedown="module.startObjectDrag('circle')"  cx="80" cy="50" r="35" />
+                  <rect id="curve2" class="inventory-object" onmousedown="module.startObjectDrag('rect')" x="150" y="15" width="70" height="70"/>
               </svg>
             </div>
             <div class="row 2d-views">

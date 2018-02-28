@@ -1,5 +1,5 @@
 ﻿using System;
-namespace rayTracer.Models.Elements
+namespace RayTracer.Models.Elements
 {
     public class ColorRGB
     {

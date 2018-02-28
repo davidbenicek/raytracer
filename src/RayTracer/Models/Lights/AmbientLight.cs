@@ -1,5 +1,4 @@
-﻿using rayTracer.Models.Elements;
-using RayTracer.Models.Elements;
+﻿using RayTracer.Models.Elements;
 using RayTracer.Models.Util;
 
 namespace RayTracer.Models.Lights
@@ -18,7 +17,7 @@ namespace RayTracer.Models.Lights
          * oriented issues, and inheritance issues
         */
 
-        public AmbientLight(ColorRGB rgbColor, double intensity)
+        public AmbientLight(ColorRGB rgbColor, double intensity = 1.0)
         {
             this.intensity = intensity;
             this.rgbColor = rgbColor;

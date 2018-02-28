@@ -1,5 +1,5 @@
-﻿using System;
-using rayTracer.Models.Elements;
+﻿using RayTracer.Models.Elements;
+using RayTracer.Models.SceneElements;
 using RayTracer.Models.Util;
 
 namespace RayTracer.Models.Materials
@@ -48,13 +48,17 @@ namespace RayTracer.Models.Materials
             {
                 this.rgbColor = rgbColor;
             }
+            else
+            {
+                this.rgbColor = Config.DEFAULT_COLOR;
+            }
         }
 
-        /* In this function we'll calculate the shadow of the object,
+        /* In this function we'll calculate the shade of the object,
          * but it depends on the material, and the values of different
          * coefficients provided with each material.
         */ 
-        public abstract ColorRGB CalculateShadow(HitInfo hitInfo);
+        public abstract ColorRGB CalculateShade(HitInfo hitInfo, Scene scene = null);
 
     }
 }

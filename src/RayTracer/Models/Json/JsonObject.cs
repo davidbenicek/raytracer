@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RayTracer.Models.Cameras;
+using RayTracer.Models.Elements;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Lights;
 using RayTracer.Models.Materials;
@@ -101,6 +102,8 @@ namespace RayTracer.Models.Json
                     scene.AddObject(GetObject(geoObj));
                 }
 
+                scene = AddWalls(scene);
+
                 return scene;
             }
             catch (ArgumentNullException ex)
@@ -112,6 +115,52 @@ namespace RayTracer.Models.Json
                 throw ex;
             }
         }
+
+        /* This method will add walls to the scene based on the wallPosition parameter
+         * received from the front end sid.
+         * This method will create left, right, back, front walls, in addition to the
+         * floor and the ceil using the background color received from the front end side.
+        */ 
+        private Scene AddWalls(Scene scene)
+        {
+            try
+            {
+                Plane floor = new Plane(new Point3D(0, -1 * environment.wallPosition, 0), new Vector3D(0, 1, 0));
+                floor.SetMaterial(new Chalk(environment.background));
+                scene.AddObject(floor);
+
+                Plane ceil = new Plane(new Point3D(0, environment.wallPosition, 0), new Vector3D(0, -1, 0));
+                ceil.SetMaterial(new Chalk(environment.background));
+                scene.AddObject(ceil);
+
+                Plane leftWall = new Plane(new Point3D(-1* environment.wallPosition, 0, 0), new Vector3D(1, 0, 0));
+                leftWall.SetMaterial(new Chalk(environment.background));
+                scene.AddObject(leftWall);
+
+                Plane rightWall = new Plane(new Point3D(environment.wallPosition, 0, 0), new Vector3D(-1, 0, 0));
+                rightWall.SetMaterial(new Chalk(environment.background));
+                scene.AddObject(rightWall);
+
+                Plane backWall = new Plane(new Point3D(0, 0, -1*environment.wallPosition), new Vector3D(0, 0, 1));
+                backWall.SetMaterial(new Chalk(environment.background));
+                scene.AddObject(backWall);
+
+                Plane frontWall = new Plane(new Point3D(0, 0, environment.camera.position.z), new Vector3D(0, 0, 1));
+                frontWall.SetMaterial(new Chalk(environment.background));
+                scene.AddObject(frontWall);
+
+                return scene;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         /* This method process the environment parameters received in the JSON,
          * such as the window frame details, and camera, then create an object
          * of the scene which will be used to add objects and lights to the scene.
@@ -176,12 +225,11 @@ namespace RayTracer.Models.Json
                     Sphere sphere = new Sphere(geoObj.point, geoObj.size.x, GetMaterial(geoObj));
                     return sphere;
                 }
-
-                //else if (shape.Equals("cube"))
-                //{
-                //    //Return cube
-                //}
-
+                else if(shape.Equals("cube"))
+                {
+                    Cube cube = new Cube(geoObj.point, geoObj.size, GetMaterial(geoObj));
+                    return cube;
+                }
                 string exceMessage = "Shape is not defined";
                 throw new ArgumentException(exceMessage);
             }
@@ -221,7 +269,7 @@ namespace RayTracer.Models.Json
                     return Config.DEFAULT_MATERIAL_OBJECT;
                 }
                 //Set the color of the object, to the color received by the JSON, if not received it will be the default color
-                materialObject.rgbColor = geoObj.color;
+                materialObject.SetColor(geoObj.color);
 
                 return materialObject;
 

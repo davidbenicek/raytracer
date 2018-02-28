@@ -61,7 +61,7 @@ namespace RayTracer.Models.Geometric
             double denominator = 2 * a;
 
             //check if denominator is equal to zero
-            if(denominator==0.0)
+            if(denominator.Equals(0))
             {
                 intersectionObject.hasHit = false;
                 return intersectionObject;
@@ -72,15 +72,7 @@ namespace RayTracer.Models.Geometric
 
             if(t>Config.KEPSILON_VALUE)
             {
-                intersectionObject.hasHit = true;
-                intersectionObject.tMin = t;
-                intersectionObject.hitObject = this;
-                intersectionObject.ray = ray;
-                //This represents the point where the ray hits the object
-                intersectionObject.hitPoint = ray.origin + (ray.direction * t);
-                //Check
-                intersectionObject.normalAtHit = (tempVector + (ray.direction)) / radius;
-                return intersectionObject;
+                return GetIntersectInfo(ray, tempVector, t);
             }
 
             //Next We check for -b-sqrt(b^2-4ac)/2a
@@ -91,15 +83,7 @@ namespace RayTracer.Models.Geometric
 
             if (t > Config.KEPSILON_VALUE)
             {
-                intersectionObject.hasHit = true;
-                intersectionObject.tMin = t;
-                intersectionObject.hitObject = this;
-                intersectionObject.ray = ray;
-                //This represents the point where the ray hits the object
-                intersectionObject.hitPoint = ray.origin + (ray.direction * t);
-                //Check
-                intersectionObject.normalAtHit = (tempVector + (ray.direction)) / radius;
-                return intersectionObject;
+                return GetIntersectInfo(ray, tempVector, t);
             }
 
             /*If there is no solution greater than the threshold, then this ray didn't hit
@@ -107,7 +91,20 @@ namespace RayTracer.Models.Geometric
                  */
             intersectionObject.hasHit = false;
             return intersectionObject;
+        }
 
+        private HitInfo GetIntersectInfo(Ray ray, Vector3D tempVector, double t)
+        {
+            HitInfo intersectionObject = new HitInfo();
+            intersectionObject.hasHit = true;
+            intersectionObject.tMin = t;
+            intersectionObject.hitObject = this;
+            intersectionObject.ray = ray;
+            //This represents the point where the ray hits the object
+            intersectionObject.hitPoint = ray.origin + (ray.direction * t);
+            //Check
+            intersectionObject.normalAtHit = (tempVector + (ray.direction * t)) / radius;
+            return intersectionObject;
         }
     }
 }

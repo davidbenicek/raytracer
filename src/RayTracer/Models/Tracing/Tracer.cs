@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using rayTracer.Models.Elements;
+﻿using System.Collections.Generic;
 using RayTracer.Models.Elements;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Lights;
@@ -30,7 +28,7 @@ namespace RayTracer.Models.Tracing
 
             if (hitDetails != null && hitDetails.hasHit)
             {
-                return hitDetails.hitObject.GetMaterial().CalculateShadow(hitDetails) * TraceShadeRay(hitDetails);
+                return hitDetails.hitObject.GetMaterial().CalculateShade(hitDetails, scene) * TraceShadeRay(hitDetails);
             }
             else
             {

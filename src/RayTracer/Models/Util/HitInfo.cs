@@ -27,6 +27,7 @@ namespace RayTracer.Models.Util
             hitPoint = hitInfo.hitPoint;
             normalAtHit = hitInfo.normalAtHit;
             hitObject = hitInfo.hitObject;
+            tMin = hitInfo.tMin;
         }
 
         public HitInfo(bool HitObject, double tMin, Point3D hitPoint, Vector3D normalAtHit, GeometryObject hitObject)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using rayTracer.Models.Elements;
 using RayTracer.Models.Cameras;
 using RayTracer.Models.Lights;
 using RayTracer.Models.Geometric;
@@ -9,6 +8,7 @@ using RayTracer.Models.Elements;
 using RayTracer.Models.Tracing;
 using RayTracer.Models.Materials;
 using System.Drawing;
+using RayTracer.Models.Sampling;
 
 namespace RayTracer.Models.SceneElements
 {
@@ -23,6 +23,7 @@ namespace RayTracer.Models.SceneElements
         Light ambientLight;
         Tracer tracer;
         string fileName;
+        Sampler sampler;
 
         public Scene(WindowFrame winFrame)
         {
@@ -33,6 +34,7 @@ namespace RayTracer.Models.SceneElements
             background = Config.DEFAULT_COLOR;
             this.camera = new Perspective();
             tracer = new Tracer(this);
+            sampler = new Regular(Config.NUM_OF_SAMPLES, Config.NUM_OF_SETS);
         }
 
         public Scene(WindowFrame winFrame, string fileName, ColorRGB background, Camera camera)
@@ -45,6 +47,7 @@ namespace RayTracer.Models.SceneElements
             this.camera = camera;
             this.fileName = fileName;
             this.background = background;
+            sampler = new Regular(Config.NUM_OF_SAMPLES, Config.NUM_OF_SETS);
         }
 
         public Scene(Scene sceneObj)
@@ -61,6 +64,7 @@ namespace RayTracer.Models.SceneElements
             finalPixels = new ColorRGB[winFrame.width, winFrame.height];
             tracer = sceneObj.tracer;
             camera = sceneObj.camera;
+            sampler = sceneObj.sampler;
         }
 
         public Scene(List<Light> lights, List<GeometryObject> objectsList, ColorRGB Background, WindowFrame winFrame, Camera camera)
@@ -72,6 +76,7 @@ namespace RayTracer.Models.SceneElements
             finalPixels = new ColorRGB[winFrame.width, winFrame.height];
             this.camera = camera;
             tracer = new Tracer(this);
+            sampler = new Regular(Config.NUM_OF_SAMPLES, Config.NUM_OF_SETS);
         }
 
         public void AddObject(GeometryObject geoObj)
@@ -134,6 +139,11 @@ namespace RayTracer.Models.SceneElements
         public void SetWidth(int width)
         {
             winFrame.width = width;
+        }
+
+        public Sampler GetSampler()
+        {
+            return sampler;
         }
 
         public int GetWidth()
@@ -210,7 +220,7 @@ namespace RayTracer.Models.SceneElements
                         continue;
                     }
 
-                    if (intersectInfo.tMin < hitInfo.tMin)
+                    if (intersectInfo.tMin < hitInfo.tMin && intersectInfo.tMin > 0)
                     {
                         hitInfo = new HitInfo(intersectInfo);
                     }
@@ -238,33 +248,59 @@ namespace RayTracer.Models.SceneElements
 
         public void CreateScene()
         {
-            camera = new Perspective(new Point3D(0, 0, 500), new Point3D(-5, 0, 0), 850);
 
             background = new ColorRGB(0.2,0.4,0.4);
 
             // Build lights
-            Light ambient_ptr = new AmbientLight(new ColorRGB(.3, .3, .3), 1);
+            camera = new Perspective(new Point3D(0, 30, 300), new Point3D(-5, 0, 0), 850);
+            tracer = new Tracer(this);
+
+            Plane floor = new Plane(new Point3D(0, -100, 0), new Vector3D(0, 1, 0));
+            floor.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(floor);
+
+            Plane ceil = new Plane(new Point3D(0, 100, 0), new Vector3D(0, -1, 0));
+            ceil.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(ceil);
+
+            Plane left_wall = new Plane(new Point3D(-100, 0, 0), new Vector3D(1, 0, 0));
+            left_wall.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(left_wall);
+
+            Plane right_wall = new Plane(new Point3D(100, 0, 0), new Vector3D(-1, 0, 0));
+            right_wall.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(right_wall);
+
+            Plane back_wall = new Plane(new Point3D(0, 0, -100), new Vector3D(0, 0, 1));
+            back_wall.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(back_wall);
+
+            Plane front_wall = new Plane(new Point3D(0, 0, 300), new Vector3D(0, 0, 1));
+            front_wall.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(front_wall);
+
+            // Build lights
+            AmbientLight ambient_ptr = new AmbientLight(new ColorRGB(.3, .3, .3), 1);
             SetAmbientLight(ambient_ptr);
 
-            Light point_ptr = new Light(new Point3D(0, 55, 95), new ColorRGB(1, 0, 0), 0.5);
+            Light point_ptr = new Light(new Point3D(0, 55, 95),new ColorRGB(1, 0, 0) ,1 );
             AddLight(point_ptr);
 
-            Light point_ptr2 = new Light(new Point3D(50, 55, 75), new ColorRGB(0, 1, 0),0.4);
+            Light point_ptr2 = new Light(new Point3D(50, 55, 75), new ColorRGB(0, 1, 0), 1);
             AddLight(point_ptr2);
 
-            // Build objects
-            Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Flat(new ColorRGB(0.0, 0.0, 1)));
-            AddObject(metal_sphere);
+            Cube cube = new Cube(new Point3D(0), new Point3D(70), new Plastic(new ColorRGB(1, 0, 0)));
+            AddObject(cube);
 
-            Sphere plastic_sphere = new Sphere(new Point3D(50, 0, 0), 40, new Flat(Config.WHITE));
-            AddObject(plastic_sphere);
+            //// Build objects
+            //Sphere plastic_sphere = new Sphere(new Point3D(50, 0, 0), 40, new Plastic(new ColorRGB(1, 0, 0)));
+            //AddObject(plastic_sphere);
 
-            Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 40, new Flat(new ColorRGB(1,0,0)));
-            AddObject(mirror_sphere);
+            //Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Metal(new ColorRGB(1,0, 0)));
+            //AddObject(metal_sphere);
 
-            Sphere water_sphere = new Sphere(new Point3D(0, -30, 100), 70, new Flat(new ColorRGB(1,0,1)));
-            AddObject(water_sphere);
-
+            //Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
+            //AddObject(mirror_sphere);
         }
 
         public void FinalPicture()

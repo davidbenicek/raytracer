@@ -1,0 +1,11 @@
+svg {
+  border: solid salmon 5px;
+}
+
+.inventory-container {
+  height: 100px;
+}
+
+.svg-object {
+  cursor: move;
+}

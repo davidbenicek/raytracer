@@ -34,15 +34,20 @@ function showObjectDrag(){
     //Monitor movement within #svg element
     $("#svg").mousemove(function(e) {
       //Calculating relative position within #svg by getting cursor pos and taking away top right corner of #svg
+      const dimension = ($('input[name=chosen-view]:checked')[0].value) == "Side" ? "y" : "z"
+      
       let x_new = e.pageX - $("#svg").position().left;
-      let y_new = e.pageY - $("#svg").position().top;
+      let yz_new = e.pageY - $("#svg").position().top;
+
+      let x_json = convertSVGCordsToJSON(x_new,"x");
+      let yz_json = convertSVGCordsToJSON(yz_new,dimension);
       
       //Create the default SVG shape
-      entrant = createDefaultShape(module.exports.new_object,module.exports.dragged_id,x_new,y_new);
+      entrant = createDefaultShape(module.exports.new_object,module.exports.dragged_id,x_new,yz_new);
       //Add it to the actual #svg element
       entrant.appendTo($("#svg"));
       //Also update JSON
-      addToJSON(module.exports.new_object,module.exports.dragged_id,x_new,y_new);
+      addToJSON(module.exports.new_object,module.exports.dragged_id,x_json,yz_json);
       //Now that we are inside the SVG and not dragging a new object in, we want to replace the mouse move listener
       $("#svg").unbind("mousemove");
       
@@ -68,17 +73,23 @@ function bindListeners(){
         $(".svg-object").trigger("mouseup");
       }
 
+      const dimension = ($('input[name=chosen-view]:checked')[0].value) == "Side" ? "y" : "z"
+
+
       //Calculate position of the cursor in reference to the SVG
       let x_new = e.pageX - $("#svg").position().left;
-      let y_new = e.pageY - $("#svg").position().top;
+      let yz_new = e.pageY - $("#svg").position().top;
+
+      let x_json = convertSVGCordsToJSON(x_new,"x");
+      let yz_json = convertSVGCordsToJSON(yz_new,dimension);
 
       //Update in JSON
-      updateJSONWithMove(e.target.id,"y",x_new,y_new);
+      updateJSONWithMove(e.target.id,dimension,x_json,yz_json);
       //Move object in SVG
       if(e.target.tagName == "rect")
-        moveRect(e.target,x_new,y_new);
+        moveRect(e.target,x_new,yz_new);
       else
-        moveCircle(e.target,x_new,y_new);
+        moveCircle(e.target,x_new,yz_new);
     })
   })
 
@@ -134,6 +145,13 @@ function updateJSONWithMove(id,dimension,x,yz){
     form.objectsJSON[i].point.x = x;
     form.objectsJSON[i].point[dimension] = yz;
   }
+}
+
+function convertSVGCordsToJSON(value,dimension) {
+  if(dimension == "x")
+    return value - parseInt(form.env.winFrame.Width)/2;
+  else 
+    return value - parseInt(form.env.winFrame.Height)/2
 }
 
 function moveCircle(target,x,yz){

@@ -47,21 +47,21 @@ describe('2D Render front end functions', function () {
     it('processes sphere as input in y', function () {
 
       const svg = render.convertToSvg(sphere, env, "y");
-      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><circle class="svg-object" cx="50" cy="50" r="50" style="fill:rgb(0,100,0);"/></svg>');
+      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><circle class="svg-object" cx="300" cy="300" r="50" style="fill:rgb(0,100,0);"/></svg>');
 
     });
 
     it('processes cube as input in z', function () {
 
       const svg = render.convertToSvg(cube, env, "z");
-      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><rect class="svg-object" x="50" y="50" width="50" height="50" style="fill:rgb(0,100,0);"/></svg>');
+      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><rect class="svg-object" x="300" y="300" width="50" height="50" style="fill:rgb(0,100,0);"/></svg>');
 
     });
 
     it('processes cube and sphere as input in y', function () {
 
       const svg = render.convertToSvg(shpereAndCube, env, "y");
-      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><circle class="svg-object" cx="50" cy="50" r="50" style="fill:rgb(0,100,0);"/><rect class="svg-object" x="50" y="50" width="50" height="50" style="fill:rgb(0,100,0);"/></svg>');
+      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><circle class="svg-object" cx="300" cy="300" r="50" style="fill:rgb(0,100,0);"/><rect class="svg-object" x="300" y="300" width="50" height="50" style="fill:rgb(0,100,0);"/></svg>');
 
     });
 

@@ -11,12 +11,12 @@ $(window).on('load', function () {
 
 	// FUNCTIONS 		
 
-	function rgbToHex(r,g,b){
-		return "#"+(1<<24|r<<16|g<<8|b).toString(16).slice(1)
+	function rgbToHex(r, g, b) {
+		return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)
 	}
 
-	exports.init = function (b_color,camera_position,light_position) {
-		
+	exports.init = function (b_color, camera_position, light_position) {
+
 		// SCENE
 		scene = new THREE.Scene();
 		// CAMERA
@@ -47,48 +47,32 @@ $(window).on('load', function () {
 		/* var floorTexture = new THREE.ImageUtils.loadTexture( 'images/checkerboard.jpg' );
 		floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
 		floorTexture.repeat.set( 10, 10 ); */
-		var floorMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
-		var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
-		var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-		floor.position.x = -500;
-		floor.position.y = -0;
-		floor.position.z = -500;
-		floor.rotation.x = Math.PI / 2;
-		scene.add(floor);
-		// SKYBOX/FOG
+
+		// walls
 		var skyBoxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
-		let hex = rgbToHex(b_color.r,b_color.g,b_color.b);
+		let hex = rgbToHex(b_color.r, b_color.g, b_color.b);
 		var skyBoxMaterial = new THREE.MeshBasicMaterial({ color: hex, side: THREE.BackSide });
 		var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
-		skyBox.position.x = -500;
-		skyBox.position.y = 500;
-		skyBox.position.z = -500;
+		skyBox.position.x = 0;
+		skyBox.position.y = 0;
+		skyBox.position.z = 0;
 		scene.add(skyBox);
-		console.log(scene);
+
+		wireframe = new THREE.WireframeHelper( skyBox, 0x191919);
+		scene.add( wireframe );
+ 
+		var skyBoxGeometry = new THREE.CubeGeometry(10, 10, 10);
+		var skyBoxMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.BackSide });
+		var skyBox1 = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
+		skyBox1.position.x = 5;
+		skyBox1.position.y = 5;
+		skyBox1.position.z = 5;
+		scene.add(skyBox1);
 
 		////////////
 		// CUSTOM //
 		////////////
 
-
-		//////////////////////////////////////////////////////////////////////
-
-		// this material causes a mesh to use colors assigned to faces
-		var faceColorMaterial = new THREE.MeshBasicMaterial(
-			{ color: 0xffffff, vertexColors: THREE.FaceColors });
-
-		var sphereGeometry = new THREE.SphereGeometry(80, 32, 16);
-		for (var i = 0; i < sphereGeometry.faces.length; i++) {
-			face = sphereGeometry.faces[i];
-			face.color.setRGB(0, 0, 0.8 * Math.random() + 0.2);
-		}
-		var sphere = new THREE.Mesh(sphereGeometry, faceColorMaterial);
-		sphere.position.set(0, 0, 0);
-		scene.add(sphere);
-
-		targetList.push(sphere);
-
-		//////////////////////////////////////////////////////////////////////
 
 		// initialize object to perform world/screen calculations
 		projector = new THREE.Projector();
@@ -131,11 +115,11 @@ $(window).on('load', function () {
 	}
 
 	function toString(v) { return "[ " + v.x + ", " + v.y + ", " + v.z + " ]"; }
-	
+
 
 	function create_cube(id, color, size, material, point) {
 		var idGeometry = new THREE.CubeGeometry(size.x, size.y, size.z);
-		let hex = rgbToHex(color.r,color.g,color.b);
+		let hex = rgbToHex(color.r, color.g, color.b);
 		var idMaterial = new THREE.MeshBasicMaterial({ color: hex, side: THREE.BackSide });
 		var id = new THREE.Mesh(idGeometry, idMaterial);
 		id.position.set(point.x, point.y, point.z);
@@ -144,7 +128,7 @@ $(window).on('load', function () {
 	}
 
 	function create_sphere(id, color, size, material, point) {
-		let hex = rgbToHex(color.r,color.g,color.b);
+		let hex = rgbToHex(color.r, color.g, color.b);
 		var faceColorMaterial = new THREE.MeshBasicMaterial({ color: hex, vertexColors: THREE.FaceColors });
 		var sphereGeometry = new THREE.SphereGeometry(size.x, size.y, size.z);
 		var id = new THREE.Mesh(sphereGeometry, faceColorMaterial);
@@ -172,10 +156,11 @@ $(window).on('load', function () {
 	}
 
 	exports.animate = function () {
-		requestAnimationFrame( exports.animate );
+		requestAnimationFrame(exports.animate);
 		exports.render();
 		update();
 	}
+
 
 	function update() {
 		if (keyboard.pressed("z")) {
@@ -185,7 +170,7 @@ $(window).on('load', function () {
 		controls.update();
 	}
 
-	exports.render = function render () {
+	exports.render = function render() {
 		renderer.render(scene, camera);
 	}
 });

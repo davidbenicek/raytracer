@@ -9,9 +9,9 @@ const d3 = require('../js/render-3d.js');
 
 let objectsJson =
     [
-        {"shape":"Sphere","size":{"x":30,"y":30,"z":30},"point":{"x":200,"y":300,"z":0},
+        {"shape":"Sphere","size":{"x":30,"y":30,"z":30},"point":{"x":0,"y":0,"z":0},
         "color":{"r":0,"g":0,"b":255},"material":"flat"},
-        {"shape":"Cube","size":{"x":40,"y":100,"z":40},"point":{"x":200,"y":100,"z":0},
+        {"shape":"Cube","size":{"x":100,"y":100,"z":100},"point":{"x":100,"y":200,"z":300},
         "color":{"r":138,"g":43,"b":226},"material":"flat"}
     ]
 ;
@@ -28,15 +28,17 @@ window.routeToView = function () {
     let svg;
     switch(view) {
         case "3D":
-            //TODO: Get new environment values everytime it clicks "3D" and fix css - help lol
+            //TODO: fix css 
+            $( "#ThreeJS" ).empty();
             $(".2d-views").hide();
-            $("#environment-input").hide();
+            //$("#environment-input").hide();
             $("#ThreeJS").show();
             d3.init(res.environment.background,res.environment.camera,res.environment.position);
             d3.animate();
             d3.jsonToShape(objectsJson);
             break;
         case "Top":
+            $( "#ThreeJS" ).empty();
             $(".2d-views").show();
             $("#svg-container").show();
             $("#environment-input").show();
@@ -45,6 +47,7 @@ window.routeToView = function () {
             $("#svg-container").html(svg)
             break;
         default:
+            $( "#ThreeJS" ).empty();
             $(".2d-views").show();
             $("#svg-container").show();
             $("#environment-input").show();

@@ -1,14 +1,11 @@
 const $ = require('jquery');
 
-$(window).on('load', function () {
-	// standard global variables
-	let container, scene, camera, renderer, controls, stats;
-	let keyboard = new THREEx.KeyboardState();
+// standard global variables
+let container, scene, camera, renderer, controls, stats;
 
-	// custom global variables
-	let targetList = [];
-	let projector, mouse = { x: 0, y: 0 };
-
+// custom global variables
+let targetList = [];
+let projector, mouse = { x: 0, y: 0 };
 	// FUNCTIONS 		
 
 	function rgbToHex(r, g, b) {
@@ -161,4 +158,4 @@ $(window).on('load', function () {
 	exports.render = function render() {
 		renderer.render(scene, camera);
 	}
-});
+

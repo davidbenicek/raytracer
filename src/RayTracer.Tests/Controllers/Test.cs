@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using RayTracer.Models.SceneElements;
+using RayTracer.
 
 namespace RayTracer.Tests.Controllers
 {
@@ -13,8 +13,6 @@ namespace RayTracer.Tests.Controllers
             scene.SetFileName("test");
             scene.CreateScene();
             scene.Render();
-
-            scene.FinalPicture();
         }
     }
 }

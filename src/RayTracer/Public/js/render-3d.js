@@ -2,12 +2,12 @@ const $ = require('jquery');
 
 $(window).on('load', function () {
 	// standard global variables
-	var container, scene, camera, renderer, controls, stats;
-	var keyboard = new THREEx.KeyboardState();
+	let container, scene, camera, renderer, controls, stats;
+	let keyboard = new THREEx.KeyboardState();
 
 	// custom global variables
-	var targetList = [];
-	var projector, mouse = { x: 0, y: 0 };
+	let targetList = [];
+	let projector, mouse = { x: 0, y: 0 };
 
 	// FUNCTIONS 		
 
@@ -49,25 +49,17 @@ $(window).on('load', function () {
 		floorTexture.repeat.set( 10, 10 ); */
 
 		// walls
-		var skyBoxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
 		let hex = rgbToHex(b_color.r, b_color.g, b_color.b);
-		var skyBoxMaterial = new THREE.MeshBasicMaterial({ color: hex, side: THREE.BackSide });
-		var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
-		skyBox.position.x = 0;
-		skyBox.position.y = 0;
-		skyBox.position.z = 0;
-		scene.add(skyBox);
+		var wallsGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
+		var wallBoxMaterial = new THREE.MeshBasicMaterial({ color: hex, side: THREE.BackSide });
+		var wallBox = new THREE.Mesh(wallsGeometry, wallBoxMaterial);
+		wallBox.position.x = 0;
+		wallBox.position.y = 0;
+		wallBox.position.z = 0;
+		scene.add(wallBox);
 
-		wireframe = new THREE.WireframeHelper( skyBox, 0x191919);
+		wireframe = new THREE.WireframeHelper( wallBox, 0x191919);
 		scene.add( wireframe );
- 
-		var skyBoxGeometry = new THREE.CubeGeometry(10, 10, 10);
-		var skyBoxMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.BackSide });
-		var skyBox1 = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
-		skyBox1.position.x = 5;
-		skyBox1.position.y = 5;
-		skyBox1.position.z = 5;
-		scene.add(skyBox1);
 
 		////////////
 		// CUSTOM //
@@ -87,7 +79,6 @@ $(window).on('load', function () {
 		// (such as the mouse's TrackballControls)
 		// event.preventDefault();
 
-		console.log("Click.");
 
 		// update the mouse variable
 		mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -104,13 +95,14 @@ $(window).on('load', function () {
 		// create an array containing all objects in the scene with which the ray intersects
 		var intersects = ray.intersectObjects(targetList);
 
-		// if there is one (or more) intersections
+		//if we want to use intersections in the future
+		/* // if there is one (or more) intersections
 		if (intersects.length > 0) {
 			console.log("Hit @ " + toString(intersects[0].point));
 			// change the color of the closest face.
 			intersects[0].face.color.setRGB(0.8 * Math.random() + 0.2, 0, 0);
 			intersects[0].object.geometry.colorsNeedUpdate = true;
-		}
+		} */
 
 	}
 
@@ -163,10 +155,6 @@ $(window).on('load', function () {
 
 
 	function update() {
-		if (keyboard.pressed("z")) {
-			// do something
-		}
-
 		controls.update();
 	}
 

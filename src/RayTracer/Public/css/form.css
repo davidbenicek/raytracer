@@ -33,6 +33,4 @@ body {
     stroke-width: 0;
     cursor: move;
 }
-canvas * {
-    width:100%;
-}
+

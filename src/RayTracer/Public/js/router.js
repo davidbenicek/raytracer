@@ -11,10 +11,8 @@ function routeToView() {
     let svg;
     switch(view) {
         case "3D":
-            //TODO: fix css 
             $( "#ThreeJS" ).empty();
             $(".2d-views").hide();
-            //$("#environment-input").hide();
             $("#ThreeJS").show();
             d3.init(res.environment.background,res.environment.camera,res.environment.position);
             d3.animate();
@@ -24,17 +22,15 @@ function routeToView() {
             $( "#ThreeJS" ).empty();
             $(".2d-views").show();
             $("#svg-container").show();
-            $("#environment-input").show();
             $("#ThreeJS").hide();
             svg = render.convertToSvg(form.objectsJSON, res.environment, "z");
             $("#svg-container").html(svg)
             drag_drop.bindListeners()
             break;
-            default:
+        default:
             $( "#ThreeJS" ).empty();
             $(".2d-views").show();
             $("#svg-container").show();
-            $("#environment-input").show();
             $("#ThreeJS").hide();
             svg = render.convertToSvg(form.objectsJSON, res.environment, "y");
             $("#svg-container").html(svg)

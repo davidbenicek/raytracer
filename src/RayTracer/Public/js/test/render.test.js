@@ -145,4 +145,20 @@ describe('2D Render front end functions', function () {
 
     });
   });
+  describe('Convert from JSON to SVG coordinates', function () {
+    it('Calculates conversion from SVG to JSON coordinates in x', function () {
+      const res = render.convertJSONCordsToSVG(50,"x");
+      expect(res).to.equal(300);
+    })
+    
+    it('Calculates conversion from SVG to JSON coordinates in y', function () {
+      const res = render.convertJSONCordsToSVG(100,"y");
+      expect(res).to.equal(350);
+    })
+
+    it('Calculates conversion from SVG to JSON coordinates in z', function () {
+      const res = render.convertJSONCordsToSVG(0,"z");
+      expect(res).to.equal(250);
+    })
+  });
 });

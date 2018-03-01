@@ -193,5 +193,6 @@ module.exports = {
   findObjectInJSON,
   addToJSON,
   updateJSONWithMove,
-  createDefaultShape
+  createDefaultShape,
+  convertSVGCordsToJSON
 } 

@@ -25,5 +25,10 @@ namespace RayTracer.Tests.Controllers
             }
 
         }
+
+        public void TestSum()
+        {
+            
+        }
     }
 }

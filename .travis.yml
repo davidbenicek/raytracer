@@ -1,6 +1,4 @@
-language: csharp
-solution: src/RayTracer.sln
-install:
-  - nuget # lets get version number
-  - nuget restore src/RayTracer.sln -Verbosity detailed
-  - nuget update src/RayTracer.sln -Verbosity detailed
+language: node_js
+node_js:
+  - "stable"
+before_install: cd src/RayTracer/Public

@@ -1,13 +1,13 @@
+
 language: node_js csharp
-solution: cd src/RayTracer.sln
+solution: "./src/RayTracer.sln"
 node_js:
   - "stable"
-before_install: 
-  - cd src/RayTracer/Public
-  - sudo apt-get install nunit-console
+before_install: cd src/RayTracer/Public
+install:
+  - nuget restore RayTracer.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Debug RayTracer.sln
-before_script:
-  - dotnet restore RayTracer.sln
-after_script:
-  - nunit-console src/RayTracer.Tests/bin/Debug/RayTracer.Tests.dll
+  - xbuild /p:Configuration=Release solution-name.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./RayTracer.Tests/bin/Debug/RayTracer.Tests.dll
+

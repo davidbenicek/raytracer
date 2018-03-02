@@ -7,7 +7,6 @@ before_install:
 script:
   - xbuild /p:Configuration=Debug RayTracer.sln
 before_script:
-  - cd src
-  - nuget restore RayTracer.sln
+  - nuget restore src/RayTracer.sln
 after_script:
-  - nunit-console RayTracer.Tests/bin/Debug/RayTracer.Tests.dll
+  - nunit-console src/RayTracer.Tests/bin/Debug/RayTracer.Tests.dll

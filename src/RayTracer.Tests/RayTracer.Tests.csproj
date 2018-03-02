@@ -103,6 +103,8 @@
     <Compile Include="TracingTest\TracerTest.cs" />
     <Compile Include="MaterialsTesting\PhongTest.cs" />
     <Compile Include="MaterialsTesting\MirrorTest.cs" />
+    <Compile Include="MaterialsTesting\FlatTest.cs" />
+    <Compile Include="SamplingTesting\RegularSamplingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -111,6 +113,7 @@
     <Folder Include="GeometricTesting\" />
     <Folder Include="TracingTest\" />
     <Folder Include="MaterialsTesting\" />
+    <Folder Include="SamplingTesting\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

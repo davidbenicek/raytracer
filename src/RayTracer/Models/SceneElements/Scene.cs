@@ -299,8 +299,8 @@ namespace RayTracer.Models.SceneElements
             //Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Metal(new ColorRGB(1,0, 0)));
             //AddObject(metal_sphere);
 
-            //Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
-            //AddObject(mirror_sphere);
+            Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
+            AddObject(mirror_sphere);
         }
 
         public void FinalPicture()
@@ -341,6 +341,11 @@ namespace RayTracer.Models.SceneElements
         public void SetCamera(Camera camera)
         {
             this.camera = camera;
+        }
+
+        public void SetTracer(Tracer tracer)
+        {
+            this.tracer = tracer;
         }
     }
 }

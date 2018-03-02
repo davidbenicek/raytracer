@@ -102,6 +102,7 @@
     <Compile Include="GeometricTesting\PlaneTest.cs" />
     <Compile Include="TracingTest\TracerTest.cs" />
     <Compile Include="MaterialsTesting\PhongTest.cs" />
+    <Compile Include="MaterialsTesting\MirrorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

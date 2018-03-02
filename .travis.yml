@@ -1,4 +1,13 @@
 language: node_js
 node_js:
   - "stable"
-before_install: cd src/RayTracer/Public
+before_install: 
+  - cd src/RayTracer/Public
+  - sudo apt-get install nunit-console
+script:
+  - xbuild /p:Configuration=Debug RayTracer.sln
+before_script:
+  - cd src
+  - nuget restore RayTracer.sln
+after_script:
+  - nunit-console RayTracer.Tests/bin/Debug/RayTracer.Tests.dll

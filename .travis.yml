@@ -1,4 +1,6 @@
-language: node_js csharp
+language: 
+  - node_js
+  - csharp
 node_js:
   - "stable"
 solution: ./src/RayTracer.sln

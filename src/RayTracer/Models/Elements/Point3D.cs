@@ -86,10 +86,10 @@ namespace RayTracer.Models.Elements
             return Math.Sqrt(sum);
         }
 
-        public override bool Equals(Object o)
+        public override bool Equals(Object obj)
         {
-            Point3D point = (Point3D)o;
-            return point.x == x && point.y == y && point.z == z;
+            Point3D point = (Point3D)obj;
+            return point.x.Equals(x) && point.y.Equals(y) && point.z.Equals(z);
         }
     }
 }

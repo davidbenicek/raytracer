@@ -5,7 +5,8 @@ node_js:
   - "stable"
 before_install: cd src/RayTracer/Public
 install:
-  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+  - travis_retry nuget restore -source "https://www.nuget.org/api/v2" ./src/RayTracer.sln
+  - travis_retry nuget install -source "https://www.nuget.org/api/v2" NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release solution-name.sln
   - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./RayTracer.Tests/bin/Debug/RayTracer.Tests.dll

@@ -74,6 +74,19 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RayTracer\RayTracer.csproj">
@@ -83,12 +96,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Test.cs" />
-    <Compile Include="Controllers\CubeTest.cs" />
-    <Compile Include="Controllers\SphereTest.cs" />
-    <Compile Include="Controllers\PlaneTest.cs" />
+    <Compile Include="SceneTestInstance.cs" />
+    <Compile Include="GeometricTesting\CubeTest.cs" />
+    <Compile Include="GeometricTesting\SphereTest.cs" />
+    <Compile Include="GeometricTesting\PlaneTest.cs" />
+    <Compile Include="TracingTest\TracerTest.cs" />
+    <Compile Include="MaterialsTesting\PhongTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GeometricTesting\" />
+    <Folder Include="TracingTest\" />
+    <Folder Include="MaterialsTesting\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

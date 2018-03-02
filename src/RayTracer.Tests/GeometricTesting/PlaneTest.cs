@@ -4,7 +4,7 @@ using RayTracer.Models.Elements;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Util;
 
-namespace RayTracer.Tests.Controllers
+namespace RayTracer.Tests.GeometricTesting
 {
     [TestFixture]
     public class PlaneTest
@@ -12,6 +12,8 @@ namespace RayTracer.Tests.Controllers
         Plane planeTest;
         Point3D testPoint;
         Vector3D normal;
+        Point3D rayOrigin;
+
 
         [TestFixtureSetUp]
         public void Init()
@@ -19,6 +21,7 @@ namespace RayTracer.Tests.Controllers
             testPoint = new Point3D(0, -100, 0);
             normal = new Vector3D(0, 1, 0);
             planeTest = new Plane(testPoint, normal);
+            rayOrigin = new Point3D(0, 30, 300);
         }
 
         [Test]
@@ -38,7 +41,6 @@ namespace RayTracer.Tests.Controllers
         public void TestIntersect_WithInValidTMinValue()
         {
             //Arrange
-            Point3D rayOrigin = new Point3D(0, 30, 300);
             Vector3D rayDirection = new Vector3D(-0.7, 0.00038, -0.99);
             Ray testRay = new Ray(rayOrigin, rayDirection);
             //Act
@@ -50,7 +52,6 @@ namespace RayTracer.Tests.Controllers
         public void TestIntersect_WithRayNotHit_TLessThanEpsilon()
         {
             //Arrange
-            Point3D rayOrigin = new Point3D(0, 30, 300);
             Vector3D rayDirection = new Vector3D(-0.7, 0.00038, -0.99);
             Ray testRay = new Ray(rayOrigin, rayDirection);
             //Act
@@ -62,7 +63,6 @@ namespace RayTracer.Tests.Controllers
         public void TestIntersect_WithValidTMinValue()
         {
             //Arrange
-            Point3D rayOrigin = new Point3D(0, 30, 300);
             Vector3D rayDirection = new Vector3D(-0.6, -0.8, -0.99);
             Ray testRay = new Ray(rayOrigin, rayDirection);
             //Act
@@ -74,7 +74,6 @@ namespace RayTracer.Tests.Controllers
         public void TestIntersect_WithValidCalculationsOfHitPoint()
         {
             //Arrange
-            Point3D rayOrigin = new Point3D(0, 30, 300);
             Vector3D rayDirection = new Vector3D(-0.6, -0.8, -0.99);
             Ray testRay = new Ray(rayOrigin, rayDirection);
             //Act

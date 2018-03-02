@@ -187,7 +187,7 @@ namespace RayTracer.Models.SceneElements
          * this object is in the ignore objects, and if it is there, so don't do
          * anything on that object
         */
-        public HitInfo GetHitInfo(Ray ray, List<GeometryObject> ignoreObjects = null)
+        public virtual HitInfo GetHitInfo(Ray ray, List<GeometryObject> ignoreObjects = null)
         {
             try
             {

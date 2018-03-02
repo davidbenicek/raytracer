@@ -4,7 +4,7 @@ using RayTracer.Models.Elements;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Util;
 
-namespace RayTracer.Tests.Controllers
+namespace RayTracer.Tests.GeometricTesting
 {
     [TestFixture]
     public class SphereTest

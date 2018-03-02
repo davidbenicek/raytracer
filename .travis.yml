@@ -1,4 +1,5 @@
-language: node_js
+language: node_js csharp
+solution: cd src/RayTracer.sln
 node_js:
   - "stable"
 before_install: 
@@ -7,6 +8,6 @@ before_install:
 script:
   - xbuild /p:Configuration=Debug RayTracer.sln
 before_script:
-  - nuget restore src/RayTracer.sln
+  - nuget restore RayTracer.sln
 after_script:
   - nunit-console src/RayTracer.Tests/bin/Debug/RayTracer.Tests.dll

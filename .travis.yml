@@ -4,7 +4,6 @@ install:
   - nuget restore ./src/RayTracer.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-  - cd src
-  - xbuild /p:Configuration=Debug ./RayTracer.sln
-  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./RayTracer.Tests/bin/Debug/RayTracer.Tests.dll
+  - xbuild /p:Configuration=Debug ./src/RayTracer.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/RayTracer.Tests/bin/Debug/RayTracer.Tests.dll
   

@@ -85,5 +85,11 @@ namespace RayTracer.Models.Elements
             double sum = GetDistanceBeforeSqrt(point);
             return Math.Sqrt(sum);
         }
+
+        public override bool Equals(Object o)
+        {
+            Point3D point = (Point3D)o;
+            return point.x == x && point.y == y && point.z == z;
+        }
     }
 }

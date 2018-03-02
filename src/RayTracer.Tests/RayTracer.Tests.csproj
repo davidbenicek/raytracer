@@ -85,6 +85,7 @@
     <Compile Include="Controllers\Test.cs" />
     <Compile Include="Controllers\CubeTest.cs" />
     <Compile Include="Controllers\SphereTest.cs" />
+    <Compile Include="Controllers\PlaneTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

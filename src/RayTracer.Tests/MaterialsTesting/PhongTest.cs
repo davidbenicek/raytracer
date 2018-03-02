@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Moq;
 using NUnit.Framework;
 using RayTracer.Models.Elements;
 using RayTracer.Models.Geometric;

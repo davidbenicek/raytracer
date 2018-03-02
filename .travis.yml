@@ -1,12 +1,10 @@
-language: 
-  - node_js
-  - csharp
+language: csharp, node_js
 node_js:
   - "stable"
 solution: ./src/RayTracer.sln
 before_install: cd src/RayTracer/Public
 install:
-  - nuget restore ./src/RayTracer.sln
+  - nuget restore ../../RayTracer.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
   - cd src

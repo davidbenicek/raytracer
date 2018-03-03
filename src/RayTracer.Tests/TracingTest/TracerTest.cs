@@ -145,6 +145,7 @@ namespace RayTracer.Tests.TracingTest
             ColorRGB colorResult = testTracer.TraceRay(testRay);
             //Assert
             Assert.IsFalse(sceneTestInstance.GetBackgroundColor().Equals(colorResult));
+
         }
     }
 }

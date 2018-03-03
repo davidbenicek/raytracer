@@ -7,8 +7,7 @@ exports.getSVGForSphere = function (obj, dimension) {
   if (!dimension) {
     return "<text x=20 y=20>No dimension to render in<text>";
   }
-
-  return `<circle class="svg-object" cx="${obj.point.x}" cy="${obj.point[dimension]}" r="${obj.size.x}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`
+  return `<circle id="${obj.id}" class="svg-object" cx="${obj.point.x}" cy="${obj.point[dimension]}" r="${obj.size.x}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`
 }
 
 exports.getSVGForCube = function (obj, dimension) {
@@ -20,7 +19,7 @@ exports.getSVGForCube = function (obj, dimension) {
     return "<text x=20 y=20>No dimension to render in</text>";
   }
 
-  return `<rect class="svg-object" x="${obj.point.x}" y="${obj.point[dimension]}" width="${obj.size.x}" height="${obj.size[dimension]}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`
+  return `<rect id="${obj.id}" class="svg-object" x="${obj.point.x}" y="${obj.point[dimension]}" width="${obj.size.x}" height="${obj.size[dimension]}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`
 }
 
 exports.convertToSvg = function (jsonObj, env, dimension) {

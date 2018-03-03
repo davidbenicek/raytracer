@@ -1,15 +1,16 @@
 const $ = require('jquery');
 
 const api = require('../js/sendToApi.js');
+const d3 = require('../js/render-3d.js');
 
-// const render3D = require('../js/render3D.js');
-
-let objectsJSON =[
-    {"shape":"Sphere","size":{"x":30,"y":30,"z":30},"point":{"x":200,"y":300,"z":160},
-    "color":{"r":0.0,"g":0.0,"b":1},"material":"flat"},
-    {"shape":"Cube","size":{"x":40,"y":100,"z":40},"point":{"x":200,"y":100,"z":200},
-    "color":{"r":1,"g":1,"b":1},"material":"flat"}
-];
+let objectsJSON =
+    [
+        {"shape":"Sphere","size":{"x":30,"y":30,"z":30},"point":{"x":0,"y":0,"z":0},
+        "color":{"r":0,"g":0,"b":255},"material":"flat"},
+        {"shape":"Cube","size":{"x":100,"y":100,"z":100},"point":{"x":100,"y":200,"z":300},
+        "color":{"r":138,"g":43,"b":226},"material":"flat"}
+    ]
+;
 
 function harvestAndSend() {
     const res = harvest();

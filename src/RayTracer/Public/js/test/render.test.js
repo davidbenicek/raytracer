@@ -5,6 +5,7 @@ var render = require('../render.js');
 
 const sphere = [{
   "shape": "Sphere",
+  "id" : "object0",
   "size": { "x": 50, "y": 50, "z": 50 },
   "point": { "x": 50, "y": 50, "z": 50 },
   "color": { "r": 0, "g": 100, "b": 0 },
@@ -13,6 +14,7 @@ const sphere = [{
 
 const cube = [{
   "shape": "Cube",
+  "id" : "object0",
   "size": { "x": 50, "y": 50, "z": 50 },
   "point": { "x": 50, "y": 50, "z": 50 },
   "color": { "r": 0, "g": 100, "b": 0 },
@@ -21,12 +23,14 @@ const cube = [{
 
 const shpereAndCube = [{
   "shape": "Sphere",
+  "id" : "object0",
   "size": { "x": 50, "y": 50, "z": 50 },
   "point": { "x": 50, "y": 50, "z": 50 },
   "color": { "r": 0, "g": 100, "b": 0 },
   "material": "metal"
 }, {
   "shape": "Cube",
+  "id" : "object1",
   "size": { "x": 50, "y": 50, "z": 50 },
   "point": { "x": 50, "y": 50, "z": 50 },
   "color": { "r": 0, "g": 100, "b": 0 },
@@ -47,21 +51,21 @@ describe('2D Render front end functions', function () {
     it('processes sphere as input in y', function () {
 
       const svg = render.convertToSvg(sphere, env, "y");
-      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><circle class="svg-object" cx="50" cy="50" r="50" style="fill:rgb(0,100,0);"/></svg>');
+      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><circle id="object0" class="svg-object" cx="50" cy="50" r="50" style="fill:rgb(0,100,0);"/></svg>');
 
     });
 
     it('processes cube as input in z', function () {
 
       const svg = render.convertToSvg(cube, env, "z");
-      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><rect class="svg-object" x="50" y="50" width="50" height="50" style="fill:rgb(0,100,0);"/></svg>');
+      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><rect id="object0" class="svg-object" x="50" y="50" width="50" height="50" style="fill:rgb(0,100,0);"/></svg>');
 
     });
 
     it('processes cube and sphere as input in y', function () {
 
       const svg = render.convertToSvg(shpereAndCube, env, "y");
-      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><circle class="svg-object" cx="50" cy="50" r="50" style="fill:rgb(0,100,0);"/><rect class="svg-object" x="50" y="50" width="50" height="50" style="fill:rgb(0,100,0);"/></svg>');
+      expect(svg).to.equal('<svg id="svg"onmouseenter="module.showObjectDrag()" width="500"height="500"style="fill:rgb(255,0,0);"><circle id="object0" class="svg-object" cx="50" cy="50" r="50" style="fill:rgb(0,100,0);"/><rect id="object1" class="svg-object" x="50" y="50" width="50" height="50" style="fill:rgb(0,100,0);"/></svg>');
 
     });
 

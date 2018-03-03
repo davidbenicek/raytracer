@@ -1,6 +1,5 @@
-matrix:
-  include:
-    - language: csharp
+jobs:
+  - language: csharp
     solution: ./src/RayTracer.sln
     install:
       - nuget restore ./src/RayTracer.sln

@@ -49,6 +49,8 @@ namespace RayTracer.Tests.GeometricTesting
             Sphere testSphere = new Sphere();
             HitInfo hitInfo = testSphere.Intersect((new Ray(new Point3D(0), new Vector3D(2))));
             Assert.IsTrue(hitInfo.hasHit);
+<<<<<<< HEAD
+=======
         }
 
         [Test]
@@ -57,6 +59,7 @@ namespace RayTracer.Tests.GeometricTesting
             Sphere testSphere = new Sphere(new Point3D(50, 0, 0), 40, new Plastic(new ColorRGB(1, 0, 0)));
             HitInfo hitInfo = testSphere.Intersect((new Ray(new Point3D(0,30,300), new Vector3D(0.16,-0.23, -0.99))));
             Assert.IsTrue(hitInfo.hasHit);
+>>>>>>> d5a75c80a7c0bdf62673e4af36c4217f0161c8b8
         }
 
         [Test]

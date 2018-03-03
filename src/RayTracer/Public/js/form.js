@@ -1,13 +1,12 @@
 const $ = require('jquery');
 
 const api = require('../js/sendToApi.js');
-
-// const render3D = require('../js/render3D.js');
+const d3 = require('../js/render-3d.js');
 
 let objectsJSON =[
-    {"shape":"Sphere","size":{"x":30,"y":30,"z":30},"point":{"x":0,"y":0,"z":0},
+    {"shape":"Sphere","id":"object0","size":{"x":30,"y":30,"z":30},"point":{"x":0,"y":0,"z":0},
     "color":{"r":0.0,"g":0.0,"b":1},"material":"flat"},
-    {"shape":"Cube","size":{"x":40,"y":100,"z":40},"point":{"x":200,"y":100,"z":200},
+    {"shape":"Cube","id":"object1","size":{"x":40,"y":100,"z":40},"point":{"x":200,"y":100,"z":200},
     "color":{"r":1,"g":1,"b":1},"material":"flat"}
 ];
 

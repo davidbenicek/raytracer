@@ -1,9 +1,16 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Our imports -->
+  <script src="../../Public/js/lib/Three.js"></script>
+  <script src="../../Public/js/lib/THREEx.KeyboardState.js"></script>
+  <script src="../../Public/js/lib/THREEx.FullScreen.js"></script>
+  <script src="../../Public/js/lib/THREEx.WindowResize.js"></script>
+  <script src="../../Public/js/lib/Detector.js"></script>
+  <script src="../../Public/js/lib/Stats.js"></script>
+  <script src="../../Public/js/lib/OrbitControls.js"></script>
   <script src="../../Public/dist/bundle.js"></script>
   <link rel="stylesheet" href="../../Public/css/form.css">
   <link rel="stylesheet" href="../../Public/css/index.css">
@@ -12,6 +19,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
 </head>
 
 
@@ -106,9 +114,19 @@
                 </form>
             
                 <form name="rgbColor" id="rgbColor" class="env_spec">
-                  <div class="form-group">
-                    <label for="colour">Colour</label>
-                    <input type="text" class="form-control" id="color" value="100">
+                  <div class="form-group row" id="light_color">
+                    <div class="col-xs-4">
+                      <label for="light_r">R</label>
+                      <input name="r" class="form-control" id="light_r" type="text" value="100">
+                    </div>
+                    <div class="col-xs-4">
+                      <label for="light_g">G</label>
+                      <input name="g" class="form-control" id="light_g" type="text" value="100">
+                    </div>
+                    <div class="col-xs-4">
+                      <label for="light_b">B</label>
+                      <input name="b" class="form-control" id="light_b" type="text" value="100">
+                    </div>
                   </div>
                 </form>
             
@@ -125,15 +143,15 @@
                   <div class="form-group row" id="cam_position">
                     <div class="col-xs-4">
                       <label for="cam_x">x</label>
-                      <input name="x" class="form-control" id="cam_x" type="text" value="100">
+                      <input name="x" class="form-control" id="cam_x" type="text" value="2000">
                     </div>
                     <div class="col-xs-4">
                       <label for="cam_y">y</label>
-                      <input name="y" class="form-control" id="cam_y" type="text" value="100">
+                      <input name="y" class="form-control" id="cam_y" type="text" value="1000">
                     </div>
                     <div class="col-xs-4">
                       <label for="cam_z">z</label>
-                      <input name="z" class="form-control" id="cam_z" type="text" value="100">
+                      <input name="z" class="form-control" id="cam_z" type="text" value="3000">
                     </div>
                   </div>
                 </form>
@@ -143,14 +161,16 @@
               </div>
         </div>
         <div class="col-sm-8" id="render-space">
-            <div class="row inventory-container">
+            <div class="row 2d-views inventory-container">
               <svg id="inventory" width="500" height="100" x="0" y="0">
                   <circle id="curve1" class="inventory-object" onmousedown="module.startObjectDrag('circle')"  cx="80" cy="50" r="35" />
                   <rect id="curve2" class="inventory-object" onmousedown="module.startObjectDrag('rect')" x="150" y="15" width="70" height="70"/>
               </svg>
             </div>
-            <div class="row">
-              <div id="svg-container"/>
+            <div class="row 2d-views">
+              <div id="svg-container"></div>
+            </div>
+            <div class="row" id="ThreeJS">
             </div>
         </div>
       </div>

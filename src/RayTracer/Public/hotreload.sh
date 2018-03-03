@@ -2,5 +2,5 @@ while true
 do 
     echo "Reload bundle"
     npm run bundle
-    sleep 10
+    sleep 5
 done

@@ -8,5 +8,10 @@ matrix:
       script:
         - xbuild /p:Configuration=Debug ./src/RayTracer.sln
         - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/RayTracer.Tests/bin/Debug/RayTracer.Tests.dll
+        
+    - language: node_js
+      node_js:
+        - "stable"
+      before_install: cd src/RayTracer/Public
 
   

@@ -255,9 +255,9 @@ namespace RayTracer.Models.SceneElements
             camera = new Perspective(new Point3D(0, 30, 300), new Point3D(-5, 0, 0), 850);
             tracer = new Tracer(this);
 
-            Plane floor = new Plane(new Point3D(0, -100, 0), new Vector3D(0, 1, 0));
-            floor.SetMaterial(new Chalk(Config.WHITE));
-            AddObject(floor);
+            //Plane floor = new Plane(new Point3D(0, -100, 0), new Vector3D(0, 1, 0));
+            //floor.SetMaterial(new Chalk(Config.WHITE));
+            //AddObject(floor);
 
             //Plane ceil = new Plane(new Point3D(0, 100, 0), new Vector3D(0, -1, 0));
             //ceil.SetMaterial(new Chalk(Config.WHITE));
@@ -293,14 +293,14 @@ namespace RayTracer.Models.SceneElements
             //AddObject(cube);
 
             //// Build objects
-            //Sphere plastic_sphere = new Sphere(new Point3D(50, 0, 0), 40, new Plastic(new ColorRGB(1, 0, 0)));
-            //AddObject(plastic_sphere);
+            Sphere plastic_sphere = new Sphere(new Point3D(50, 0, 0), 40, new Plastic(new ColorRGB(1, 0, 0)));
+            AddObject(plastic_sphere);
 
             //Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Metal(new ColorRGB(1,0, 0)));
             //AddObject(metal_sphere);
 
-            Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
-            AddObject(mirror_sphere);
+            //Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
+            //AddObject(mirror_sphere);
         }
 
         public void FinalPicture()

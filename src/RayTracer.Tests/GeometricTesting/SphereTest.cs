@@ -48,7 +48,6 @@ namespace RayTracer.Tests.GeometricTesting
             Sphere testSphere = new Sphere();
             HitInfo hitInfo = testSphere.Intersect((new Ray(new Point3D(0), new Vector3D(2))));
             Assert.IsTrue(hitInfo.hasHit);
-            //I think theres an error. Shows True only when ray origin is 0
         }
 
         [Test]

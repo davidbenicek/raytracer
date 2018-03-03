@@ -15,7 +15,7 @@ $(window).on('load', function () {
 		return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)
 	}
 
-	exports.init = function (b_color, camera_position, light_position) {
+	exports.init = function (b_color, camera_position, light_position,light_color) {
 
 		// SCENE
 		scene = new THREE.Scene();
@@ -40,7 +40,8 @@ $(window).on('load', function () {
 		// CONTROLS
 		controls = new THREE.OrbitControls(camera, renderer.domElement);
 		// LIGHT
-		var light = new THREE.PointLight(0xffffff);
+		let lighthex = rgbToHex(light_color.r, light_color.g, light_color.b);
+		var light = new THREE.PointLight(lighthex);
 		light.position.set(light_position.x, light_position.y, light_position.z);
 		scene.add(light);
 		// FLOOR

@@ -14,7 +14,8 @@ function routeToView() {
             $( "#ThreeJS" ).empty();
             $(".2d-views").hide();
             $("#ThreeJS").show();
-            d3.init(res.environment.background,res.environment.camera,res.environment.position);
+            d3.init(res.environment.background,res.environment.camera,res.environment.position,res.environment.rgbColor);
+            console.log(res.environment);
             d3.animate();
             d3.jsonToShape(form.objectsJSON);
             break;

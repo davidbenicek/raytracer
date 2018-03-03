@@ -117,6 +117,7 @@
     <Folder Include="MaterialsTesting\" />
     <Folder Include="SamplingTesting\" />
     <Folder Include="LightsTesting\" />
+    <Folder Include="Cameras Testing\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

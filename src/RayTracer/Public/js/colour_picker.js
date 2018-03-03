@@ -19,7 +19,7 @@ function hexToRgb(hex) {
     } : null;
 }
 
-function rgbToHex(r,g,b){
+exports.rgbToHex = function (r,g,b){
     return "#"+(1<<24|r<<16|g<<8|b).toString(16).slice(1)
 }
 
@@ -27,7 +27,7 @@ function changeColourPickerValue(){
     const red = $("#colour_r")[0].value;
     const green = $("#colour_g")[0].value;
     const blue = $("#colour_b")[0].value;
-    const hex = rgbToHex(red,green,blue);
+    const hex = exports.rgbToHex(red,green,blue);
     document.getElementById("color_picker").value = hex;
 }
 

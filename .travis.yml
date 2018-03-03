@@ -4,7 +4,6 @@ matrix:
     node_js:
       - "stable"
     before_install: cd src/RayTracer/Public
-    
     - language: csharp
     solution: ./src/RayTracer.sln
     install:

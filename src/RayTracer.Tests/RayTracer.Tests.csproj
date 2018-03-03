@@ -105,6 +105,8 @@
     <Compile Include="MaterialsTesting\MirrorTest.cs" />
     <Compile Include="MaterialsTesting\FlatTest.cs" />
     <Compile Include="SamplingTesting\RegularSamplingTest.cs" />
+    <Compile Include="LightsTesting\LightTest.cs" />
+    <Compile Include="LightsTesting\AmbientLightTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -114,6 +116,7 @@
     <Folder Include="TracingTest\" />
     <Folder Include="MaterialsTesting\" />
     <Folder Include="SamplingTesting\" />
+    <Folder Include="LightsTesting\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

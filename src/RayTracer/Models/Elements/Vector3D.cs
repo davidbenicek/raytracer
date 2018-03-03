@@ -109,6 +109,12 @@ namespace RayTracer.Models.Elements
         {
             return vectorA * (1 - MixValue) + vectorB * MixValue;
         }
+
+        public override bool Equals(Object obj)
+        {
+            Vector3D vector = (Vector3D)obj;
+            return vector.x.Equals(x) && vector.y.Equals(y) && vector.z.Equals(z);
+        }
     }
 
 }

@@ -1,3 +1,4 @@
+'use strict';
 
 const $ = require('jquery');
 
@@ -19,7 +20,7 @@ function hexToRgb(hex) {
     } : null;
 }
 
-exports.rgbToHex = function (r,g,b){
+ function rgbToHex(r,g,b){
     return "#"+(1<<24|r<<16|g<<8|b).toString(16).slice(1)
 }
 
@@ -32,7 +33,7 @@ function changeColourPickerValue(){
 }
 
 
-$(document).ready(function () {
+function initialiseColourPickerListener(){
     $("#color_picker").change(function () {
         const hex = document.getElementById("color_picker").value;
         var cp = hexToRgb(hex);        
@@ -42,9 +43,14 @@ $(document).ready(function () {
         $("#colour_b")[0].value = cp.b;
         
         form.renderSvg();        
-    })
+    });
     
     // changeColourPickerValue()
-    $("#colour_r, #colour_g, #colour_b").keyup(changeColourPickerValue)
+    $("#colour_r, #colour_g, #colour_b").keyup(changeColourPickerValue);
 }
-)
+
+module.exports = {
+    hexToRgb,
+    rgbToHex,
+    initialiseColourPickerListener
+};

@@ -62,7 +62,9 @@ namespace RayTracer.Tests.GeometricTesting
         [Test]
         public void TestTLessthanKEpsilon()
         {
-            
+            Sphere testSphere = new Sphere();
+            HitInfo hitInfo = testSphere.Intersect((new Ray(new Point3D(0,30,300), new Vector3D(-0.7, 0.00038, -0.99))));
+            Assert.IsFalse(hitInfo.hasHit);
         }
     }
 }

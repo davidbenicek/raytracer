@@ -43,9 +43,12 @@ function showObjectDrag(){
       //Calculating relative position within #svg by getting cursor pos and taking away top right corner of #svg
       const dimension = ($('input[name=chosen-view]:checked')[0].value) == "Side" ? "y" : "z"
       
+      
       let x_new = e.pageX - $("#svg").position().left;
       let yz_new = e.pageY - $("#svg").position().top;
-
+      //We use the name yz to demonstrate that the values past in case be in both the y and z-axis,
+      //whilst the x values are always in the x-axis. This is because; "top down view" -> z, "side view" -> y
+      
       let x_json = convertSVGCordsToJSON(x_new,"x");
       let yz_json = convertSVGCordsToJSON(yz_new,dimension);
       

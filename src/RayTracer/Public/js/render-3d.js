@@ -1,7 +1,7 @@
 'use strict';
 
 const $ = require('jquery');
-const cp = require('../js/colour_picker.js');
+const cp = require('../js/color_picker.js');
 
 
 // standard global variables

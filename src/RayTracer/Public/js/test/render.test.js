@@ -2,6 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 
 var render = require('../render.js');
+var form = require('../form.js');
 
 const sphere = [{
   "shape": "sphere",
@@ -42,6 +43,8 @@ const env = {
   "winFrame":{"Width": 500, "Height": 500 },
   "background": { "r": 255, "g": 0, "b": 0 }
 };
+
+form.env = env;
 
 
 describe('2D Render front end functions', function () {

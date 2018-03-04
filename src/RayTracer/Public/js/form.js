@@ -5,12 +5,9 @@ const $ = require('jquery');
 const api = require('../js/sendToApi.js');
 const d3 = require('../js/render-3d.js');
 
-let objectsJSON =[
-];
+let objectsJSON =[];
 
-let env = {
-    "winFrame":{"Width":500,"Height":500 }
-};
+let env = {};
 
 function harvestAndSend() {
     const res = harvest();

@@ -1,3 +1,5 @@
+'use strict';
+
 const $ = require('jquery');
 const cp = require('../js/colour_picker.js');
 
@@ -10,7 +12,7 @@ let targetList = [];
 let projector, mouse = { x: 0, y: 0 };
 // FUNCTIONS 		
 
-exports.init = function (b_color, camera_position, light_position) {
+ function init(b_color, camera_position, light_position) {
 
 	// SCENE
 	scene = new THREE.Scene();
@@ -49,7 +51,7 @@ exports.init = function (b_color, camera_position, light_position) {
 	wallBox.position.z = 0;
 	scene.add(wallBox);
 
-	wireframe = new THREE.WireframeHelper(wallBox, 0x191919);
+	let wireframe = new THREE.WireframeHelper(wallBox, 0x191919);
 	scene.add(wireframe);
 
 	// initialize object to perform world/screen calculations
@@ -103,27 +105,27 @@ function create_sphere(id, color, size, material, point) {
 	targetList.push(id);
 }
 
-exports.jsonToShape = function (json) {
-	for (i = 0; i < json.length; i++) {
+function jsonToShape(json) {
+	for (let i = 0; i < json.length; i++) {
 
-		obj_color = json[i].color;
-		obj_material = json[i].material;
-		obj_point = json[i].point;
-		obj_size = json[i].size;
-		obj_id = json[i].id;
+		const obj_color = json[i].color;
+		const obj_material = json[i].material;
+		const obj_point = json[i].point;
+		const obj_size = json[i].size;
+		const obj_id = json[i].id;
 
-		if (json[i].shape == "Sphere") {
+		if (json[i].shape == "sphere") {
 			create_sphere(obj_id, obj_color, obj_size, obj_material, obj_point);
 		}
-		else if (json[i].shape == "Cube") {
+		else if (json[i].shape == "cube") {
 			create_cube(obj_id, obj_color, obj_size, obj_material, obj_point);
 		}
 	}
 }
 
-exports.animate = function () {
-	requestAnimationFrame(exports.animate);
-	exports.render();
+function animate() {
+	requestAnimationFrame(animate);
+	render();
 	update();
 }
 
@@ -131,7 +133,13 @@ function update() {
 	controls.update();
 }
 
-exports.render = function render() {
+function render() {
 	renderer.render(scene, camera);
 }
 
+module.exports = {
+	init,
+	animate,
+	jsonToShape,
+	render
+};

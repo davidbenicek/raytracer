@@ -1,13 +1,11 @@
+'use strict';
+
 const $ = require('jquery');
 
 const api = require('../js/sendToApi.js');
 const d3 = require('../js/render-3d.js');
 
 let objectsJSON =[
-    {"shape":"Sphere","id":"object0","size":{"x":30,"y":30,"z":30},"point":{"x":0,"y":0,"z":0},
-    "color":{"r":0.0,"g":0.0,"b":1},"material":"flat"},
-    {"shape":"Cube","id":"object1","size":{"x":40,"y":100,"z":40},"point":{"x":200,"y":100,"z":200},
-    "color":{"r":1,"g":1,"b":1},"material":"flat"}
 ];
 
 let env = {
@@ -21,10 +19,9 @@ function harvestAndSend() {
 
 function harvest() {
     const res = {};
-    res.objects = [getHarvest("object")];
+    res.objects = objectsJSON;
     res.environment = getHarvest("env");
     env = res.environment;
-    res.uv = getHarvest("user_view");
     return res;
 }
 
@@ -33,7 +30,10 @@ function getHarvest(spec) {
 
     const object = {};
     for (var i = 0; i < objectSpecClasses.length; i++) {
-        object[objectSpecClasses[i].name] = getFormValues($("#" + objectSpecClasses[i].id).serializeArray());
+        let res = getFormValues($("#" + objectSpecClasses[i].id).serializeArray());
+        if(objectSpecClasses[i].id in res)
+            res = res[objectSpecClasses[i].id];
+        object[objectSpecClasses[i].name] = res;
     }
     return object;
 

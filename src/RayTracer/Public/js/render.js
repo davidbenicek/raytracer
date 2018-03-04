@@ -1,3 +1,4 @@
+'use strict';
 const form = require("./form.js")
 
 function getSVGForSphere(obj, dimension) {
@@ -56,9 +57,9 @@ function convertToSvg(jsonObj, env, dimension) {
     if (jsonObj && jsonObj.length > 0) 
       svg += jsonObj.map((obj) => {
         switch (obj.shape) {
-          case "Sphere":
+          case "sphere":
             return getSVGForSphere(obj, dimension);
-          case "Cube":
+          case "cube":
             return getSVGForCube(obj, dimension);
           default:
             return "<text x=20 y=20>Object type not supported</text>";

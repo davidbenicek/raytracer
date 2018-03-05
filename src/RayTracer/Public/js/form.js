@@ -43,18 +43,29 @@ function getHarvest(spec) {
 
 function getHarvestforLight(spec) {
     const objectSpecClasses = $("." + spec + "_spec");
-    const object = {};
+    //the above calls the class(mainlight_spec) in which the forms are put in for position,colour,intensity
+    //each form has a different id:light1, light2... but they all have the same class(mainlight_spec)
     const final = [];
+    //checks the number of lights created
     for (var i = 1; i <= objectSpecClasses.length; i++) {
-        console.log($('#light'+[i]+' :input').serializeArray())    
-        object[objectSpecClasses[i].name] = getFormValues($('#light'+[i]+' :input').serializeArray());
+        const dataObj = {}; 
+
+        //to try the below, add some lights first and then click on top view. the values should appear in console
+
+        //only 7 objects in the light
+        for (let j = 0; j < 7; j++) {
+            //the below works but does not print it out how we want it to
+            dataObj[$('#light'+i+' :input')[j].name] = $('#light'+i+' :input')[j].value;
+
+            //below does not show the values as I think its because I am calling the ids and not the classes?
+            //I have tried the classes way and it has not worked...
+            //dataObj[$('#light'+i+' :input')[j].name] = getFormValues($(('#light'+i+' :input')[j].id).serializeArray());
+            //console.log($(('#light'+i+' :input')[j].id).serializeArray());
+        }
+        final.push(dataObj);
     }
-    final.push(object);
-    return object;
+    return final;
 }
-
-
-//$('#light :input').serializeArray()
 
 //TODO: Write a test for this
 function getFormValues(dataArray) {

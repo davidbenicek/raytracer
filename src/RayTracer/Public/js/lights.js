@@ -2,8 +2,8 @@ const $ = require('jquery');
 
 $(document).ready(function () {
     $("#add").click(function () {
-        var lastField = $("#lights div:last");
-        var intId = (lastField.length + 1) || 1;
+       
+        var intId = ($('.mainlight_spec').length + 1);
         var fieldWrapper = $("<div class=\"mainlight_spec\"  id=\"light" + intId + "\"/>");
         fieldWrapper.data("idx", intId);
         var position = $("<form name=\"position\" id=\"position\" class=\"light_spec\"><label for=\"light_position\">Position</label><div class=\"form-group row\" id=\"light_position\"><div class=\"col-xs-4\"><label for=\"light_x\">x</label><input name=\"x\" class=\"form-control\" id=\"light_x\" type=\"text\" value=\"1000\"></div><div class=\"col-xs-4\"><label for=\"light_y\">y</label><input name=\"y\" class=\"form-control\" id=\"light_y\" type=\"text\" value=\"1000\"></div><div class=\"col-xs-4\"><label for=\"light_z\">z</label><input name=\"z\" class=\"form-control\" id=\"light_z\" type=\"text\" value=\"1000\"></div></div></form>");

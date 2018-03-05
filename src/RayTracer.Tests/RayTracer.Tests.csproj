@@ -107,6 +107,7 @@
     <Compile Include="SamplingTesting\RegularSamplingTest.cs" />
     <Compile Include="LightsTesting\LightTest.cs" />
     <Compile Include="LightsTesting\AmbientLightTest.cs" />
+    <Compile Include="CamerasTesting\PerspectiveTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -117,7 +118,7 @@
     <Folder Include="MaterialsTesting\" />
     <Folder Include="SamplingTesting\" />
     <Folder Include="LightsTesting\" />
-    <Folder Include="Cameras Testing\" />
+    <Folder Include="CamerasTesting\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -255,52 +255,52 @@ namespace RayTracer.Models.SceneElements
             camera = new Perspective(new Point3D(0, 30, 300), new Point3D(-5, 0, 0), 850);
             tracer = new Tracer(this);
 
-            //Plane floor = new Plane(new Point3D(0, -100, 0), new Vector3D(0, 1, 0));
-            //floor.SetMaterial(new Chalk(Config.WHITE));
-            //AddObject(floor);
+            Plane floor = new Plane(new Point3D(0, -100, 0), new Vector3D(0, 1, 0));
+            floor.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(floor);
 
-            //Plane ceil = new Plane(new Point3D(0, 100, 0), new Vector3D(0, -1, 0));
-            //ceil.SetMaterial(new Chalk(Config.WHITE));
-            //AddObject(ceil);
+            Plane ceil = new Plane(new Point3D(0, 100, 0), new Vector3D(0, -1, 0));
+            ceil.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(ceil);
 
-            //Plane left_wall = new Plane(new Point3D(-100, 0, 0), new Vector3D(1, 0, 0));
-            //left_wall.SetMaterial(new Chalk(Config.WHITE));
-            //AddObject(left_wall);
+            Plane left_wall = new Plane(new Point3D(-100, 0, 0), new Vector3D(1, 0, 0));
+            left_wall.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(left_wall);
 
-            //Plane right_wall = new Plane(new Point3D(100, 0, 0), new Vector3D(-1, 0, 0));
-            //right_wall.SetMaterial(new Chalk(Config.WHITE));
-            //AddObject(right_wall);
+            Plane right_wall = new Plane(new Point3D(100, 0, 0), new Vector3D(-1, 0, 0));
+            right_wall.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(right_wall);
 
-            //Plane back_wall = new Plane(new Point3D(0, 0, -100), new Vector3D(0, 0, 1));
-            //back_wall.SetMaterial(new Chalk(Config.WHITE));
-            //AddObject(back_wall);
+            Plane back_wall = new Plane(new Point3D(0, 0, -100), new Vector3D(0, 0, 1));
+            back_wall.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(back_wall);
 
-            //Plane front_wall = new Plane(new Point3D(0, 0, 300), new Vector3D(0, 0, 1));
-            //front_wall.SetMaterial(new Chalk(Config.WHITE));
-            //AddObject(front_wall);
+            Plane front_wall = new Plane(new Point3D(0, 0, 300), new Vector3D(0, 0, 1));
+            front_wall.SetMaterial(new Chalk(Config.WHITE));
+            AddObject(front_wall);
 
-            //// Build lights
-            //AmbientLight ambient_ptr = new AmbientLight(new ColorRGB(.3, .3, .3), 1);
-            //SetAmbientLight(ambient_ptr);
+            // Build lights
+            AmbientLight ambient_ptr = new AmbientLight(new ColorRGB(.3, .3, .3), 1);
+            SetAmbientLight(ambient_ptr);
 
-            //Light point_ptr = new Light(new Point3D(0, 55, 95),new ColorRGB(1, 0, 0) ,1 );
-            //AddLight(point_ptr);
+            Light point_ptr = new Light(new Point3D(0, 55, 95),new ColorRGB(1, 0, 0) ,1 );
+            AddLight(point_ptr);
 
-            //Light point_ptr2 = new Light(new Point3D(50, 55, 75), new ColorRGB(0, 1, 0), 1);
-            //AddLight(point_ptr2);
+            Light point_ptr2 = new Light(new Point3D(50, 55, 75), new ColorRGB(0, 1, 0), 1);
+            AddLight(point_ptr2);
 
-            //Cube cube = new Cube(new Point3D(0), new Point3D(70), new Plastic(new ColorRGB(1, 0, 0)));
-            //AddObject(cube);
+            Cube cube = new Cube(new Point3D(0), new Point3D(70), new Plastic(new ColorRGB(1, 0, 0)));
+            AddObject(cube);
 
             //// Build objects
             Sphere plastic_sphere = new Sphere(new Point3D(50, 0, 0), 40, new Plastic(new ColorRGB(1, 0, 0)));
             AddObject(plastic_sphere);
 
-            //Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Metal(new ColorRGB(1,0, 0)));
-            //AddObject(metal_sphere);
+            Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Metal(new ColorRGB(1,0, 0)));
+            AddObject(metal_sphere);
 
-            //Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
-            //AddObject(mirror_sphere);
+            Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
+            AddObject(mirror_sphere);
         }
 
         public void FinalPicture()

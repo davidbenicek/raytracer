@@ -7,20 +7,28 @@ const d3 = require('../js/render-3d.js');
 
 function routeToView() {
     const res = form.harvest()
-    const view = $('input[name=chosen-view]:checked')[0].value;
+    let view = $('input[name=chosen-view]:checked')[0].value;
     let svg;
-    switch(view) {
+    switch (view) {
         case "3D":
-            $( "#ThreeJS" ).empty();
-            $(".2d-views").hide();
-            $("#ThreeJS").show();
-            d3.init(res.environment.background,res.environment.camera,res.environment.position,res.environment.rgbColor);
-            console.log(res.environment);
-            d3.animate();
-            d3.jsonToShape(form.objectsJSON);
-            break;
+            if (res.environment.position == undefined) {
+                window.alert("Please add some lights and try again.");
+                //TODO : Stays on 3D button - need to revert back to where the user is. Below is not working
+                $('input[id=Side]').prop('checked', true);
+            }
+            else {
+                console.log(res.environment);
+                $("#ThreeJS").empty();
+                $(".2d-views").hide();
+                $("#ThreeJS").show();
+                d3.init(res.environment.background, res.environment.camera, res.environment.position, res.environment.rgbColor);
+                d3.animate();
+                d3.jsonToShape(form.objectsJSON);
+                break;
+            }
         case "Top":
-            $( "#ThreeJS" ).empty();
+            console.log(res.light);
+            $("#ThreeJS").empty();
             $(".2d-views").show();
             $("#svg-container").show();
             $("#ThreeJS").hide();
@@ -29,7 +37,7 @@ function routeToView() {
             drag_drop.bindListeners()
             break;
         default:
-            $( "#ThreeJS" ).empty();
+            $("#ThreeJS").empty();
             $(".2d-views").show();
             $("#svg-container").show();
             $("#ThreeJS").hide();
@@ -41,9 +49,9 @@ function routeToView() {
 }
 
 $(document).ready(function () {
-  $(".form-control").change(routeToView)
-  $("#view").change(routeToView)
-  routeToView()
+    $(".form-control").change(routeToView)
+    $("#view").change(routeToView)
+    routeToView()
 })
 
 module.exports = {

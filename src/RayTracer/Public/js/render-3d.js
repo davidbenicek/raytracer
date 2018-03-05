@@ -40,8 +40,10 @@ $(window).on('load', function () {
 		// CONTROLS
 		controls = new THREE.OrbitControls(camera, renderer.domElement);
 		// LIGHT
+
+		//accordian 
 		let lighthex = rgbToHex(light_color.r, light_color.g, light_color.b);
-		var light = new THREE.PointLight(lighthex);
+		var light = new THREE.PointLight( lighthex );
 		light.position.set(light_position.x, light_position.y, light_position.z);
 		scene.add(light);
 		// FLOOR
@@ -113,7 +115,7 @@ $(window).on('load', function () {
 	function create_cube(id, color, size, material, point) {
 		var idGeometry = new THREE.CubeGeometry(size.x, size.y, size.z);
 		let hex = rgbToHex(color.r, color.g, color.b);
-		var idMaterial = new THREE.MeshBasicMaterial({ color: hex, side: THREE.BackSide });
+		var idMaterial = new THREE.MeshPhongMaterial({ color: hex, side: THREE.BackSide });
 		var id = new THREE.Mesh(idGeometry, idMaterial);
 		id.position.set(point.x, point.y, point.z);
 		scene.add(id);
@@ -122,7 +124,7 @@ $(window).on('load', function () {
 
 	function create_sphere(id, color, size, material, point) {
 		let hex = rgbToHex(color.r, color.g, color.b);
-		var faceColorMaterial = new THREE.MeshBasicMaterial({ color: hex, vertexColors: THREE.FaceColors });
+		var faceColorMaterial = new THREE.MeshPhongMaterial({ color: hex, vertexColors: THREE.FaceColors });
 		var sphereGeometry = new THREE.SphereGeometry(size.x, size.y, size.z);
 		var id = new THREE.Mesh(sphereGeometry, faceColorMaterial);
 		id.position.set(point.x, point.y, point.z);

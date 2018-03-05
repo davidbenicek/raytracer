@@ -9,12 +9,12 @@ namespace RayTracer.Tests.Controllers
         [Test]
         public void TestCase()
         {
-            Scene scene = new Scene(new WindowFrame(2000, 2000, 1.0));
-            scene.SetFileName("test");
-            scene.CreateScene();
-            scene.Render();
+            //Scene scene = new Scene(new WindowFrame(2000, 2000, 1.0));
+            //scene.SetFileName("test");
+            //scene.CreateScene();
+            //scene.Render();
 
-            scene.FinalPicture();
+            //scene.FinalPicture();
         }
     }
 }

@@ -14,17 +14,7 @@ namespace RayTracer.Tests.GeometricTesting
         public void CubeTestMethod()
         {
             Cube cube = new Cube(new Point3D(0), new Point3D(70), new Plastic(new ColorRGB(1, 0, 0)));
-
-            if (cube.maxPoint.x == (cube.minPoint.x) && cube.maxPoint.y == (cube.minPoint.y)
-               && cube.maxPoint.z == (cube.minPoint.z))
-            {
-                Assert.IsTrue(false);
-            }
-            else
-            {
-                Assert.IsTrue(true);
-            }
-
+            Assert.IsFalse(cube.maxPoint.Equals(cube.minPoint));
         }
 
         [Test]
@@ -51,6 +41,5 @@ namespace RayTracer.Tests.GeometricTesting
             HitInfo hitInfo = cube.Intersect(new Ray(new Point3D(0), new Vector3D(0)));
             Assert.IsTrue(hitInfo.hasHit);
         }
-
     }
 }

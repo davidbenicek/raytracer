@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using RayTracer.Models.Elements;
 
-namespace RayTracer.TestTests
+namespace RayTracer.Tests.ElementsTesting
 {
-    [TestClass]
+    [TestFixture]
     public class Point3DTests
     {
-        [TestMethod()]
+        [Test]
         public void TestAddPoints()
         {
             Point3D pointA = new Point3D(0, 2, 1);
@@ -16,11 +16,10 @@ namespace RayTracer.TestTests
 
             Point3D expected = new Point3D(1, 4, 0);
 
-            Assert.IsTrue(actualPointer.x == expected.x && actualPointer.y == expected.y && actualPointer.z == expected.z);
-            Assert.IsTrue(true);
+            Assert.IsTrue(actualPointer.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestAddPointVector()
         {
             Point3D pointA = new Point3D(2, 2, 2);
@@ -29,11 +28,10 @@ namespace RayTracer.TestTests
 
             Point3D expected = new Point3D(3, 3, 3);
 
-            Assert.IsTrue(actualPointer.x == expected.x && actualPointer.y == expected.y && actualPointer.z == expected.z);
-            Assert.IsTrue(true);
+            Assert.IsTrue(actualPointer.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestSubPointVector()
         {
             Point3D pointA = new Point3D(2, 2, 2);
@@ -42,24 +40,22 @@ namespace RayTracer.TestTests
 
             Point3D expected = new Point3D(1, 1, 1);
 
-            Assert.IsTrue(actualPointer.x == expected.x && actualPointer.y == expected.y && actualPointer.z == expected.z);
-            Assert.IsTrue(true);
+            Assert.IsTrue(actualPointer.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestSubPoints()
         {
             Point3D pointA = new Point3D(2, 2, 2);
             Point3D pointB = new Point3D(1, 1, 1);
             Vector3D actualPointer = pointA - pointB;
 
-            Point3D expected = new Point3D(1, 1, 1);
+            Vector3D expected = new Vector3D(1, 1, 1);
 
-            Assert.IsTrue(actualPointer.x == expected.x && actualPointer.y == expected.y && actualPointer.z == expected.z);
-            Assert.IsTrue(true);
+            Assert.IsTrue(actualPointer.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestProductPointScale()
         {
             Point3D pointA = new Point3D(2, 2, 2);
@@ -68,11 +64,10 @@ namespace RayTracer.TestTests
 
             Point3D expected = new Point3D(4.0, 4.0, 4.0);
 
-            Assert.IsTrue(actualPointer.x == expected.x && actualPointer.y == expected.y && actualPointer.z == expected.z);
-            Assert.IsTrue(true);
+            Assert.IsTrue(actualPointer.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestProductScalePoint()
         {
             Double scaleA = 2.0;
@@ -81,11 +76,10 @@ namespace RayTracer.TestTests
 
             Point3D expected = new Point3D(4.0, 4.0, 4.0);
 
-            Assert.IsTrue(actualPointer.x == expected.x && actualPointer.y == expected.y && actualPointer.z == expected.z);
-            Assert.IsTrue(true);
+            Assert.IsTrue(actualPointer.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestGetDistanceBeforeSqrt()
         {
             Point3D pointA = new Point3D(2, 2, 2);
@@ -94,20 +88,18 @@ namespace RayTracer.TestTests
 
             double expected = 3.0;
 
-            Assert.IsTrue(actualResult == expected);
-            Assert.IsTrue(true);
+            Assert.IsTrue(actualResult.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestGetDistance()
         {
             Point3D pointA = new Point3D(2, 2, 2);
             Point3D pointB = new Point3D(1, 1, 1);
             double actualResult = Math.Sqrt(pointA.GetDistanceBeforeSqrt(pointB));
-
+            actualResult = Math.Round(actualResult, 2);
             double expected = 1.73;
-            Assert.IsTrue(actualResult == expected);
-            Assert.IsTrue(true);
+            Assert.IsTrue(actualResult.Equals(expected));
         }
 
     }

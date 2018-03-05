@@ -1,14 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RayTracer.Models.Cameras;
+﻿using NUnit.Framework;
 using RayTracer.Models.Elements;
 
-namespace RayTracer.UnitTests
+namespace RayTracer.Tests.ElementsTesting
 {
-    [TestClass()]
+    [TestFixture]
     public class Vector3DTests
     {
-        [TestMethod()]
+        [Test]
         public void TestAddVectors()
         {
             Vector3D vectorA = new Vector3D(1, 2, 1);
@@ -16,10 +14,10 @@ namespace RayTracer.UnitTests
             Vector3D actualVector = vectorA + vectorB;
             Vector3D expected = new Vector3D(2, 4, 2);
 
-            Assert.IsTrue(actualVector.x == expected.x && actualVector.y == expected.y && actualVector.z == expected.z);
+            Assert.IsTrue(actualVector.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestSubVector()
         {
             Vector3D vectorA = new Vector3D(1, 2, 1);
@@ -27,20 +25,20 @@ namespace RayTracer.UnitTests
             Vector3D actualVector = vectorA - vectorB;
             Vector3D expected = new Vector3D(0, 0, 0);
 
-            Assert.IsTrue(actualVector.x == expected.x && actualVector.y == expected.y && actualVector.z == expected.z);
+            Assert.IsTrue(actualVector.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestSubSingleVector()
         {
             Vector3D vectorA = new Vector3D(1, 1, 1);
             Vector3D actualVector = -vectorA;
             Vector3D expected = new Vector3D(-1, -1, -1);
 
-            Assert.IsTrue(actualVector.x == expected.x && actualVector.y == expected.y && actualVector.z == expected.z);
+            Assert.IsTrue(actualVector.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestProdVectorScale()
         {
             Vector3D vectorA = new Vector3D(1, 1, 1);
@@ -48,10 +46,10 @@ namespace RayTracer.UnitTests
             Vector3D actualVector = vectorA * scaleV;
             Vector3D expected = new Vector3D(2, 2, 2);
 
-            Assert.IsTrue(actualVector.x == expected.x && actualVector.y == expected.y && actualVector.z == expected.z);
+            Assert.IsTrue(actualVector.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestProdScaleVector()
         {
             double scaleV = 2.0;
@@ -59,10 +57,10 @@ namespace RayTracer.UnitTests
             Vector3D actualVector = scaleV * vectorA;
             Vector3D expected = new Vector3D(2, 2, 2);
 
-            Assert.IsTrue(actualVector.x == expected.x && actualVector.y == expected.y && actualVector.z == expected.z);           
+            Assert.IsTrue(actualVector.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestDivVectorScale()
         {
             Vector3D vectorA = new Vector3D(4, 4, 4);
@@ -70,10 +68,10 @@ namespace RayTracer.UnitTests
             Vector3D actualVector = vectorA / scaleV;
             Vector3D expected = new Vector3D(2, 2, 2);
 
-            Assert.IsTrue(actualVector.x == expected.x && actualVector.y == expected.y && actualVector.z == expected.z);
+            Assert.IsTrue(actualVector.Equals(expected));
         }
 
-        [TestMethod()]
+        [Test]
         public void TestDotProduct()
         {
             Vector3D vectorA = new Vector3D(1, 1, 1);

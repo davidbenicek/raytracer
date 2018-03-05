@@ -96,7 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Test.cs" />
-    <Compile Include="SceneTestInstance.cs" />
     <Compile Include="GeometricTesting\CubeTest.cs" />
     <Compile Include="GeometricTesting\SphereTest.cs" />
     <Compile Include="GeometricTesting\PlaneTest.cs" />
@@ -108,6 +107,10 @@
     <Compile Include="LightsTesting\LightTest.cs" />
     <Compile Include="LightsTesting\AmbientLightTest.cs" />
     <Compile Include="CamerasTesting\PerspectiveTest.cs" />
+    <Compile Include="ElementsTesting\Point3DTests.cs" />
+    <Compile Include="ElementsTesting\Vector3DTests.cs" />
+    <Compile Include="SceneTesting\SceneTestInstance.cs" />
+    <Compile Include="SceneTesting\SceneTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -119,6 +122,7 @@
     <Folder Include="SamplingTesting\" />
     <Folder Include="LightsTesting\" />
     <Folder Include="CamerasTesting\" />
+    <Folder Include="SceneTesting\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using RayTracer.Models.Elements;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Lights;
@@ -7,6 +6,7 @@ using RayTracer.Models.Materials;
 using RayTracer.Models.SceneElements;
 using RayTracer.Models.Tracing;
 using RayTracer.Models.Util;
+using RayTracer.Tests.SceneTesting;
 
 namespace RayTracer.Tests.MaterialsTesting
 {

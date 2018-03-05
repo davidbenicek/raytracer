@@ -4,7 +4,7 @@ using RayTracer.Models.Geometric;
 using RayTracer.Models.SceneElements;
 using RayTracer.Models.Util;
 
-namespace RayTracer.Tests
+namespace RayTracer.Tests.SceneTesting
 {
     public class SceneTestInstance: Scene
     {

@@ -5,6 +5,7 @@ using RayTracer.Models.Lights;
 using RayTracer.Models.Materials;
 using RayTracer.Models.SceneElements;
 using RayTracer.Models.Tracing;
+using RayTracer.Tests.SceneTesting;
 
 namespace RayTracer.Tests.TracingTest
 {

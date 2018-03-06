@@ -15,7 +15,7 @@ $(window).on('load', function () {
 		return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)
 	}
 
-	exports.init = function (b_color, camera_position, light_position,light_color) {
+	exports.init = function (b_color, camera_position) {
 
 		// SCENE
 		scene = new THREE.Scene();
@@ -39,17 +39,6 @@ $(window).on('load', function () {
 		THREEx.FullScreen.bindKey({ charCode: 'm'.charCodeAt(0) });
 		// CONTROLS
 		controls = new THREE.OrbitControls(camera, renderer.domElement);
-		// LIGHT
-
-		//accordian 
-		let lighthex = rgbToHex(light_color.r, light_color.g, light_color.b);
-		var light = new THREE.PointLight( lighthex );
-		light.position.set(light_position.x, light_position.y, light_position.z);
-		scene.add(light);
-		// FLOOR
-		/* var floorTexture = new THREE.ImageUtils.loadTexture( 'images/checkerboard.jpg' );
-		floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
-		floorTexture.repeat.set( 10, 10 ); */
 
 		// walls
 		let hex = rgbToHex(b_color.r, b_color.g, b_color.b);
@@ -61,13 +50,8 @@ $(window).on('load', function () {
 		wallBox.position.z = 0;
 		scene.add(wallBox);
 
-		wireframe = new THREE.WireframeHelper( wallBox, 0x191919);
-		scene.add( wireframe );
-
-		////////////
-		// CUSTOM //
-		////////////
-
+		wireframe = new THREE.WireframeHelper(wallBox, 0x191919);
+		scene.add(wireframe);
 
 		// initialize object to perform world/screen calculations
 		projector = new THREE.Projector();
@@ -98,19 +82,19 @@ $(window).on('load', function () {
 		// create an array containing all objects in the scene with which the ray intersects
 		var intersects = ray.intersectObjects(targetList);
 
-		//if we want to use intersections in the future
-		/* // if there is one (or more) intersections
-		if (intersects.length > 0) {
-			console.log("Hit @ " + toString(intersects[0].point));
-			// change the color of the closest face.
-			intersects[0].face.color.setRGB(0.8 * Math.random() + 0.2, 0, 0);
-			intersects[0].object.geometry.colorsNeedUpdate = true;
-		} */
-
 	}
 
 	function toString(v) { return "[ " + v.x + ", " + v.y + ", " + v.z + " ]"; }
 
+	exports.addLights = function (array) {
+
+		for (i = 0; i < array.length; i++) {
+			let lighthex = rgbToHex(array[i].rgbColor.r, array[i].rgbColor.g, array[i].rgbColor.b);
+			var light = new THREE.PointLight(lighthex);
+			light.position.set(array[i].position.x, array[i].position.y, array[i].position.z);
+			scene.add(light);
+		}
+	}
 
 	function create_cube(id, color, size, material, point) {
 		var idGeometry = new THREE.CubeGeometry(size.x, size.y, size.z);

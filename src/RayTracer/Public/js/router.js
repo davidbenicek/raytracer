@@ -9,25 +9,25 @@ function routeToView() {
     const res = form.harvest()
     let view = $('input[name=chosen-view]:checked')[0].value;
     let svg;
+
     switch (view) {
         case "3D":
-            if (res.environment.position == undefined) {
+            if (res.light.length == 0) {
                 window.alert("Please add some lights and try again.");
                 //TODO : Stays on 3D button - need to revert back to where the user is. Below is not working
                 $('input[id=Side]').prop('checked', true);
             }
             else {
-                console.log(res.environment);
                 $("#ThreeJS").empty();
                 $(".2d-views").hide();
                 $("#ThreeJS").show();
-                d3.init(res.environment.background, res.environment.camera, res.environment.position, res.environment.rgbColor);
+                d3.init(res.environment.background, res.environment.camera);
+                d3.addLights(res.light);
                 d3.animate();
                 d3.jsonToShape(form.objectsJSON);
                 break;
             }
         case "Top":
-            console.log(res.light);
             $("#ThreeJS").empty();
             $(".2d-views").show();
             $("#svg-container").show();

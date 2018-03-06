@@ -27,6 +27,8 @@ function harvest() {
     res.environment = getHarvest("env");
     res.uv = getHarvest("user_view");
     res.light = getHarvestforLight("light");
+    //res.environment.add(res.light);
+    console.log(res.environment);
     return res;
 }
 
@@ -70,12 +72,9 @@ function getFormValues(dataArray) {
     return dataObj;
 }
 
-
-
 module.exports = {
     objectsJSON,
     harvestAndSend,
     harvest
 }
 
-//$(".light_spec").serializeArray()

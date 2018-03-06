@@ -66,5 +66,20 @@ describe('Drag and drop', function () {
       drag_drop.updateJSONWithMove("non-id","y",150,150)
       expect(form.objectsJSON[0].point.x).to.equal(50);
     });  
+
+    it('Calculates conversion from SVG to JSON coordinates in x', function () {
+      const res = drag_drop.convertSVGCordsToJSON(500,"x");
+      expect(res).to.equal(250);
+    })
+    
+    it('Calculates conversion from SVG to JSON coordinates in y', function () {
+      const res = drag_drop.convertSVGCordsToJSON(300,"y");
+      expect(res).to.equal(50);
+    })
+
+    it('Calculates conversion from SVG to JSON coordinates in z', function () {
+      const res = drag_drop.convertSVGCordsToJSON(1000,"z");
+      expect(res).to.equal(750);
+    })
   
 });

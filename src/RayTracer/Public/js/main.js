@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {};
 const form = require("./form.js")
 const sendToApi = require("./sendToApi.js")

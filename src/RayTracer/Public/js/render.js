@@ -1,5 +1,7 @@
+'use strict';
+const form = require("./form.js")
 
-exports.getSVGForSphere = function (obj, dimension) {
+function getSVGForSphere(obj, dimension) {
 
   if (!obj) {
     return "<text x=20 y=20>No object to render</text>";
@@ -8,10 +10,13 @@ exports.getSVGForSphere = function (obj, dimension) {
     return "<text x=20 y=20>No dimension to render in<text>";
   }
 
-  return `<circle id="${obj.id}" class="svg-object" cx="${obj.point.x}" cy="${obj.point[dimension]}" r="${obj.size.x}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`
+  const x = convertJSONCordsToSVG(obj.point.x,"x");
+  const y = convertJSONCordsToSVG(obj.point[dimension],dimension);
+
+  return `<circle id="${obj.id}" class="svg-object" cx="${x}" cy="${y}" r="${obj.size.x}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`
 }
 
-exports.getSVGForCube = function (obj, dimension) {
+function getSVGForCube(obj, dimension) {
 
   if (!obj) {
     return "<text x=20 y=20>No object to render</text>";
@@ -20,10 +25,20 @@ exports.getSVGForCube = function (obj, dimension) {
     return "<text x=20 y=20>No dimension to render in</text>";
   }
 
-  return `<rect id="${obj.id}" class="svg-object" x="${obj.point.x}" y="${obj.point[dimension]}" width="${obj.size.x}" height="${obj.size[dimension]}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`
+  const x = convertJSONCordsToSVG(obj.point.x,"x");
+  const y = convertJSONCordsToSVG(obj.point[dimension],dimension);
+
+  return `<rect id="${obj.id}" class="svg-object" x="${x}" y="${y}" width="${obj.size.x}" height="${obj.size[dimension]}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`
 }
 
-exports.convertToSvg = function (jsonObj, env, dimension) {
+function convertJSONCordsToSVG(value,dimension) {
+  if(dimension == "x")
+    return value + parseInt(form.env.winFrame.Width)/2;
+  else 
+    return value + parseInt(form.env.winFrame.Height)/2;
+}
+
+function convertToSvg(jsonObj, env, dimension) {
 
   if (!env) {
     return "No environment specified for rendering";
@@ -33,19 +48,19 @@ exports.convertToSvg = function (jsonObj, env, dimension) {
   }
 
   try {
-    let svg = `<svg id="svg"` +
+    let svg = `<svg id="svg" ` +
       `onmouseenter="module.showObjectDrag()" ` +
-      `width="${env.winFrame.Width}"` +
-      `height="${env.winFrame.Height}"` +
+      `width="${env.winFrame.Width}" ` +
+      `height="${env.winFrame.Height}" ` +
       `style="fill:rgb(${env.background.r},${env.background.g},${env.background.b});"` +
-      `>`
+      `>`;
     if (jsonObj && jsonObj.length > 0) 
       svg += jsonObj.map((obj) => {
         switch (obj.shape) {
-          case "Sphere":
-            return exports.getSVGForSphere(obj, dimension);
-          case "Cube":
-            return exports.getSVGForCube(obj, dimension);
+          case "sphere":
+            return getSVGForSphere(obj, dimension);
+          case "cube":
+            return getSVGForCube(obj, dimension);
           default:
             return "<text x=20 y=20>Object type not supported</text>";
         }
@@ -58,4 +73,11 @@ exports.convertToSvg = function (jsonObj, env, dimension) {
     console.log(err);
     return "You have not specified the object in the correct format";
   }
+}
+
+module.exports = {
+  getSVGForSphere,
+  getSVGForCube,
+  convertJSONCordsToSVG,
+  convertToSvg
 }

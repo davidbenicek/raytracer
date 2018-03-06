@@ -1,3 +1,5 @@
+'use strict';
+
 const $ = require('jquery');
 
 const form = require("./form.js")
@@ -6,51 +8,64 @@ const form = require("./form.js")
 let count = 0;
 
 //Exported for testing
-module.exports.new_object = "";
-module.exports.dragged_id = "";
+let new_object = "";
+let dragged_id = "";
 
 //Triggered on mouse down
 function startObjectDrag(shape){
 
   const id = "object"+(count++);
 
-  module.exports.dragged_id = id;
-  module.exports.new_object = shape;
+  dragged_id = id;
+  module.exports.dragged_id = dragged_id;
+  new_object = shape;
+  module.exports.new_object = new_object;
+
   
 }
 
 //Triggered on drag end
 function clearObjectDrag(){
 
-  module.exports.dragged_id = "";
-  module.exports.new_object = "";
+  dragged_id = "";
+  module.exports.dragged_id = dragged_id;
+  new_object = "";
+  module.exports.new_object = new_object;
   
 }
 
 function showObjectDrag(){
   let entrant;
   //If we are dragging in a new object
-  if(module.exports.dragged_id != "" && module.exports.new_object != ""){
+  if(dragged_id != "" && new_object != ""){
     //Monitor movement within #svg element
     $("#svg").mousemove(function(e) {
       //Calculating relative position within #svg by getting cursor pos and taking away top right corner of #svg
+      const dimension = ($('input[name=chosen-view]:checked')[0].value) == "Side" ? "y" : "z"
+      
+      
       let x_new = e.pageX - $("#svg").position().left;
-      let y_new = e.pageY - $("#svg").position().top;
+      let yz_new = e.pageY - $("#svg").position().top;
+      //We use the name yz to demonstrate that the values past in case be in both the y and z-axis,
+      //whilst the x values are always in the x-axis. This is because; "top down view" -> z, "side view" -> y
+      
+      let x_json = convertSVGCordsToJSON(x_new,"x");
+      let yz_json = convertSVGCordsToJSON(yz_new,dimension);
       
       //Create the default SVG shape
-      entrant = createDefaultShape(module.exports.new_object,module.exports.dragged_id,x_new,y_new);
+      entrant = createDefaultShape(new_object,dragged_id,x_new,yz_new);
       //Add it to the actual #svg element
       entrant.appendTo($("#svg"));
       //Also update JSON
-      addToJSON(module.exports.new_object,module.exports.dragged_id,x_new,y_new);
+      addToJSON(new_object,dragged_id,x_json,yz_json);
       //Now that we are inside the SVG and not dragging a new object in, we want to replace the mouse move listener
       $("#svg").unbind("mousemove");
       
       bindListeners();
       //Trigger movement of the element we just moved in
-      $("#"+module.exports.dragged_id).trigger("mousedown");
+      $("#"+dragged_id).trigger("mousedown");
       //This object is no loger new
-      module.exports.new_object = "";
+      new_object = "";
     });
 
   }
@@ -59,26 +74,31 @@ function showObjectDrag(){
 
 function bindListeners(){
   $(".svg-object").mousedown(function(e){
-    module.exports.dragged_id = e.target.id;
+    dragged_id = e.target.id;
     //Have to disable pointer events and all objects except for the one I am dragging
     //this is because if I drag the target object over an object that is rendered above it, the focus of the event changes!
     $(".svg-object").not(e.target).css( 'pointer-events', 'none' );
     $("#svg").mousemove(function(e){
-      if(e.target.id != module.exports.dragged_id){
+      if(e.target.id != dragged_id){
         $(".svg-object").trigger("mouseup");
       }
 
+      const dimension = ($('input[name=chosen-view]:checked')[0].value) == "Side" ? "y" : "z"
+
+
       //Calculate position of the cursor in reference to the SVG
       let x_new = e.pageX - $("#svg").position().left;
-      let y_new = e.pageY - $("#svg").position().top;
+      let yz_new = e.pageY - $("#svg").position().top;
 
+      let x_json = convertSVGCordsToJSON(x_new,"x");
+      let yz_json = convertSVGCordsToJSON(yz_new,dimension);
       //Update in JSON
-      updateJSONWithMove(e.target.id,"y",x_new,y_new);
+      updateJSONWithMove(e.target.id,dimension,x_json,yz_json);
       //Move object in SVG
       if(e.target.tagName == "rect")
-        moveRect(e.target,x_new,y_new);
+        moveRect(e.target,x_new,yz_new);
       else
-        moveCircle(e.target,x_new,y_new);
+        moveCircle(e.target,x_new,yz_new);
     })
   })
 
@@ -87,13 +107,13 @@ function bindListeners(){
     $(".svg-object").css( 'pointer-events', 'auto' );
     //Stop tracking the mouse movements
     $("#svg").unbind("mousemove");
-    module.exports.dragged_id = "";
+    dragged_id = "";
   })
   
 }
 
 function findObjectInJSON(id){
-  for(i in form.objectsJSON){
+  for(let i in form.objectsJSON){
     if(form.objectsJSON[i].id == id){
       return i;
     }
@@ -109,10 +129,10 @@ function addToJSON(shape,id,x,yz){
     let shape_name = "";
     switch (shape){
       case "rect":
-        shape_name = "Cube"
+        shape_name = "cube"
         break;
       default:
-        shape_name = "Sphere"
+        shape_name = "sphere"
         break;
     }
 
@@ -121,7 +141,7 @@ function addToJSON(shape,id,x,yz){
       "id" : id,
       "size":{"x":70,"y":70,"z":70},
       "point":{"x":x,"y":yz,"z":yz},
-      "color":{"r":0.0,"g":0.0,"b": 0.0},
+      "color":{"r":.0,"g":0.0,"b": 0.0},
       "material":"flat"
     };
     form.objectsJSON.push(obj)
@@ -134,6 +154,13 @@ function updateJSONWithMove(id,dimension,x,yz){
     form.objectsJSON[i].point.x = x;
     form.objectsJSON[i].point[dimension] = yz;
   }
+}
+
+function convertSVGCordsToJSON(value,dimension) {
+  if(dimension == "x")
+    return value - parseInt(form.env.winFrame.Width)/2;
+  else 
+    return value - parseInt(form.env.winFrame.Height)/2
 }
 
 function moveCircle(target,x,yz){
@@ -161,13 +188,15 @@ function createDefaultShape(shape,id,pos_x,pos_yz){
     default:
       return $(svg).attr('cx', pos_x)
       .attr('cy', pos_yz)
-      .attr('r', 45)
+      .attr('r', 35)
       .attr('class','svg-object')
       .attr('id', id)
   }
 }
 
 module.exports = {
+  dragged_id,
+  new_object,
   bindListeners,
   showObjectDrag,
   startObjectDrag,
@@ -175,5 +204,6 @@ module.exports = {
   findObjectInJSON,
   addToJSON,
   updateJSONWithMove,
-  createDefaultShape
+  createDefaultShape,
+  convertSVGCordsToJSON
 } 

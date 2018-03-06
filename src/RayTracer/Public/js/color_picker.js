@@ -1,10 +1,11 @@
+'use strict';
 
 const $ = require('jquery');
 
 const form = require('../js/form.js');
 
 //reference
-exports.hexToRgb = function(hex) {
+function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, function (m, r, g, b) {
@@ -19,7 +20,7 @@ exports.hexToRgb = function(hex) {
     } : null;
 }
 
-function rgbToHex(r,g,b){
+ function rgbToHex(r,g,b){
     return "#"+(1<<24|r<<16|g<<8|b).toString(16).slice(1)
 }
 
@@ -27,12 +28,12 @@ function changeColourPickerValue(){
     const red = $("#colour_r")[0].value;
     const green = $("#colour_g")[0].value;
     const blue = $("#colour_b")[0].value;
-    const hex = rgbToHex(red,green,blue);
+    const hex = exports.rgbToHex(red,green,blue);
     document.getElementById("color_picker").value = hex;
 }
 
 
-$(document).ready(function () {
+function initialiseColourPickerListener(){
     $("#color_picker").change(function () {
         const hex = document.getElementById("color_picker").value;
         var cp = hexToRgb(hex);        
@@ -42,9 +43,14 @@ $(document).ready(function () {
         $("#colour_b")[0].value = cp.b;
         
         form.renderSvg();        
-    })
+    });
     
     // changeColourPickerValue()
-    $("#colour_r, #colour_g, #colour_b").keyup(changeColourPickerValue)
+    $("#colour_r, #colour_g, #colour_b").keyup(changeColourPickerValue);
 }
-)
+
+module.exports = {
+    hexToRgb,
+    rgbToHex,
+    initialiseColourPickerListener
+};

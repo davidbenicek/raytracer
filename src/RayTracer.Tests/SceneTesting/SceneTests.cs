@@ -18,8 +18,8 @@ namespace RayTracer.Tests.SceneTesting
         public void Init()
         {
             scene = new Scene(new WindowFrame(500, 500, 1.0));
-
         }
+
         [Test]
         public void TestFinalPicture()
         {
@@ -34,6 +34,8 @@ namespace RayTracer.Tests.SceneTesting
         public void TestGetHitInfo_Object_inIgnoreList()
         {
             //Arrange
+            scene = new Scene(new WindowFrame(500, 500, 1.0));
+
             List<GeometryObject> ignoreObjects = new List<GeometryObject>();
             Mock<GeometryObject> geoMock = new Mock<GeometryObject>();
             ignoreObjects.Add(geoMock.Object);
@@ -60,6 +62,88 @@ namespace RayTracer.Tests.SceneTesting
             HitInfo actualHitInfo = scene.GetHitInfo(new Ray(), ignoreObjects);
             //Assert
             Assert.IsFalse(actualHitInfo.hasHit);
+        }
+
+        [Test]
+        public void TestGetHitInfo_Object_OneinIgnoreList_AndOneNot_AndOneHit()
+        {
+            //Arrange
+            scene = new Scene(new WindowFrame(500, 500, 1.0));
+            List<GeometryObject> ignoreObjects = new List<GeometryObject>();
+            Mock<GeometryObject> geoMock = new Mock<GeometryObject>();
+            ignoreObjects.Add(geoMock.Object);
+            scene.AddObject(geoMock.Object);
+            Mock<GeometryObject> geoMock2 = new Mock<GeometryObject>();
+
+            HitInfo hitInfo = new HitInfo();
+            hitInfo.hasHit = true;
+            hitInfo.tMin = 0.5;
+
+            geoMock2.Setup(_ => _.Intersect(It.IsAny<Ray>())).Returns(hitInfo);
+            scene.AddObject(geoMock2.Object);
+            //Act
+            HitInfo actualHitInfo = scene.GetHitInfo(new Ray(), ignoreObjects);
+            //Assert
+            Assert.IsTrue(actualHitInfo.hasHit && 
+                          actualHitInfo.tMin.Equals(hitInfo.tMin));
+        }
+
+        [Test]
+        public void TestGetHitInfo_Object_BothObjectsHit_Take_Minimum()
+        {
+            //Arrange
+            scene = new Scene(new WindowFrame(500, 500, 1.0));
+            List<GeometryObject> ignoreObjects = new List<GeometryObject>();
+            Mock<GeometryObject> geoMock = new Mock<GeometryObject>();
+            HitInfo hitInfo = new HitInfo();
+            hitInfo.hasHit = true;
+            hitInfo.tMin = 0.5;
+
+            geoMock.Setup(_ => _.Intersect(It.IsAny<Ray>())).Returns(hitInfo);
+            scene.AddObject(geoMock.Object);
+            scene.AddObject(geoMock.Object);
+            Mock<GeometryObject> geoMock2 = new Mock<GeometryObject>();
+
+            HitInfo hitInfo2 = new HitInfo();
+            hitInfo2.hasHit = true;
+            hitInfo2.tMin = 0.9;
+
+            geoMock2.Setup(_ => _.Intersect(It.IsAny<Ray>())).Returns(hitInfo);
+            scene.AddObject(geoMock2.Object);
+            //Act
+            HitInfo actualHitInfo = scene.GetHitInfo(new Ray(), ignoreObjects);
+            //Assert
+            Assert.IsTrue(actualHitInfo.hasHit &&
+                          actualHitInfo.tMin.Equals(hitInfo.tMin));
+        }
+
+        [Test]
+        public void TestGetHitInfo_Object_BothObjectsHit_Take_Minimum_GreaterThanZero()
+        {
+            //Arrange
+            scene = new Scene(new WindowFrame(500, 500, 1.0));
+            List<GeometryObject> ignoreObjects = new List<GeometryObject>();
+            Mock<GeometryObject> geoMock = new Mock<GeometryObject>();
+            HitInfo hitInfo = new HitInfo();
+            hitInfo.hasHit = true;
+            hitInfo.tMin = 0.5;
+
+            geoMock.Setup(_ => _.Intersect(It.IsAny<Ray>())).Returns(hitInfo);
+            scene.AddObject(geoMock.Object);
+            scene.AddObject(geoMock.Object);
+            Mock<GeometryObject> geoMock2 = new Mock<GeometryObject>();
+
+            HitInfo hitInfo2 = new HitInfo();
+            hitInfo2.hasHit = true;
+            hitInfo2.tMin = -0.9;
+
+            geoMock2.Setup(_ => _.Intersect(It.IsAny<Ray>())).Returns(hitInfo);
+            scene.AddObject(geoMock2.Object);
+            //Act
+            HitInfo actualHitInfo = scene.GetHitInfo(new Ray(), ignoreObjects);
+            //Assert
+            Assert.IsTrue(actualHitInfo.hasHit &&
+                          actualHitInfo.tMin.Equals(hitInfo.tMin));
         }
 
         [Test]
@@ -91,5 +175,6 @@ namespace RayTracer.Tests.SceneTesting
 
             Assert.IsTrue(finalPixel[1, 1].Equals(color));
         }
+
     }
 }

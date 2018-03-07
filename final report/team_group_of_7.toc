@@ -7,7 +7,7 @@
 \contentsline {section}{\numberline {3}Requirements and design}{4}
 \contentsline {section}{\numberline {4}Implementation}{4}
 \contentsline {subsection}{\numberline {4.1}Front End}{4}
-\contentsline {subsection}{\numberline {4.2}Backend}{4}
+\contentsline {subsection}{\numberline {4.2}Back-end}{4}
 \contentsline {subsubsection}{\numberline {4.2.1}Unit Testing}{4}
 \contentsline {section}{\numberline {5}Team work}{4}
 \contentsline {section}{\numberline {6}Evaluation}{4}

@@ -80,38 +80,38 @@
 		\caption{Ray Tracing's Scene Elements \cite{raytracingpic}}
 		\label{fig:raytracing}
 	\end{figure}
-	\par \textbf{Figure \ref{fig:raytracing}} shows an example of a scene with the previously listed elements. Now, and after discussing the elements of the scene, it is the time to describe the algorithm of ray tracing. The idea is so simple, in each scene there will an eye or camera, from that camera many rays will be produced and go across the small squares in the image plane, for each ray we need to check whether it intersects with any of the objects or not, and return the color of that pixel.\\
-	\par The algorithm itself is really simple. Nevertheless, it is previously mentioned that environment variables play a big role in the calculations. And so, returning the color of the pixel, which was hit by the the ray, won't be that simple; since it will require additional computations related to the reflections, shades ... etc. 
+	\par \textbf{Figure \ref{fig:raytracing}} shows an example of a scene with the previously listed elements. Now, and after discussing the elements of the scene, it is the time to describe the algorithm of ray tracing. The idea is so simple, in each scene there will an eye or camera, from that camera many rays will be produced and go across the small squares in the image plane, for each ray we need to check whether it intersects with any of the objects or not, and return the colour of that pixel.\\
+	\par The algorithm itself is really simple. Nevertheless, it is previously mentioned that environment variables play a big role in the calculations. And so, returning the colour of the pixel, which was hit by the the ray, won't be that simple; since it will require additional computations related to the reflections, shades ... etc. 
 	\subsection{Our Solution}
-	Although the idea behind ray tracing is simple. But, there are many different problems to be addressed in this program. These problems can be summarized as below:
+	Although the idea behind ray tracing is simple. But, there are many different problems to be addressed in this program. These problems can be summarised as below:
 	\subsubsection{Web Interface}
-	In order to define the different elements of the scene, a web interface is developed to allow users enter the different values for the scene elements. Using this interface, the user can add different objects to the scene, with different materials, positions, sizes, colors. Furthermore, adding different lights at different positions with different colors. \\
+	In order to define the different elements of the scene, a web interface is developed to allow users enter the different values for the scene elements. Using this interface, the user can add different objects to the scene, with different materials, positions, sizes, colours. Furthermore, adding different lights at different positions with different colours. \\
 	\par The challenge here is that objects must be in 3D. And so, we developed a web interface with two options. One option is the 2D option, where the user needs to define an element by providing its values in the top and side views. The other option, is the 3D view, where the user can add elements directly in 3D format.\\
-	\par All the functionalities in our web interface support the drag and drop feature. In other words, this means that the user can define the position by clicking on the object, and moving it in any direction.
+	\par All the functionality in our web interface supports the drag and drop feature. In other words, this means that the user can define the position by clicking on the object, and moving it in any direction.
 	\subsubsection{Ray tracing Engine}
-	The other part of our system is the backend engine, where all the calculations are done based on the input received from the web interface. This system was developed using .NET C\#. It includes a post API, which will receive the request from the client, and it is able to render a scene with the followings:
+	The other part of our system is the back-end engine, where all the calculations are done based on the input received from the web interface. This system was developed using .NET C\#. It includes a post API, which will receive the request from the client, and it is able to render a scene with the followings:
 	\begin{itemize}
 		\item A scene with the following objects:
 		\begin{itemize}
-			\item \textbf{Plane}: This object will be used to create the walls in the scene. And it will have position, and a normal which will decide the orientation, in addititon to one of the supported materials.
+			\item \textbf{Plane}: This object will be used to create the walls in the scene. And it will have position, and a normal which will decide the orientation, in addition to one of the supported materials.
 			\item \textbf{Cube}: Each cube will have a size, a position, and one of the supported materials.
-			\item \textbf{Sphere}: Each sphere will have a radius, center point, and one of the supported materials.
+			\item \textbf{Sphere}: Each sphere will have a radius, centre point, and one of the supported materials.
 		\end{itemize}
 		The  \textbf{supported materials} are:
 		\begin{itemize}
-			\item \textbf{Phong materials}:  which will follow the phong theory such as chalk, metal, plastic. The difference between those materials are the different values of diffusion, specular coefficients and the light color infulence.
-			\item \textbf{Flat material}: which is the simplest material, which will return the color of that object regardless to any other environment variables and parameters.
-			\item \textbf {Glass material}: this material is the most complicated one, which will do many different calculations in order to calculate the color of each pixel of that object.
+			\item \textbf{Phong materials}:  which will follow the phong theory such as chalk, metal, plastic. The difference between those materials are the different values of diffusion, specular coefficients and the light colour influence.
+			\item \textbf{Flat material}: which is the simplest material, which will return the colour of that object regardless to any other environment variables and parameters.
+			\item \textbf {Glass material}: this material is the most complicated one, which will do many different calculations in order to calculate the colour of each pixel of that object.
 		\end{itemize}
-		Each of these materials can have a color chosen by the user, or just use the default color, if \textbf{nothing} is received.
-		\item A scene with multiple light sources at different positions and different colors.
+		Each of these materials can have a colour chosen by the user, or just use the default colour, if \textbf{nothing} is received.
+		\item A scene with multiple light sources at different positions and different colours.
 		\item A scene with perspective camera, this camera will have the position, the direction of how to look at the image plane, and the distance from that plane.
 	\end{itemize}
 	\section{Review}
 	\section{Requirements and design}
 	\section{Implementation}
 	\subsection{Front End}
-	\subsection{Backend}
+	\subsection{Back-end}
 	\subsubsection{Unit Testing}
 	\section{Team work}
 	\section{Evaluation}

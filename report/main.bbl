@@ -1,3 +1,9 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{raytracingpic}
+An overview of the ray-tracing rendering technique.
+\newblock
+  \url{https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-overview}.
+\newblock Accessed: 2018-03-07.
 
 \end{thebibliography}

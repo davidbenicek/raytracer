@@ -1,35 +1,84 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
-\title{Group of Seven Report}
-\author{1756850 Alkhamra, Othman Bader \\
-1739256 Benicek, David \\
-1770922 Bari, Aadam Ali \\
-1425704 Mankani Vinod, Hitesh \\
-1755013 Obimma, Timothy Uzochukwu \\ 
-1783087 Vaddiraju, Nagarjuna}
-\date{January 2018}
+% \title{Group of Seven Report}
+% \author{1756850 Alkhamra, Othman Bader \\
+% 1739256 Benicek, David \\
+% 1770922 Bari, Aadam Ali \\
+% 1425704 Mankani Vinod, Hitesh \\
+% 1755013 Obimma, Timothy Uzochukwu \\ 
+% 1783087 Vaddiraju, Nagarjuna}
+% \date{January 2018}
 
 \usepackage{natbib}
 \usepackage{graphicx}
 
 \begin{document}
-
-\maketitle
-
-\section{Introduction}
-
-
-% \begin{figure}[h!]
-% \centering
-% \includegraphics[scale=1.7]{universe.jpg}
-% \caption{The Universe}
-% \label{fig:univerise}
-% \end{figure}
-
-% \section{Conclusion}
-% ``I always thought something was fundamentally wrong with the universe'' \citep{adams1995hitchhiker}
-
-\bibliographystyle{plain}
-\bibliography{references}
+	
+	\begin{titlepage}
+		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
+		\newcommand{\hRule}{\rule{\linewidth}{0.1mm}} % Defines a new command for horizontal lines, change thickness here
+		\centering
+		\includegraphics[width=0.2\textwidth]{kcl.png}\par\vspace{1cm}
+		\textsc{\LARGE King's College London}\\[1.5cm] % Main heading such as the name of your university/college
+		\textsc{\large 7CCSMGPR}\\[0.5cm] % Major heading such as course name
+		\textsc{\Large Group Project}\\[0.5cm] % Minor heading such as course title
+		\HRule\\[0.4cm]
+		{\huge\bfseries Group of Seven Report}\\[0.4cm] % Title of your document
+		\HRule\\[1.5cm]
+		\vspace{1cm}
+		\textit{Authors: }\vspace{0.5cm}
+		\begin{center}
+			\begin{tabular}{ c|c|c } 
+				\hline
+				\textbf{Number} & \textbf{Name} & \textbf{Email} \\
+				\hline
+				1756850 & Othman \textsc{Alkhamra} &  othman.alkhamra@kcl.ac.uk \\ 
+				\hline
+				1739256 & David \textsc{Benicek} &  david.benicek@kcl.ac.uk \\ 
+				\hline
+				1770922 & Aadam \textsc{Bari} &  
+				aadam.bari@kcl.ac.uk\\ 
+				\hline
+				1425704 & Hitesh \textsc{Mankani Vinod} &  hitesh.mankani\_vinod@kcl.ac.uk \\ 
+				\hline
+				1755013 & Timothy \textsc{Obimma} &  timothy.obimma@kcl.ac.uk \\ 
+				\hline
+				1783087 & Nagarjuna \textsc{Vaddiraju} &  nagarjuna.vaddiraju@kcl.ac.uk \\ 
+				
+				\hline
+			\end{tabular}
+		\end{center}
+		
+		\vfill
+		supervised by\par
+		Dr.~Laurence \textsc{Tratt}\\
+		\vfill
+		{\large \today\par}
+	\end{titlepage}
+	% \maketitle
+	
+	\section{Introduction}
+	Ray tracing is one of the most common rendering techniques used in computer graphics. In real life, we have different objects such as spheres, cubes ... etc. What is common between them is that they are geometry objects. However, those objects might appear in different ways, based on their environment. For example, a glass sphere placed in an environment with many light sources will react in a different way than a metal sphere. And so, it is clear that different factors such as the material type, light sources and many other factors, will produce many different outputs. Ray tracing is one of those techniques which helps in producing different images for different environment variables.
+	\subsection{What is the Idea behind  Ray Tracing?}
+	Before discussing the idea behind ray tracing, and explaining its algorithm. Let's begin with listing the basic required elements to run the ray tracing algorithm. Those elements will be in one container which will be called \textbf{scene}. The elements of the scene are:
+	\begin{itemize}
+		\item \textbf{Object(s)}: a scene can contain one or many objects. Each object can be one of the previously mentioned objects or any other object, which exists in real life. For example, an object could be a sphere, triangle, tree, car, building ... etc.
+		\item \textbf{Light source(s)}: The algorithm of ray tracing itself doesn't require having a light source. However, a scene without any light source, won't make the use of ray tracing effective.
+		\item \textbf{Image Plane}: which is called \textbf{window frame} in our implementation. This plane will have some width and height, and it will be divided into small squares, and each square will be covering a number of pixels on the objects of the scene.
+		\item \textbf{Eye or Camera:} In order to render the scene, it is mandatory to have an eye or camera, with some position and some direction, to detect the way of looking to the scene elements. From that eye or camera, rays will be produced, and will go through the image plane.
+		
+	\end{itemize}
+	 
+	The basic elements of ray tracing are the objects, which can be any object from the previously mentioned ones, or any other objects. 
+	
+	\section{Review}
+	\section{Requirements and design}
+	\section{Implementation}
+	\section{Team work}
+	\section{Evaluation}
+	
+	
+	\bibliographystyle{plain}
+	\bibliography{references}
 \end{document}

@@ -14,17 +14,17 @@ function routeToView() {
 
     switch (view) {
         case "3D":
-            if (res.light.length == 0) {
+            if (res.environment.lights.length == 0) {
                 window.alert("Please add some lights and try again.");
-                //TODO : Stays on 3D button - need to revert back to where the user is. Below is not working
-                $('input[id=Side]').prop('checked', true);
+                $('input[id=3D]').prop('active', false);
+                $('input[id=Side]').prop('active', true);
             }
             else {
                 $("#ThreeJS").empty();
                 $(".2d-views").hide();
                 $("#ThreeJS").show();
                 d3.init(res.environment.background, res.environment.camera);
-                d3.addLights(res.light);
+                d3.addLights(res.environment.lights);
                 d3.animate();
                 d3.jsonToShape(form.objectsJSON);
                 break;

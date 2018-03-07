@@ -25,28 +25,13 @@ function formatJSONForBackEnd(dataJSON){
     dataJSON["background"].g = dataJSON["background"].g/255;
     dataJSON["background"].b = dataJSON["background"].b/255;
 
-    //Hardcoding light TODO: For Hitesh
-    let light = {};
-    light["rgbColur"] = dataJSON["rgbColor"];
-    delete dataJSON["rgbColor"];
-    light["intensity"] = parseInt(dataJSON["intensity"]);
-    delete dataJSON["intensity"];
-    light["position"] = dataJSON["position"];
-    delete dataJSON["position"];
-    dataJSON["lights"] = [light];
 
     return dataJSON;
 }
 
 function sendToApi(dataJSON){
-
+    
     dataJSON.environment = formatJSONForBackEnd(dataJSON.environment);
-    //Hardcoding light TODO: For Hitesh
-    dataJSON.environment.lights = [
-            {"rgbColor":{"r":0.3,"g":0.3,"b":0.3}, "intensity": 1 },
-            {"position":{"x":0,"y":55,"z":95},"rgbColor":{"r":1.0,"g":0,"b":0}, "intensity": 0.5},
-            {"position":{"x":50,"y":55,"z":75},"rgbColor":{"r":1.0,"g":0,"b":1.0}, "intensity": 0.4}
-    ]    
     
     $.ajax({
         type: 'POST',

@@ -21,8 +21,7 @@ function harvest() {
     res.objects = objectsJSON;
     res.environment = getHarvest("env");
     res.uv = getHarvest("user_view");
-    res.light = getHarvestforLight("light");
-    //TODO: Add light to environment
+    res.environment.lights = getHarvestforLight("light");
     env = res.environment;
     return res;
 }

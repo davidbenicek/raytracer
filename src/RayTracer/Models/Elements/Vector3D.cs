@@ -105,11 +105,6 @@ namespace RayTracer.Models.Elements
             }
         }
 
-        public Vector3D Mix(Vector3D vectorA, Vector3D vectorB, double MixValue)
-        {
-            return vectorA * (1 - MixValue) + vectorB * MixValue;
-        }
-
         public override bool Equals(Object obj)
         {
             Vector3D vector = (Vector3D)obj;

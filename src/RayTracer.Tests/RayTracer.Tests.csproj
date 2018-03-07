@@ -111,6 +111,7 @@
     <Compile Include="ElementsTesting\Vector3DTests.cs" />
     <Compile Include="SceneTesting\SceneTestInstance.cs" />
     <Compile Include="SceneTesting\SceneTests.cs" />
+    <Compile Include="ElementsTesting\ColorRGBTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

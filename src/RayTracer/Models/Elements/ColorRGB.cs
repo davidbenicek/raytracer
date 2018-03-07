@@ -69,5 +69,11 @@ namespace RayTracer.Models.Elements
             );
         }
 
+        public override bool Equals(Object obj)
+        {
+            ColorRGB color = (ColorRGB)obj;
+            return color.r.Equals(r) && color.g.Equals(g) && color.b.Equals(b);
+        }
+
     }
 }

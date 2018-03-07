@@ -53,6 +53,11 @@ namespace RayTracer.Models.Sampling
             return samples[(jump + count++) % (numOfsamples * numOfsets)];
         }
 
+        public List<Point2D> GetSamples()
+        {
+            return samples;
+        }
+
         public abstract void GenerateSamples();
     }
 }

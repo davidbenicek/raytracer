@@ -23,5 +23,11 @@ namespace RayTracer.Models.Elements
             this.x = x;
             this.y = y;
         }
+
+        public override bool Equals(Object obj)
+        {
+            Point2D point = (Point2D)obj;
+            return point.x.Equals(x) && point.y.Equals(y);
+        }
     }
 }

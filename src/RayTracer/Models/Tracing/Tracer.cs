@@ -24,7 +24,11 @@ namespace RayTracer.Models.Tracing
         public virtual ColorRGB TraceRay(Ray ray, List<GeometryObject> ignoreObjects = null)
         {
             HitInfo hitDetails = scene.GetHitInfo(ray, ignoreObjects);
-            hitDetails.ray = ray;
+
+            if (hitDetails != null)
+            {
+                hitDetails.ray = ray;
+            }
 
             if (hitDetails != null && hitDetails.hasHit)
             {

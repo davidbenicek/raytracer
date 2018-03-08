@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using RayTracer.Models.Cameras;
 using RayTracer.Models.Elements;
 using RayTracer.Models.Geometric;
 using RayTracer.Models.Materials;
@@ -10,31 +11,48 @@ namespace RayTracer.Tests.CamerasTesting
     [TestFixture]
     public class PerspectiveTest
     {
-        Point2D point = new Point2D();
-        public double distanceViewPlane = 850;
-        Point3D u = new Point3D(0.99896255, 0, -0.016587);
-        Point3D v = new Point3D(-0.00164, 1.000137, -0.009949);
-        Point3D w = new Point3D(0.016581, 0.0995037188, 0.9999999434);
 
-        [Test]
-        public void TestFindRayDirectionWithNormalize()
+        Point3D position;
+        Point3D lookAt;
+        double distanceViewPlane;
+        Camera perspectiveCamera;
+
+        [TestFixtureSetUp]
+        public void Init()
         {
-            Vector3D rayDirection = point.x * u + point.y * v - distanceViewPlane * w;
-            Vector3D newRayDirection= point.x * u + point.y * v - distanceViewPlane * w;
-            rayDirection.Normalize();
-            Assert.IsFalse(rayDirection.Equals(newRayDirection));
-
+            position = new Point3D(0, 30, 300);
+            lookAt = new Point3D(-5, 0, 0);
+            distanceViewPlane = 850.0;
+            perspectiveCamera = new Perspective(position, lookAt, distanceViewPlane);
         }
 
         [Test]
-        public void TestFindRayDirectionWithoutNormalize()
+        public void TestFindRayDirection()
         {
-            Vector3D rayDirection =new Vector3D(0,0,0);
-            Vector3D newRayDirection = new Vector3D(rayDirection);
-            rayDirection.Normalize();
-            newRayDirection.Normalize();
-            Assert.IsTrue(rayDirection.Equals(newRayDirection));
+            Point2D point = new Point2D(-999.56, -1000);
+            Vector3D expectedRayDirection =new Vector3D(-0.61,-0.83,-1);
+            Vector3D actualResult = perspectiveCamera.FindRayDirection(point);
+            actualResult.x = Math.Round(actualResult.x, 2);
+            actualResult.y = Math.Round(actualResult.y, 2);
+            actualResult.z = Math.Round(actualResult.z, 2);
 
+            Assert.IsTrue(actualResult.Equals(expectedRayDirection));
+        }
+
+        [Test]
+        public void TestFindRayDirection_WithZeroValues_AndNotThrowingExceptions()
+        {
+            position = new Point3D(0);
+            lookAt = new Point3D(0);
+            distanceViewPlane = 850.0;
+
+            perspectiveCamera = new Perspective(position, lookAt, distanceViewPlane);
+
+            Point2D point = new Point2D(-999.56, -1000);
+            Vector3D expectedRayDirection = new Vector3D(0);
+            Vector3D actualResult = perspectiveCamera.FindRayDirection(point);
+
+            Assert.IsTrue(actualResult.Equals(expectedRayDirection));
         }
             
     }

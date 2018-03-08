@@ -15,6 +15,7 @@ function routeToView() {
     switch (view) {
         case "3D":
             if (res.environment.lights.length == 0) {
+                //Small TODO: does not work
                 window.alert("Please add some lights and try again.");
                 $('input[id=3D]').prop('active', false);
                 $('input[id=Side]').prop('active', true);

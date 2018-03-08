@@ -85,7 +85,7 @@ function addLights (array) {
 
 	for (let i = 0; i < array.length; i++) {
 		let lighthex = cp.rgbToHex(array[i].rgbColor.r, array[i].rgbColor.g, array[i].rgbColor.b);
-		var light = new THREE.PointLight(lighthex);
+		let light = new THREE.PointLight(lighthex,array[i].intensity.intensity);
 		light.position.set(array[i].position.x, array[i].position.y, array[i].position.z);
 		scene.add(light);
 	}

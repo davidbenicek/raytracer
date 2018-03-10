@@ -21,8 +21,13 @@ namespace RayTracer.Models.Tracing
             this.scene = scene;
         }
 
-        public virtual ColorRGB TraceRay(Ray ray, List<GeometryObject> ignoreObjects = null)
+        public virtual ColorRGB TraceRay(Ray ray, List<GeometryObject> ignoreObjects = null, int depth = 0)
         {
+            if(depth > Config.MAX_DEPTH)
+            {
+                return scene.GetBackgroundColor();
+            }
+
             HitInfo hitDetails = scene.GetHitInfo(ray, ignoreObjects);
 
             if (hitDetails != null)
@@ -32,6 +37,7 @@ namespace RayTracer.Models.Tracing
 
             if (hitDetails != null && hitDetails.hasHit)
             {
+                TraceRay(hitDetails.ray, ignoreObjects, depth + 1);
                 return hitDetails.hitObject.GetMaterial().CalculateShade(hitDetails, scene) * TraceShadeRay(hitDetails);
             }
             else

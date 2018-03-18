@@ -14,6 +14,11 @@
 \usepackage{graphicx}
 \usepackage{url}
 
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+
 \begin{document}
 	
 	\begin{titlepage}
@@ -121,15 +126,20 @@
 	
 	\par Ray tracing is one of the popular methods of rendering. What is Rendering? Rendering is the act of generating an image (usually photorealistic) from a 2D or 3D model. There are three familiar techniques to image rendering and they are rasterisation, ray casting and ray tracing. These three techniques are quite similar but are differentiated by their representation of the optical effects such as reflection intensity which in turn makes the processing speed vary differently (Wald, Slusallek, Benthin, \& Wagner, 2001). This means that ray tracing would produce the most photorealistic image while also taking the most time to compute while rasterisation would produce the most basic image.\\
 	
-	\par The earliest known Ray tracing system was calculated by hand by Richard Hoyt in the 1950's while working on vehicle shotline at the Ballistic Research Library known today as DARPA (Klopcic \& L. Reed, 1999). In the 1960's, physicists coined the name "ray tracing" by plotting on paper the path taken by rays of light starting at a light source and passing through the lens in the design of lenses (Glassner, 1991).\\
+	\par The earliest known Ray tracing system was calculated by hand by Richard Hoyt in the 1950's while working on vehicle shotline at the Ballistic Research Library known today as DARPA (Klopcic \& L. Reed, 1999). In the 1960's, physicists coined the name "ray tracing" by plotting on paper the path taken by rays of light starting at a light source and passing through the lens in the design of lenses (Glassner, 1989).\\
 	
 	\par Computer Graphic researchers at the university of Utah thought it would be a good idea to apply this simulation of light physics to create images but the computers of the 1960's were too slow to produce images of better quality than those made by using cheaper image rendering techniques hence the idea of ray tracing was dropped for several years.\\
 	
-	\par Over several years, as computers grew more powerful, it became imperative to simulate the real physics. Several optimised algorithms were implemented and this led to computers being able to simulate various kinds of optical effects. Ray tracing have evolved greatly since then and is now one of the most powerful technique used in image rendering. Ray tracers have become both faster and more efficient and can even produce hyper-realistic images that are indistinguishable from the real world. We will Discuss some Ray tracers in detail below.\\
+	\par Over several years, as computers grew more powerful, it became imperative to simulate the real physics. Several optimised algorithms were implemented and this led to computers being able to simulate various kinds of optical effects. Ray tracing have evolved greatly since then and is now one of the most powerful technique used in image rendering. Ray tracers have become both faster and more efficient and can even produce hyper-realistic images that are indistinguishable from the real world. We will Discuss some Ray tracers in 2.3.\\
 	
 	\subsection{Overview of Ray Tracing}
+	\par Ray tracing is a simple and powerful technique. It involves shooting rays from a point-of-view (usually represented by an eye or a camera). These rays then go through each pixel of the viewing plane and some calculations are done to determine if they intersect with objects. When an intersection is detected, reflected or refracted rays are always generated (Weghorst, Hooper, \& Greenberg, 1984). Each of the reflected/refracted rays must be recursively calculated to determine which surfaces they intersect. At each pixel where intersection occurs, the ray tracer must work out the intensity of the light and how much of it reflected back in order to determine the exact colour of the pixel (Suffern, 2007). This is usually a long process and the time taken to generate each image increases exponentially with respect to an increase in the size of the viewing plane(image frame).\\
+	
 	\subsection{Review of Related Works}
-	\subsubsection{Nvidia Optix} Not a Ray tracer
+	\par In this section, the Ray tracers discussed either helped influence our design decisions or have a similar structure to what we have built.
+	\subsubsection{Ray Tracing from the Ground Up}
+	\par This is a book written by Kevin Suffern.
+	
 	\subsubsection{BRL-CAD}
 	\subsubsection{OpenRL}
 	%DB-NOTE: this sounds dope! Are Nvidia Optix,BRL-CAD and OpenRL all thing we used or considered using?
@@ -187,9 +197,28 @@
 	
 	1.  The front-end client is served up by the server.  The front-end has a user interface that allows the user to input their shapes and it will also dynamically render an approximation of the input to visualise what the user is about to ray trace.  The front-end will primarily be coded in HTML, CSS, JavaScript and AJAX.
 	
+	%OK-NOTE: It is just one controller.
 	2.   The  back-end  has  a  number  of  controllers  that  will  dynamically  process  the content specified by the user and generate a ray traced image.  The back-end is built in .Net, using WebApi2 to run the local server.
 	
-	MVC
+	\subsection{Architectural Pattern}
+	
+	As we were using ASP.NET, it only made sense for the group to take advantage of the ASP.NET MVC web application framework. This framework implements the model–view–controller (MVC) pattern and allowed us to divide the application into a composition of three main logical components: Model, View and Controller. 
+	
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[scale=0.70]{./model_view_controller.jpg}
+		\caption{Components of MVC}
+		\label{fig:mvc}
+	\end{figure}
+	
+	\begin{itemize}
+		\item \textbf{Model} - 
+		\item \textbf{View} - 
+		\item \textbf{Controller} - 
+	\end{itemize}
+	
+	
+	\subsection{Prototypes}
 	
 	\section{Implementation}
 	
@@ -197,9 +226,71 @@
 	
 	\subsection{Front End}
 	\subsection{Back-end}
+	As mentioned before, the ray tracing algorithm is mainly about checking if the ray, which goes from the camera, hits/intersects with the object or not. Furthermore, ray tracing depends on the material of each object, and so we should take that into our consideration. In addition to that, each scene has lights and cameras, and since each of these can have different types, we need to implement that to be scalable and open for extension.\\
+	\par In our implementation we make use of different object oriented principles such as abstract classes, inheritance, overriding and Polymorphism. In the following sections, we will discuss in details how we used each of these concepts in our codes.
+	\subsubsection{Configurations}
+	In order to make it easier to change any configured value in our program, we created a class called \textbf{Config}, where you can find any default values used in our program. By doing that, we make sure that changing the value in one place will change it in all the places where it is used. For example, the default colour, material, vector, point ... etc are defined in that class. 
+	\subsubsection{Materials}
+	One of the main factors which will affect the final result of ray tracing is the material of the object. All materials will have a colour, in addition to many different coefficients that might be needed for other materials, such as the diffusion, specular, ambient. In each material, we need a method that will calculate the shades caused by lights and other objects. \\
+	\par It is clear that we need to have an abstract class with the previously mentioned attributes, in addition to an abstract method which will be called calculateShade, which will be implemented differently based on the material. As we mentioned in the introduction, we covered three types of materials. The class diagram for this part of our program is shown in Figure \ref{fig:matcd}.
+	%I need to add a class diagram for this part also.
+	\subsubsection{Geometry Objects}
+	\label{sssec:geo}
+	From the basic idea of ray tracing, we need a method to test whether a ray intersects with the object or not, and since we need our program to be scalable and open for extension, we created an abstract class called geometry object, which will have an attribute called the material; because each object will have a material. In addition to an abstract method called intersect. \\
+	\par In order to add a new geometry object, we need to add a new class, which inherits the GeometryObject abstract class. Then add the attributes needed for the new class, and finally implement the intersect abstract method. The intersect returns an object of type \textbf{HitInfo} which will include the following attributes:
+	\begin{itemize}
+		\item \textbf{hasHit}: boolean attribute which be \textbf{true} if the ray hits the object, and \textbf{false} if not.
+		\item \textbf{hitPoint}: it will be the point of where the ray hit the object. This value will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
+		\item \textbf{normalAtHit}: it will be the vector which is perpendicular to the hitPoint. This value will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
+		\item \textbf{Ray}: it will be the ray which hits the object. This value will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
+		\item \textbf{hitObject}: it will be the object which was hit by the ray. This value will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
+		\item \textbf{tMin}: it will be smallest value, which is greater than some epsilon value, from many different possible values, that will be produced when a ray hits an object. It will be used to calculate the \textbf{hitPoint}, and it will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
+	\end{itemize}
+	%I need to add a class diagram for this part
+	\par In our program, we have three different objects: \textbf{Sphere}, \textbf{Cube} and \textbf{Plane}. The class diagram for this part of our program is shown in Figure \ref{fig:objcd}.
+	\subsubsection{Lights}
+	Each light will have a colour, intensity and a position. There might be different types of lights, and that's why we created a class called \textbf{Light}, and it is not an abstract class; since we want to create instances of it. Therefore, we defined it is method to be virtual, and so they can be overridden if we need to change their default implementation.
+	\par The methods in this class are:
+	\begin{itemize}
+		\item \textbf{GetDistance}: this method will calculate the distance between some point, and the position of the light.	 	\item \textbf{GetDirection}: this method will calculate the direction of the light with respect to some given point.
+		\item \textbf{Getcolour}: this method will calculate the final colour after considering the light effects, such as the colour and intensity.
+	\end{itemize}
+	\subsubsection{Tracer}
+	The tracer class will be responsible for tracing an input ray with all objects in the scene. Then, if the ray hits one of the objects, it will call the method another time recursively for some predefined depth value. Then, it will use the hitInfo in order to call the \textbf{CalculateShade} method, which was previously discussed in the materials section, and the \textbf{TraceShadeRay} method, which will calculate the effects of lights on the object.\\  
+	\par Finally, the result will be the multiplication of the values returned by the previous two methods in case the ray hits one of the objects, otherwise, it will be the colour of the scene's background.
+	\subsubsection{Camera}
+	\label{sssec:cam}
+	Another important element of ray tracing is the camera, which represents the way of looking to the objects in the scene. There are many different types of cameras that can be used such as perspective and orthographic cameras. In our implementation, we used the perspective camera. But in order to keep our program open for any future extension, we created an abstract class called camera, which contains:
+	\begin{itemize}
+		\item \textbf{Attributes}:
+		\begin{itemize} 
+			\item Position: which is a 3D point represents the position of the camera in the scene.
+			\item lookAt: which is a 3D vector represents the direction of how to look at the scene.
+		\end{itemize}
+		\item \textbf{Methods and Operations}: These methods will be implemented differently based on the type of the camera
+		\begin{itemize} 
+			\item \textbf{Render()}: this method will be doing the ray tracing algorithm, by going through all pixels in the window frame and get the colour of that pixel.
+			\item \textbf{FindRayDirection(Point2D point)} : this method will calculate the ray direction from a given point in the window frame with respect to the camera's values.
+		\end{itemize}
+	\end{itemize}
+	\par In the perspective camera's implementation, the \textbf{Render} loops through all pixels in the image plane,  and then calculate the point, which in order will be used as an input to \textbf{FindRayDirection} method, and then call the \textbf{TraceRay}, which was discussed before in the previous section. To make the resulting colour smoother, we used one of the sampling techniques called the regular sampling technique.
+	\subsubsection{Sampling}
+	One of the enhancements that we did to our output is to use one of the sampling techniques. In our application, we used the \textbf{Regular Sampling Technique}. The main idea behind it is to do the tracing on the same square of the image plane, but at different sampling values, and calculate the colour at different points inside that square for \textbf{N \footnote{The number of samples}} times.\\
+	\par Finally, we sum up these values together, and divide the result by \textbf{N} which will be the final colour of that square. By applying this technique, the final colour will be smoother than not using any sampling technique at all.
+	\subsubsection{Scene}
+	The scene will be the container of all the previously mentioned classes. Each scene will have a list of geometry objects, list of lights, camera, background colour, sampler, file name which will be the final name of the output file.\\
+	\par The scene will also have many different methods:
+	\begin{itemize}
+		\item \textbf{GetHitInfo}: This method will find if the ray hits any of the objects in the scene, and will return the hitInfo of the nearest object which was hit by the ray, in addition to other values of hitInfo, which were discussed before in \textbf{Section \ref{sssec:geo}}.
+		\item \textbf{Render}: it will call the render method of the camera's object. More details about this method can be found in \textbf{Section \ref{sssec:cam}}.
+		\item \textbf{DisplayPixel}: it will take the x and y indices of a point, with the calculated colour as inputs, and then assign that colour to the appropriate index in the final picture pixels result.
+		\item \textbf{FinalPicture}: this method will just print the colours in the final pixels array, which are filled by the \textbf{DisplayPixel}, that is called by the \textbf{Render} method, into an image of jpg type, with the filename received from the front end.
+	\end{itemize}
+	\subsubsection{Api Controller}
+	In our project, we have one controller that will act as a post API. It will receive a JSON from the front-end side, the responsibility of that controller is to parse the received JSON, in a way that can be understood by the back-end's implementation. That's why we are having JSON folder in our project.\\
+	\par After parsing the JSON, we can create the scene object, then call the  \textbf{Render} method, after that call the \textbf{FinalPicture} method, and finally return the image to front-end.
 	\subsubsection{Unit Testing}
-	
-	\section{Team work}
+	\section{Team work} 
 	
 	%In this section: Describe how you worked together, including the tools and processes you used to facilitate group work.
 	

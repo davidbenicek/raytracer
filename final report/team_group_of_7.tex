@@ -78,7 +78,7 @@
 	\section{Introduction}
 	%In this section: Describe the context for the work and the problem you are addressing. Briefly summarise what you achieved in the project.
 	
-	In real life, we have different objects such as spheres, cubes ... etc. What's mutual between them is that they are all geometry objects. However, those objects might appear in different ways, based on their environment. For example, a glass sphere placed in an environment with many light sources will react in a different way than a metal sphere. And so, it is clear that different factors such as the material type, light sources and many other factors, will produce many different outputs. \\
+	In real life, we have different objects such as spheres, cubes ... etc. What's mutual between them is that they are all geometry objects. However, those objects might appear in different ways, based on their environment. For example, a mirror sphere placed in an environment with many light sources will react in a different way than a metal sphere. And so, it is clear that different factors such as the material type, light sources and many other factors, will produce many different outputs. \\
 	\par Ray tracing is one of the techniques which helps in producing different images for different environment variables. It is widely used in producing films, video games, animations and many other areas. It can be applied on any object and not just geometry objects.
 	\subsection{What is the Idea behind  Ray Tracing?}
 	Before discussing the idea behind ray tracing, and explaining its algorithm. Let's begin with listing the basic required elements to run the ray tracing algorithm. Those elements will be in one container which will be called \textbf{scene}. The elements of the scene are:
@@ -97,7 +97,7 @@
 		\caption{Ray Tracing's Scene Elements \cite{raytracingpic}}
 		\label{fig:raytracing}
 	\end{figure}
-	\par \textbf{Figure \ref{fig:raytracing}} shows an example of a scene with the previously listed elements. Now, and after discussing the elements of the scene, it is the time to describe the algorithm of ray tracing. Despite the implementation not being trivial, the main idea is quite simple; in each scene there will an eye or camera, from that camera many rays will be produced and go across the small squares in the image plane, for each ray we need to check whether it intersects with any of the objects or not, and return the colour of that pixel.\\
+	\par \textbf{Figure \ref{fig:raytracing}} shows an example of a scene with the previously listed elements. Now, and after discussing the elements of the scene, it is the time to describe the algorithm of ray tracing. Despite the implementation not being trivial, the main idea is quite simple; in each scene there will an eye or camera, from that camera many rays will be produced and go across the small squares in the image plane, for each ray we need to check whether it intersects with any of the objects or not, and return the colour of that pixel. Other rays are possible to be produced caused by reflection. These rays also will follow the ray tracing algorithm before returning the final colour.\\
 	\par The algorithm itself is really simple. Nevertheless, it is previously mentioned that environment variables play a big role in the calculations. And so, returning the colour of the pixel, which was hit by the the ray, won't be that simple; since it will require additional computations related to the reflections, shades ... etc. 
 	\subsection{Our Solution}
 	Although the idea behind ray tracing is simple, there are many different problems to be addressed in this program. These problems can be summarised as below:
@@ -120,7 +120,7 @@
 		\begin{itemize}
 			\item \textbf{Phong materials}:  which follows the phong theory such as chalk, metal, plastic. The difference between those materials is the values of diffusion, specular coefficients and the light colour influence.
 			\item \textbf{Flat material}: which is the simplest material, that will return the colour of that object regardless to any other environment variables and parameters.
-			\item \textbf {Glass material}: this material is the most complicated one, which will do many different calculations in order to calculate the colour of each pixel of that object.
+			\item \textbf {Mirror material}: this material is the most complicated one, which will do many different calculations in order to calculate the colour of each pixel of that object.
 			%DB-NOTE:  This is reflective right? Might want to add that in
 		\end{itemize}
 		Each of these materials can have a colour chosen by the user, or just use the default colour, if null.
@@ -185,7 +185,7 @@
 	\begin{itemize}
 		\item Allow users to add multiple lights to the scene in different positions, colours and intensities.
 		\item Allow users to create other objects such as polygons.
-		\item Allow users to choose different materials, such as plastic, glass, etc. for the objects.
+		\item Allow users to choose different materials, such as plastic, mirror, etc. for the objects.
 		\item Improve the colours of the output image, by using different techniques such as sampling.
 		\item Improve the performance of our system, by applying the multithreading concept, if the systems takes a long time while rendering the scene.
 	\end{itemize}
@@ -233,7 +233,7 @@
 	
 	\subsection{Front End}
 	\subsection{Back-end}
-	As mentioned before, the ray tracing algorithm is mainly about checking if the ray, which goes from the camera, hits/intersects with the object or not. Furthermore, ray tracing depends on the material of each object, and so we should take that into our consideration. In addition to that, each scene has lights and cameras, and since each of these can have different types, we need to implement that to be scalable and open for extension.\\
+	As mentioned before, the ray tracing algorithm is mainly about checking if the ray, which goes from the camera or reflects from objects because of lights, hits/intersects with the object or not. Furthermore, ray tracing depends on the material of each object, and so we should take that into our consideration. In addition to that, each scene has lights and cameras, and since each of these can have different type, we need to implement that to be scalable and open for extension.\\
 	\par In our implementation we make use of different object oriented principles such as abstract classes, inheritance, overriding and Polymorphism. In the following sections, we will discuss in details how we used each of these concepts in our codes.
 	\subsubsection{Basic Elements}
 	There are many basic elements which are required to build a ray tracer. These elements were reflected in our project as classes: 

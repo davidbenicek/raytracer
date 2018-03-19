@@ -1,5 +1,8 @@
-\documentclass{article}
+\documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
+%\usepackage[margin=1in]{geometry}
+\usepackage{tikz-uml}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in]{geometry}
 
 % \title{Group of Seven Report}
 % \author{1756850 Alkhamra, Othman Bader \\
@@ -13,14 +16,18 @@
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{url}
+\usepackage{lipsum}
+
+\usepackage{etoolbox}
+
+% \BeforeBeginEnvironment{figure}{\vskip-2ex}
+% \AfterEndEnvironment{figure}{\vskip-1ex}
 
 \newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
 
-
 \begin{document}
-	
 	\begin{titlepage}
 		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
 		\newcommand{\hRule}{\rule{\linewidth}{0.1mm}} % Defines a new command for horizontal lines, change thickness here
@@ -228,11 +235,84 @@
 	\subsection{Back-end}
 	As mentioned before, the ray tracing algorithm is mainly about checking if the ray, which goes from the camera, hits/intersects with the object or not. Furthermore, ray tracing depends on the material of each object, and so we should take that into our consideration. In addition to that, each scene has lights and cameras, and since each of these can have different types, we need to implement that to be scalable and open for extension.\\
 	\par In our implementation we make use of different object oriented principles such as abstract classes, inheritance, overriding and Polymorphism. In the following sections, we will discuss in details how we used each of these concepts in our codes.
+	\subsubsection{Basic Elements}
+	There are many basic elements which are required to be implemented in order to build a ray tracer. These elements were reflected in our project as classes: 
+	\begin{itemize}
+		\item \textbf{Point3D}: This class is used to create a point in the 3D with x,y and z double values. In this class all the addition, subtraction, division and multiplication were overridden in order to perform them correctly in the context of points. Also, there are other methods such as the distance, which will be used to return the distance between two points.
+		\item \textbf{Vector3D}: This class is used to create a vector in the 3D with x,y and z double values. In this class all the addition, subtraction, division and multiplication were overridden in order to perform them correctly in the context of vectors. Also, there are other methods such as the length, which will be used to return the length of a vector. Furthermore, the dot and cross products methods were implemented; since they are crucial in our project.
+		\item \textbf{ColorRGB}: This class is used to create a colour with R, G, and B double values. In this class all the addition, subtraction, division and multiplication were overridden in order to perform them correctly in the context of colours.
+		\item \textbf{Point2D}: This class is used to create a point in 2D with x and y double values. No other methods were added to this class; since they are not needed in this class.
+		\item \textbf{Ray}: This class is used to create a ray, which will have an origin with type of \textbf{Point3D}, and a direction with type of \textbf{Vector3D}. This ray will be used in most of the calculations of ray tracing. There are no methods directly implemented in this class, but it will make use of other methods implemented in \textbf{Point3D} and \textbf{Vector3D}.
+	\end{itemize}
 	\subsubsection{Configurations}
 	In order to make it easier to change any configured value in our program, we created a class called \textbf{Config}, where you can find any default values used in our program. By doing that, we make sure that changing the value in one place will change it in all the places where it is used. For example, the default colour, material, vector, point ... etc are defined in that class. 
 	\subsubsection{Materials}
 	One of the main factors which will affect the final result of ray tracing is the material of the object. All materials will have a colour, in addition to many different coefficients that might be needed for other materials, such as the diffusion, specular, ambient. In each material, we need a method that will calculate the shades caused by lights and other objects. \\
 	\par It is clear that we need to have an abstract class with the previously mentioned attributes, in addition to an abstract method which will be called calculateShade, which will be implemented differently based on the material. As we mentioned in the introduction, we covered three types of materials. The class diagram for this part of our program is shown in Figure \ref{fig:matcd}.
+	\begin{figure}[ht!]
+		\centering
+		%\includegraphics[scale=0.50]{./materials.png}
+		\begin{tikzpicture}[scale=0.8, every node/.style={scale=0.8}]
+		\umlclass[type=abstract]
+		{Material}
+		{
+			+ diffusionCoeff : double\\
+			+ specularCoeff : double\\
+			+ specular : double\\
+			+ lightColorInf : double\\
+			+ ambientCoeff : double\\
+			+ rgbColor: ColorRGB
+		}
+		{
+			+ Material() \\
+			+ Material( rgbColor: ColorRGB) \\
+			+ Material ( rgbColor: ColorRGB, diffusionCoeff: double, \\ \hspace{0.15cm} specularCoeff: double, specular: double, lightColorInf: double)\\
+			+ Material(material: Material )\\
+			+ SetColor(rgbColor: ColorRGB) : void\\
+			+\umlvirt
+			{CalculateShade (hitInfo: HitInfo, scene: Scene = null ): HitInfo 
+			} 
+		} 
+		\umlclass[x=0, y=-7]{Phong}{}
+		{
+			+ Phong ()\\
+			+ Phong  ( rgbColor: ColorRGB,  \\ \hspace{0.15cm} diffusionCoeff: double, \\ \hspace{0.15cm} specularCoeff: double,  \\ \hspace{0.15cm} specular: double, \\ \hspace{0.15cm} lightColorInf: double)\\
+		}
+		\umlclass[x=7.2, y=-7]{Flat}{}
+		{
+			+ Flat() \\ 
+			+ Flat(RGBColor : ColorRGB)
+		} 
+		\umlclass[x=-7.2, y=-7]{Mirror}{}
+		{
+			+ Mirror () \\
+			+ Mirror ( \\  \hspace{0.15cm} rgbColor: ColorRGB = WHITE,  \\ \hspace{0.15cm} diffusionCoeff: double = 1.0, \\ \hspace{0.15cm} specularCoeff: double = 0.5 ,  \\ \hspace{0.15cm} specular: double = 1.0, \\ \hspace{0.15cm} lightColorInf: double = 0.01)\\
+		}
+		\umlclass[x=-7, y=-12]{Chalk}{}
+		{
+			+ Mirror () \\
+			+ Mirror ( \\  \hspace{0.15cm} rgbColor: ColorRGB,  \\ \hspace{0.15cm} diffusionCoeff: double = 0.4, \\ \hspace{0.15cm} specularCoeff: double = 0.2 ,  \\ \hspace{0.15cm} specular: double = 2.0, \\ \hspace{0.15cm} lightColorInf: double = 0.25)\\
+		}
+		\umlclass[x=0, y=-12]{Plastic}{}
+		{
+			+ Mirror () \\
+			+ Mirror ( \\  \hspace{0.15cm} rgbColor: ColorRGB, \\ \hspace{0.15cm} diffusionCoeff: double = 0.4, \\ \hspace{0.15cm} specularCoeff: double = 0.2 ,  \\ \hspace{0.15cm} specular: double = 20, \\ \hspace{0.15cm} lightColorInf: double = 0.35)\\
+		}
+		\umlclass[x=7, y=-12]{Metal}{}
+		{
+			+ Mirror () \\
+			+ Mirror ( \\  \hspace{0.15cm} rgbColor: ColorRGB, \\ \hspace{0.15cm} diffusionCoeff: double = 0.4 \\ \hspace{0.15cm} specularCoeff: double = 0.2 ,  \\ \hspace{0.15cm} specular: double = 100, \\ \hspace{0.15cm} lightColorInf: double = 0.001)\\
+		}
+		\umlVHVinherit{Phong}{Material} 
+		\umlVHVinherit{Flat}{Material} 
+		\umlVHVinherit{Mirror}{Material} 
+		\umlVHVinherit{Chalk}{Phong} 
+		\umlVHVinherit{Plastic}{Phong} 
+		\umlVHVinherit{Metal}{Phong} 
+		\end{tikzpicture}
+		\caption{Materials Class Diagram}
+		\label{fig:matcd}
+	\end{figure}
 	%I need to add a class diagram for this part also.
 	\subsubsection{Geometry Objects}
 	\label{sssec:geo}
@@ -247,13 +327,45 @@
 		\item \textbf{tMin}: it will be smallest value, which is greater than some epsilon value, from many different possible values, that will be produced when a ray hits an object. It will be used to calculate the \textbf{hitPoint}, and it will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
 	\end{itemize}
 	%I need to add a class diagram for this part
-	\par In our program, we have three different objects: \textbf{Sphere}, \textbf{Cube} and \textbf{Plane}. The class diagram for this part of our program is shown in Figure \ref{fig:objcd}.
+	\par In our program, we have three different objects: \textbf{Sphere}, \textbf{Cube} and \textbf{Plane}. The class diagram for this part of our program is shown in Figure \ref{fig:geo}.
+	\begin{figure}[ht!]
+		\centering
+		%\includegraphics[scale=0.50]{./objects.png}
+		\begin{tikzpicture} 
+		\umlclass[type=abstract]
+		{GeometryObject}
+		{+ material : Material}
+		{
+			+ GeometryObject () \\ 
+			+ GeometryObject (material: Material) \\ 
+			+ GetMaterial (): Material \\ 
+			+ SetMaterial (material: Material): void \\ 
+			+ \umlvirt{Intersect (ray: Ray): HitInfo } 
+		} 
+		\umlclass[x=0, y=-5]{Sphere}
+		{ - center: Point3D \\ - radius: double} 
+		{
+			- GetIntersectInfo(ray: Ray, \\ tempVector: Vector3D, t: double): HitInfo 
+		}
+		\umlclass[x=6, y=-5]{Cube}{+ minPoint: Point3D \\ + maxPoint: Point3D}{} 
+		\umlclass[x=-6, y=-5]{Plane}{
+			- point: Point3D \\ 
+			- normal: Vector3D \\ 
+			+ \textit{kEpsilon : double} 
+		}{} 
+		\umlVHVinherit{Sphere}{GeometryObject} 
+		\umlVHVinherit{Cube}{GeometryObject} 
+		\umlVHVinherit{Plane}{GeometryObject} 
+		\end{tikzpicture}
+		\caption{Geometry Objects Class Diagram}
+		\label{fig:geo}
+	\end{figure}
 	\subsubsection{Lights}
 	Each light will have a colour, intensity and a position. There might be different types of lights, and that's why we created a class called \textbf{Light}, and it is not an abstract class; since we want to create instances of it. Therefore, we defined it is method to be virtual, and so they can be overridden if we need to change their default implementation.
 	\par The methods in this class are:
 	\begin{itemize}
 		\item \textbf{GetDistance}: this method will calculate the distance between some point, and the position of the light.	 	\item \textbf{GetDirection}: this method will calculate the direction of the light with respect to some given point.
-		\item \textbf{Getcolour}: this method will calculate the final colour after considering the light effects, such as the colour and intensity.
+		\item \textbf{GetColor}: this method will calculate the final colour after considering the light effects, such as the colour and intensity.
 	\end{itemize}
 	\subsubsection{Tracer}
 	The tracer class will be responsible for tracing an input ray with all objects in the scene. Then, if the ray hits one of the objects, it will call the method another time recursively for some predefined depth value. Then, it will use the hitInfo in order to call the \textbf{CalculateShade} method, which was previously discussed in the materials section, and the \textbf{TraceShadeRay} method, which will calculate the effects of lights on the object.\\  
@@ -264,8 +376,8 @@
 	\begin{itemize}
 		\item \textbf{Attributes}:
 		\begin{itemize} 
-			\item Position: which is a 3D point represents the position of the camera in the scene.
-			\item lookAt: which is a 3D vector represents the direction of how to look at the scene.
+			\item \textbf{Position}: which is a 3D point represents the position of the camera in the scene.
+			\item \textbf{lookAt}: which is a 3D vector represents the direction of how to look at the scene.
 		\end{itemize}
 		\item \textbf{Methods and Operations}: These methods will be implemented differently based on the type of the camera
 		\begin{itemize} 
@@ -353,7 +465,6 @@
 	% More shapes?
 	
 	% Mention both strengths and weaknesses!!
-	
 	\clearpage
 	\bibliographystyle{plain}
 	\bibliography{references}

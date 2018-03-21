@@ -1,10 +1,11 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper]{report}
 \usepackage[utf8]{inputenc}
 %\usepackage[margin=1in]{geometry}
 \usepackage{tikz-uml}
 \usepackage{tikz}
+\usepackage{notoccite}
+\usepackage{hyperref}
 \usetikzlibrary{fit,arrows,calc,positioning}
-\usepackage{scrextend}
 \usepackage{titlesec}
 
 %\usepackage[tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in]{geometry}
@@ -86,12 +87,12 @@
 	\tableofcontents
 	\newpage
 	\pagenumbering{arabic}
-	\section{Introduction}
+	\chapter{Introduction}
 	%In this section: Describe the context for the work and the problem you are addressing. Briefly summarise what you achieved in the project.
 	
 	In real life, we have different objects such as spheres, cubes ... etc. What's mutual between them is that they are all geometry objects. However, those objects might appear in different ways, based on their environment. For example, a mirror sphere placed in an environment with many light sources will react in a different way than a metal sphere. And so, it is clear that different factors such as the material type, light sources and many other factors, will produce many different outputs. \\
 	\par Ray tracing is one of the techniques which helps in producing different images for different environment variables. It is widely used in producing films, video games, animations and many other areas. It can be applied on any object and not just geometry objects.
-	\subsection{What is the Idea behind  Ray Tracing?}
+	\section{What is the Idea behind  Ray Tracing?}
 	Before discussing the idea behind ray tracing, and explaining its algorithm. Let's begin with listing the basic required elements to run the ray tracing algorithm. Those elements will be in one container which will be called \textbf{scene}. The elements of the scene are:
 	\begin{itemize}
 		\item \textbf{Object(s)}: a scene can contain one or many objects. Each object can be one of the previously mentioned objects types or any other object, which exists in real life. For example, an object could be a sphere, triangle, tree, car, building ... etc.
@@ -110,37 +111,13 @@
 	\end{figure}
 	\par \textbf{Figure \ref{fig:raytracing}} shows an example of a scene with the previously listed elements. Now, and after discussing the elements of the scene, it is the time to describe the algorithm of ray tracing. Despite the implementation not being trivial, the main idea is quite simple; in each scene there will an eye or camera, from that camera many rays will be produced and go across the small squares in the image plane, for each ray we need to check whether it intersects with any of the objects or not, and return the colour of that pixel. Other rays are possible to be produced caused by reflection. These rays also will follow the ray tracing algorithm before returning the final colour.\\
 	\par The algorithm itself is really simple. Nevertheless, it is previously mentioned that environment variables play a big role in the calculations. And so, returning the colour of the pixel, which was hit by the the ray, won't be that simple; since it will require additional computations related to the reflections, shades ... etc. 
-	\subsection{Our Solution}
-	Although the idea behind ray tracing is simple, there are many different problems to be addressed in this program. These problems can be summarised as below:
-	\subsubsection{Web Interface}
-	In order to define the different elements of the scene, a web interface is developed to allow users enter the different values for the scene elements. Using this interface, the user can add different objects to the scene, with different materials, positions, sizes, colours. Furthermore, adding different lights at different positions with different colours. \\
-	\par The challenge here is that objects must be in 3D. And so, we developed a web interface with two options. One option is the 2D option, where the user needs to define an element by providing its values in the top and side views. The other option, is the 3D view, where the user can add elements directly in 3D format.\\
-	\par All the functionality in our 2D web interface supports the drag and drop feature. In other words, the user can define the position by clicking on the object, moving it in any direction, and from the 3D view, the user can view the scene.
-	%DB-NOTE: Is this true? We don't have drag and drop in 3D
-	\subsubsection{Ray tracing Engine}
-	The other part of our system is the back-end engine, where all the calculations are done based on the input received from the web interface. This system was developed using .NET C\#. It includes a post API, which will receive the request from the client, and it is able to render a scene with the following:
-	\begin{itemize}
-		\item A scene with the following objects:
-		\begin{itemize}
-			\item \textbf{Plane}: This object is mainly used to create the walls in the scene. And it has a position, and a vector called normal which decides the orientation, in addition to one of the supported materials.
-			%DB-NOTE: A normal what?
-			\item \textbf{Cube}: Each cube has a size, a position, and is made up of one of the supported materials.
-			\item \textbf{Sphere}: Each sphere has a radius, centre point, and is made up of one of the supported materials.
-		\end{itemize}
-		The  \textbf{supported materials} are:
-		\begin{itemize}
-			\item \textbf{Phong materials}:  which follows the phong theory such as chalk, metal, plastic. The difference between those materials is the values of diffusion, specular coefficients and the light colour influence.
-			\item \textbf{Flat material}: which is the simplest material, that will return the colour of that object regardless to any other environment variables and parameters.
-			\item \textbf {Mirror material}: this material is the most complicated one, which will do many different calculations in order to calculate the colour of each pixel of that object.
-			%DB-NOTE:  This is reflective right? Might want to add that in
-		\end{itemize}
-		Each of these materials can have a colour chosen by the user, or just use the default colour, if null.
-		%DB-NOTE: can we say null here instead?
-		\item A scene with multiple light sources at different positions and colours.
-		\item A scene with perspective camera. Each camera has a position, direction of how to look at the image plane, and distance from that plane.
-	\end{itemize}
-	\section{Review}
-	\subsection{Brief History of Ray tracing}
+	\section{Our Solution}
+	Our final product is able to render a scene created by the end-user using our web interface. This web interface provides 2D and 3D views, where the user can create his own scene, and then just click render. After that, the user's input will be processed by the back-end engine, and returned the rendered image as JPG file with the name chosen by the end-user.\\ 
+	\par The scene can contain multiple objects of three different supported objects. Each object can have any material from six different available materials in our program. In addition to that, the scene can have multiple light sources. Each of those elements will be discussed later in \textbf{Chapter \ref{ch:imp}}.\\
+	\par Our solution showed great results for the inputs we defined, and in order to make our product more reliable, we covered both the front and the back ends with many tests. More details about the implementation and testing will be discussed later in \textbf{Chapter \ref{ch:imp}}.
+	% 	Although the idea behind ray tracing is simple, there are many different solutions that can be developed for this idea. The solution consists of developing a web application where the user can pick the objects with different materials and sizes; and the scene that is then sent to the back-end to form a render of the scene through ray tracing.
+	\chapter{Review}
+	\section{Brief History of Ray tracing}
 	
 	\par Ray tracing is one of the popular methods of rendering. What is Rendering? Rendering is the act of generating an image (usually photorealistic) from a 2D or 3D model. There are three familiar techniques to image rendering and they are rasterisation, ray casting and ray tracing. These three techniques are quite similar but are differentiated by their representation of the optical effects such as reflection intensity which in turn makes the processing speed vary differently (Wald, Slusallek, Benthin, \& Wagner, 2001). This means that ray tracing would produce the most photorealistic image while also taking the most time to compute while rasterisation would produce the most basic image.\\
 	
@@ -150,10 +127,10 @@
 	
 	\par Over several years, as computers grew more powerful, it became imperative to simulate the real physics. Several optimised algorithms were implemented and this led to computers being able to simulate various kinds of optical effects. Ray tracing have evolved greatly since then and is now one of the most powerful technique used in image rendering. Ray tracers have become both faster and more efficient and can even produce hyper-realistic images that are indistinguishable from the real world. We will Discuss some Ray tracers in 2.3.\\
 	
-	\subsection{Overview of Ray Tracing}
+	\section{Overview of Ray Tracing}
 	\par Ray tracing is a simple and powerful technique. It involves shooting rays from a point-of-view (usually represented by an eye or a camera). These rays then go through each pixel of the viewing plane and some calculations are done to determine if they intersect with objects. When an intersection is detected, reflected or refracted rays are always generated (Weghorst, Hooper, \& Greenberg, 1984). Each of the reflected/refracted rays must be recursively calculated to determine which surfaces they intersect. At each pixel where intersection occurs, the ray tracer must work out the intensity of the light and how much of it reflected back in order to determine the exact colour of the pixel (Suffern, 2007). This is usually a long process and the time taken to generate each image increases exponentially with respect to an increase in the size of the viewing plane(image frame).\\
 	
-	\subsection{Review of Related Works}
+	\section{Review of Related Works}
 	\par In this section, the Ray tracers discussed either helped influence our design decisions or have a similar structure to what we have built.
 	\subsubsection{Ray Tracing from the Ground Up}
 	\label{sssec:book}
@@ -200,11 +177,11 @@
 	
 	%DB-NOTE: this sounds dope! Are Nvidia Optix,BRL-CAD and OpenRL all thing we used or considered using?
 	
-	\section{Requirements and design}
+	\chapter{Requirements and design}
 	
 	%In this section: Describe the requirements you set for your project at the beginning and the design you have taken for your project. Focus on why you decided to tackle the problem in the way you did, and what effects that had on the design. You may also wish to mention the impact of team-working on your requirements and design.
 	
-	\subsection{Mandatory Requirements}
+	\section{Mandatory Requirements}
 	
 	
 	The beginning of the project saw the group discuss and decide what features were essential for the running of the ray tracer, that is to say, creating and developing a running system, consisting of the front-end, which is the client side, and the back-end, which is the server side. The bare minimum requirements for the entire system are as follows:
@@ -227,7 +204,7 @@
 	\end{itemize}
 	
 	
-	\subsection{Optional Requirements}
+	\section{Optional Requirements}
 	
 	If time allowed, the group established additional requirements.
 	The requirements specified in this category will extend the basic functionality of the raytracer, thus distinguishing our product from others. The optional requirements are as follows:
@@ -242,11 +219,11 @@
 	Due to time constraints we were unable to implement the use of polygons. However we successfully achieved the other optional requirements. 
 	
 	
-	\subsection{Methodology}
+	\section{Methodology}
 	
 	The methodology the group decided to adopt was the Agile software methodology. 
 	
-	\subsection{Architecture}
+	\section{Architecture}
 	
 	
 	This project has a two-tier, client-server architecture.
@@ -256,7 +233,7 @@
 	%OK-NOTE: It is just one controller.
 	2.   The  back-end  has  a  number  of  controllers  that  will  dynamically  process  the content specified by the user and generate a ray traced image.  The back-end is built in .Net, using WebApi2 to run the local server.
 	
-	\subsection{Architectural Pattern}
+	\section{Architectural Pattern}
 	\label{sssec:arch}
 	
 	As we were using ASP.NET, it only made sense for the group to take advantage of the ASP.NET MVC web application framework. This framework implements the model–view–controller (MVC) pattern and allowed us to divide the application into a composition of three main logical components: Model, View and Controller. 
@@ -281,25 +258,40 @@
 	\end{figure}
 	
 	\begin{itemize}
-		\item \textbf{Model} - 
-		\item \textbf{View} - 
-		\item \textbf{Controller} - 
+		\item \textbf{Model} - The Model component corresponds to all the data-related logic that the User works with. This can represent either the data that is being transferred between the View and Controller components or any other business logic-related data. For example, a user object will retrieve the information from the database (i.e. list of shapes), manipulate it and update it data back to the back-end and use it to render data (the SVGs). \cite{modelstutorial}
+		\item \textbf{View} - The View component is used for all the UI logic of the application. For example, the User view will include all the UI components such as text boxes, dropdowns, etc. that the final user interacts with. \cite{viewstutorial}
+		\item \textbf{Controller} - Controllers act as an interface between Model and View components to process all the business logic and incoming requests, manipulate data using the Model component and interact with the Views to render the final output. For example, the User controller will handle all the interactions and inputs from the User View and update the database using the User Model. The same controller will be used to view the User data. \cite{controllertutorial}
 	\end{itemize}
 	
 	
-	\subsection{Prototypes}
+	\section{Prototypes}
+	We produced prototypes to visualisation the design of our system and to evaluate its strengths. Its also assisted us in identify specifications for our system.
 	
-	\section{Implementation}
+	\subsection{First Iteration}
+	
+	Our first iteration is a low fidelity prototype drawn by hand to represent what the homepage might look like, this was our first impression of how it might look.
+	
+	\begin{figure}[h]
+		\includegraphics[width=1\textwidth]{First_Iteration_Prototype.jpg}
+	\end{figure}
+	
+	\subsection{Second Iteration}
+	
+	Our second iteration was a medium fidelity prototype which include our evolved requirements for the project (i.e. the SVG drag and drop).
+	
+	\begin{figure}[h]
+		\includegraphics[width=1\textwidth]{second_prototype.png}
+	\end{figure}
+	
+	\chapter{Implementation}
 	
 	%In this section: Describe the most significant implementation details, focusing on those where unusual or detailed solutions were required. Quote code fragments where necessary, but remember that the examiners have full access to your source code. Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
-	
-	\subsection{Front End}
-	\subsection{Back-end}
+	\label{ch:imp}\section{Back-end}
 	Most of the code in the back-end is based on the book discussed in \textbf{Section \ref{sssec:book}}. As mentioned before, the ray tracing algorithm is mainly about checking if the ray, which goes from the camera or reflects from objects because of lights, hits/intersects with the object or not. Furthermore, ray tracing depends on the material of each object, and so we should take that into our consideration. In addition to that, each scene has lights and cameras, and since each of these can have different type, we need to implement that to be scalable and open for extension.\\
 	\par In our implementation we make use of different object oriented principles such as abstract classes, inheritance, overriding and Polymorphism. In the following sections, we will discuss in details how we used each of these concepts in our codes.
-	\subsubsection{Models}
+	\subsection{Models}
 	Our architecture is mainly based on the MVC model as previously discussed in \textbf{Section \ref{sssec:arch}}. This section will introduce and discuss the models used in our system.
-	\subsubsubsection{Basic Elements}
+	\subsubsection{Basic Elements}
 	There are many basic elements which are required to build a ray tracer. These elements were reflected in our project as classes: 
 	\begin{itemize}
 		\item \textbf{Point3D}: This class is used to create a point in the 3D with x,y and z double values. In this class all the addition, subtraction, division and multiplication were overridden in order to perform them correctly in the context of points. Also, there are other methods such as the distance, which will be used to return the distance between two points.
@@ -308,11 +300,18 @@
 		\item \textbf{Point2D}: This class is used to create a point in 2D with x and y double values. No other methods were added to this class; since they are not needed in this class.
 		\item \textbf{Ray}: This class is used to create a ray, which will have an origin with type of \textbf{Point3D}, and a direction with type of \textbf{Vector3D}. This ray will be used in most of the calculations of ray tracing. There are no methods directly implemented in this class, but it will make use of other methods implemented in \textbf{Point3D} and \textbf{Vector3D}.
 	\end{itemize}
-	\subsubsubsection{Configurations}
+	\subsubsection{Configurations}
 	In order to make it easier to change any configured value in our program, we created a class called \textbf{Config}, where you can find any default values used in our program. By doing that, we make sure that changing the value in one place will change it in all the places where it is used. For example, the default colour, material, vector, point ... etc are defined in that class. 
-	\subsubsubsection{Materials}
-	One of the main factors which will affect the final result of ray tracing is the material of the object. All materials will have a colour, in addition to many different coefficients that might be needed for other materials, such as the diffusion, specular, ambient. In each material, we need a method that will calculate the shades caused by lights and other objects. \\
-	\par It is clear that we need to have an abstract class with the previously mentioned attributes, in addition to an abstract method which will be called calculateShade, which will be implemented differently based on the material. As we mentioned in the introduction, we covered three types of materials. The class diagram for this part of our program is shown in Figure \ref{fig:matcd}.
+	\subsubsection{Materials}
+	\label{sssec:mat}One of the main factors which will affect the final result of ray tracing is the material of the object. All materials will have a colour, in addition to many different coefficients that might be needed for other materials, such as the diffusion, specular, ambient. In each material, we need a method that will calculate the shades caused by lights and other objects. \\
+	\par It is clear that we need to have an abstract class with the previously mentioned attributes, in addition to an abstract method which will be called calculateShade, which will be implemented differently based on the material. In our solution, we covered three types of materials:
+	\begin{itemize}
+		\item \textbf{Phong materials}:  which follows the phong theory such as chalk, metal, plastic. The difference between those materials is the values of diffusion, specular coefficients and the light colour influence.
+		\item \textbf{Flat material}: which is the simplest material, that will return the colour of that object regardless to any other environment variables and parameters.
+		\item \textbf {Mirror material}: this material is the most complicated one, which will do many different calculations in order to calculate the colour of each pixel of that object.
+		%DB-NOTE:  This is reflective right? Might want to add that in
+	\end{itemize}
+	Each of those materials can have a colour chosen by the user, or just use the default colour, if null. \textbf{Figure \ref{fig:matcd}} shows the class diagram of the supported materials in our program.
 	\begin{figure}[ht!]
 		\centering
 		%\includegraphics[scale=0.50]{./materials.png}
@@ -378,7 +377,7 @@
 		\label{fig:matcd}
 	\end{figure}
 	%I need to add a class diagram for this part also.
-	\subsubsubsection{Geometry Objects}
+	\subsubsection{Geometry Objects}
 	\label{sssec:geo}From the basic idea of ray tracing, we need a method to test whether a ray intersects with the object or not, and since we need our program to be scalable and open for extension, we created an abstract class called geometry object, which will have an attribute called the material; because each object will have a material. In addition to an abstract method called intersect. \\
 	\par In order to add a new geometry object, we need to add a new class, which inherits the GeometryObject abstract class. Then add the attributes needed for the new class, and finally implement the intersect abstract method. The intersect returns an object of type \textbf{HitInfo} which will include the following attributes:
 	\begin{itemize}
@@ -390,11 +389,11 @@
 		\item \textbf{tMin}: it will be smallest value, which is greater than some epsilon value, from many different possible values, that will be produced when a ray hits an object. It will be used to calculate the \textbf{hitPoint}, and it will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
 	\end{itemize}
 	%I need to add a class diagram for this part
-	\par In our program, we have three different objects: \textbf{Sphere}, \textbf{Cube} and \textbf{Plane}. The class diagram for this part of our program is shown in Figure \ref{fig:geo}.
+	\par In our program, we have three different objects as illustrated in \textbf{Figure \ref{fig:geo}}. Each of these objects has its own attributes, in addition to one of the supported materials, which were listed in \textbf{Section \ref{sssec:mat}}.
 	\begin{figure}[ht!]
 		\centering
 		%\includegraphics[scale=0.50]{./objects.png}
-		\begin{tikzpicture} [scale=0.7, every node/.style={scale=0.7}]
+		\begin{tikzpicture} [scale=0.75, every node/.style={scale=0.75}]
 		\umlclass[type=abstract]
 		{GeometryObject}
 		{+ material : Material}
@@ -423,16 +422,16 @@
 		\caption{Geometry Objects Class Diagram}
 		\label{fig:geo}
 	\end{figure}
-	\subsubsubsection{Lights}
-	Each light will have a colour, intensity and a position. There might be different types of lights, and that's why we created a class called \textbf{Light}, and it is not an abstract class; since we want to create instances of it. Therefore, we defined it is method to be virtual, and so they can be overridden if we need to change their default implementation. The methods in this class are:
+	\subsubsection{Lights}
+	\label{sssec:light}Each light will have a colour, intensity and a position. There might be different types of lights, and that's why we created a class called \textbf{Light}, and it is not an abstract class; since we want to create instances of it. Therefore, we defined it is method to be virtual, and so they can be overridden if we need to change their default implementation. The methods in this class are:
 	\begin{itemize}
 		\item \textbf{GetDistance}: this method will calculate the distance between some point, and the position of the light.	 	\item \textbf{GetDirection}: this method will calculate the direction of the light with respect to some given point.
 		\item \textbf{GetColor}: this method will calculate the final colour after considering the light effects, such as the colour and intensity.
 	\end{itemize}
-	\subsubsubsection{Tracer}
+	\subsubsection{Tracer}
 	The tracer class will be responsible for tracing an input ray with all objects in the scene. Then, if the ray hits one of the objects, it will call the method another time recursively for some predefined depth value. Then, it will use the hitInfo in order to call the \textbf{CalculateShade} method, which was previously discussed in the materials section, and the \textbf{TraceShadeRay} method, which will calculate the effects of lights on the object.\\  
 	\par Finally, the result will be the multiplication of the values returned by the previous two methods in case the ray hits one of the objects, otherwise, it will be the colour of the scene's background.
-	\subsubsubsection{Camera}
+	\subsubsection{Camera}
 	\label{sssec:cam}Another important element of ray tracing is the camera, which represents the way of looking to the objects in the scene. There are many different types of cameras that can be used such as perspective and orthographic cameras. In our implementation, we used the perspective camera. But in order to keep our program open for any future extension, we created an abstract class called camera, which contains:
 	\begin{itemize}
 		\item \textbf{Attributes}:
@@ -447,10 +446,10 @@
 		\end{itemize}
 	\end{itemize}
 	\par In the perspective camera's implementation, the \textbf{Render} loops through all pixels in the image plane,  and then calculate the point, which in order will be used as an input to \textbf{FindRayDirection} method, and then call the \textbf{TraceRay}, which was discussed before in the previous section. To make the resulting colour smoother, we used one of the sampling techniques called the regular sampling technique.
-	\subsubsubsection{Sampling}
+	\subsubsection{Sampling}
 	One of the enhancements that we did to our output is to use one of the sampling techniques. In our application, we used the \textbf{Regular Sampling Technique}. The main idea behind it is to do the tracing on the same square of the image plane, but at different sampling values, and calculate the colour at different points inside that square for \textbf{N \footnote{The number of samples}} times.\\
 	\par Finally, we sum up these values together, and divide the result by \textbf{N} which will be the final colour of that square. By applying this technique, the final colour will be smoother than not using any sampling technique at all.
-	\subsubsubsection{Scene}
+	\subsubsection{Scene}
 	The scene will be the container of all the previously mentioned classes. Each scene will have a list of geometry objects, list of lights, camera, background colour, sampler, file name which will be the final name of the output file.\\
 	\par The scene will also have many different methods:
 	\begin{itemize}
@@ -459,16 +458,31 @@
 		\item \textbf{DisplayPixel}: it will take the x and y indices of a point, with the calculated colour as inputs, and then assign that colour to the appropriate index in the final picture pixels result.
 		\item \textbf{FinalPicture}: this method will just print the colours in the final pixels array, which are filled by the \textbf{DisplayPixel}, that is called by the \textbf{Render} method, into an image of jpg type, with the filename received from the front end.
 	\end{itemize}
-	\subsubsection{Controllers}
+	\subsection{Controllers}
 	In our project, we have one controller called \textbf{RenderController}, that will act as a post API. It will receive a JSON from the front-end side, the responsibility of that controller is to parse the received JSON, in a way that can be understood by the back-end's implementation. That's why we are having JSON folder in our project.\\
 	\par The parsing process is done by a method called \textbf{ProcessJSON} in \textbf{JSONObject} class. We need this class as an interpreter between the front and back ends; since the way front-end dealing with the environment and object values is not the same for back-end. Therefore, for simplicity and to avoid doing a lot of processing calculations and computations on the client side, it is done on the back-end side.
 	\par Now and after parsing the JSON to the appropriate format, we can create the scene object, then call the \textbf{Render} method. This method will take some time until it renders the whole scene. After that \textbf{FinalPicture} method is called, and finally return the image to front-end as JPG file.
-	\subsubsection{Unit Testing}
-	\section{Team work} 
+	\subsection{Unit Testing}
+	\section{Front End}
+	
+	In order to define the different elements of the scene, a web interface is developed to allow users enter the different values for the scene elements. Using this interface, the user can add different objects to the scene, with different materials, positions, sizes, colours. Furthermore, adding different lights at different positions with different colours.
+	\par We developed a web interface with two options. One option is the 2D option, where the user needs to define an element by providing its values in the top and side views. The 2D view is important as the user is able to view from every angle how the object is visible but it does not give an actual representation of how the object will be positioned once the ray tracing has been produced in the back-end. Hence the other option is the 3D view in which the user is able to change the scene elements including the lights. 
+	
+	
+	\subsection{SVG}
+	
+	
+	\subsection{3D}
+	As mentioned before, the 3D aspect gives an actual representation of the back-end. This was developed using a JavaScript library called Three(three.js). Three is a combination of SVG and WebGL with a simpler way to create objects and all the other necessities such as clicking and labelling. This API is well known as diverse companies[reference] such as Toyota, Porsche or even Google[reference] use it. 
+	
+	Three is quite similar to our back-end as the majority of the functions that the back-end provides can be used in Three. Functions like adding different materials; adding lights with different intensities and colours; and obviously having a 3D aspect. Difference is, this library allows the user to rotate the scene which can then help them decide how they want the ray tracing image to look like. For example, one user might like an angle better than the other or another user will like the camera position to be higher or lower than the normal view. This gives the user more freedom as opposed to having those two parameters set as default in the background or just having a 2D view which would not be an actual representation. 
+	
+	
+	\chapter{Team work} 
 	
 	%In this section: Describe how you worked together, including the tools and processes you used to facilitate group work.
 	
-	\subsection{Process}
+	\section{Process}
 	Weekly meetings
 	At the start of each meeting standup style sync up:
 	Everyone speaks, says what they did, what still needs to be done, calls out any blockers that we can go over in the follow on meeting.
@@ -478,17 +492,17 @@
 	Illicit next steps both from discussion and from product roadmap
 	
 	
-	\subsection{Communication}
+	\section{Communication}
 	
 	Communication is one of the most important factors when it comes to working in a software engineering team. For our project we decided to utilise a number of different structured and unstructured communication channels. There exists a large array of great project management and issue tracking tools such as JIRA, Trac or Trello, however, we decided that given the brevity of our project and the relative low number of backlog items (especially at the start), that it would be best to keep our ticket system as close to the codebase as possible. As a result of this, we decided to make use of the inbuilt GitHub issue tracking system. This system does not provide the same calibre of project management tools as some of the forementioned products, however, it does enough for our purposes. We decided to use the GitHub milestone system as a way of scheduling issues for our sprints and implemented a branch naming convention such that we would refer to the issue we're addressing in the name of the branch - \{issue number\}/\{name of branch\}. This simple mechanism has worked tremendously because it ensures that on one hand all branches are addressing exactly one tasks or feature and on the other hand, that all tasks and features have been recorded in an issue. 
 	
 	Another way we structured our communication was by the use of pull requests whenever pushing code to master. By raising a pull request and having another team member review it we not only improved our code quality but also spread knowledge of the code base and cross-polinated ideas for features or more efficient solutions. Standout examples of a pull request flow can be seen here: TODO: Cite some nice PR from github
 	
-	Not all communication can be done over issue summaries and pull requests and therefore we scheduled weekly meetings to go over what has been achieved, what needs to be discussed and what is the plan for the following sprint. One could say that we condensed our daily scrum meeting, sprint planning, backlog refinement and sprint review all into one weekly meeting. This is not the textbook way of running an Agile project but given that we are not working on the project full time and that these meetings were kept as brief as possible, it still alligns to the core principles of Agile. During the meetings we would discuss the general trajectory of the project and what we want to accomplish in the next seven days, before breaking off into our sub teams and deciding on the exact issues we needed to create for the week ahead. This way of running a project has both advantages and disadvantages which is covered in section TODO: Cite section that covers this. We mostly met in person but on occasion, when we needed to, we used video conferencing tools such as Appear.In and Gruveo to connect with eachother.
+	Not all communication can be done over issue summaries and pull requests and therefore we scheduled weekly meetings to go over what has been achieved, what needs to be discussed and what is the plan for the following sprint. One could say that we condensed our daily scrum meeting, sprint planning, backlog refinement and sprint review all into one weekly meeting. This is not the textbook way of running an Agile project but given that we are not working on the project full time and that these meetings were kept as brief as possible, it still aligns to the core principles of Agile. During the meetings we would discuss the general trajectory of the project and what we want to accomplish in the next seven days, before breaking off into our sub teams and deciding on the exact issues we needed to create for the week ahead. This way of running a project has both advantages and disadvantages which is covered in section TODO: Cite section that covers this. We mostly met in person but on occasion, when we needed to, we used video conferencing tools such as Appear.In and Gruveo to connect with eachother.
 	
 	During the course of the sprints, our communication did not fade. We built on some ideas from Extreme Programming and met frequently in our work units to engage in pair programming while working on issues during the sprint. To facilitate the smooth operation of the team we used the lowest friction medium of communication for all of us which was a WhatApp group where we have discussed everything from meeting times, status of different issues or even specific lines of code in pull request. 
 	
-	\subsection{Tools}
+	\section{Tools}
 	
 	Things that enabled us
 	Visual Studio, Visual Studio Code, Git,
@@ -498,7 +512,7 @@
 	Appear.In, Gruveo, Whatsapp, Facebook,
 	
 	
-	\section{Evaluation}
+	\chapter{Evaluation}
 	Considering the mandatory requirements that were previously set out, all of them have been accomplished.
 	On the other hand, our optional requirements have been
 	completed as well apart from allowing the users to create extra objects like polygon but instead we have implemented a plane object. However, if the deadline was not a factor, more objects would have been completed as most of them were quite similar to the mandatory ones. 
@@ -512,20 +526,18 @@
 	%TODO: What else didnt go well? and make the above paragraph more clear
 	
 	
+	Throughout each sprint planning, each team member had a task assigned to them which had to be completed before the next sprint. At times, these tasks were not completed due to time constraints or unable to fully complete it cause of some issues they found while developing.This lead to the deadlines being pushed back as another team member had to pick up the task or help out. This was good because everyone had enough time to complete the tasks if there was no issues. It was also bad because at times the work load was not managed well. This caused the internal deadline for the complete development to be pushed back for a week. Fortunately, we had set the internal deadline a month before the project was due which gave us four weeks to write the report. Even though it was pushed, we still had plenty of time to write the report and go over the project one last time before submitting.
+	
+	
 	%In this section: Critically evaluate your project: what worked well, and what didn’t? how did you do relative to your plan? what changes were the result of improved thinking and what changes were forced upon you? how did your team work together? etc. Note that you need to show that you understand the weaknesses in your work as well as its strengths. You may wish to identify relevant future work that could be done on your project.
 	
 	
 	% How did you do relative to your plan?
 	% Had weekly tasks - aimed to do them before the next meeting. Gave everyone a week to do it. If they were not completed, then a few more days was given.
-	% Internal deadline - pushed by one week
 	
 	% What changes were the result of improved thinking and what changes were forced upon you?
 	% Video call instead of group meeting which led to 2 meetings per week??
 	
-	% How did your team work together? -Goes in team work right?
-	
-	% What have we achieved and what could we have done if we have more time?
-	% More shapes?
 	
 	% Mention both strengths and weaknesses!!
 	\clearpage

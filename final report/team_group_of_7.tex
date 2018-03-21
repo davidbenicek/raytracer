@@ -2,7 +2,12 @@
 \usepackage[utf8]{inputenc}
 %\usepackage[margin=1in]{geometry}
 \usepackage{tikz-uml}
-\usepackage[tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{fit,arrows,calc,positioning}
+\usepackage{scrextend}
+\usepackage{titlesec}
+
+%\usepackage[tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in]{geometry}
 
 % \title{Group of Seven Report}
 % \author{1756850 Alkhamra, Othman Bader \\
@@ -23,9 +28,15 @@
 % \BeforeBeginEnvironment{figure}{\vskip-2ex}
 % \AfterEndEnvironment{figure}{\vskip-1ex}
 
-\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{
+	\subsubsubsection}[1]
+{\paragraph{#1}\mbox{}\\[.35em]}
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
+
+\titleformat{\chapter}[display]   
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}   
+\titlespacing*{\chapter}{0pt}{-50pt}{40pt}
 
 \begin{document}
 	\begin{titlepage}
@@ -145,10 +156,48 @@
 	\subsection{Review of Related Works}
 	\par In this section, the Ray tracers discussed either helped influence our design decisions or have a similar structure to what we have built.
 	\subsubsection{Ray Tracing from the Ground Up}
-	\par This is a book written by Kevin Suffern.
+	\label{sssec:book}
+	\par This is a book written by Kevin Suffern.\\
 	
-	\subsubsection{BRL-CAD}
-	\subsubsection{OpenRL}
+	This ray Tracer was developed using Object-Oriented(represented by OO henceforth) techniques due to its size and complexity. Ray tracers are incredibly large and complex and OO techniques are known for handling these. It also enables extensibility; Different types of object can be rendered without having to alter existing codes. This Book uses C++ as its development language because of its OO facilities and its computational efficiency. Some useful coding tips such as data storage, references and floating-point division were also gotten from this book. Important mathematical calculations such as sets, vectors, points, normal and the operations that can be carried out among them are also discussed extensively in this book.\\
+	
+	\par The book focuses on the Ray Tracing engine (Equivalent to the back-end) and largely ignores any form of user-interface. The necessary inputs such as objects, material, light and frame size are hard-coded. The workings of this ray tracer can be represented using the pseudo-code below:\\
+	\begin{itemize}
+		\item Define some objects
+		\item Specify material type for each object
+		\item Define light sources
+		\item Define a plane whose surface is covered with pixels
+		\item  For each pixel:
+		\par   Shoot a ray towards the object from the centre of the pixel
+		\par Compute the nearest hit point of the ray with the objects (if any)
+		\begin{itemize}
+			\item If the ray hits an object
+			\par Use the objects material and the lights to calculate the pixel colour
+			\item Else
+			\par Set the pixel colour to black
+			
+		\end{itemize}
+	\end{itemize}
+	
+	\par Colours are represented using their RGB value which is then stored in a 3D colour space. This allows various calculations to be carried out in order to produce an extensive variety of colours. See \textbf{Figure \ref{fig:colour}} below for representation of pure Red, Green and Blue.
+	
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[scale=0.60]{./colour.png}
+		\caption{RGB colour scheme}
+		\label{fig:colour}
+	\end{figure}
+	
+	\par This book also discusses the bounding-box technique. This technique is used to improve efficiency when an object is expensive(this refers to non-conventional shapes or objects such as animals or figures) to trace. This method only saves time if the bounding box is significantly cheaper to intersect than the object inside such as in \textbf{Figure \ref{fig:boundingbox}} below. It works by enclosing the object in a rectangular box and when running the ray tracer, it first check if a ray misses the bounding box, then it cannot hit the object inside (Suffern, 2007). We did not implement this technique as our ray tracer only supports simple objects at this time.
+	
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[scale=0.60]{./boundingbox.png}
+		\caption{Bounding Box Example}
+		\label{fig:boundingbox}
+	\end{figure}
+	
+	
 	%DB-NOTE: this sounds dope! Are Nvidia Optix,BRL-CAD and OpenRL all thing we used or considered using?
 	
 	\section{Requirements and design}
@@ -208,12 +257,25 @@
 	2.   The  back-end  has  a  number  of  controllers  that  will  dynamically  process  the content specified by the user and generate a ray traced image.  The back-end is built in .Net, using WebApi2 to run the local server.
 	
 	\subsection{Architectural Pattern}
+	\label{sssec:arch}
 	
 	As we were using ASP.NET, it only made sense for the group to take advantage of the ASP.NET MVC web application framework. This framework implements the model–view–controller (MVC) pattern and allowed us to divide the application into a composition of three main logical components: Model, View and Controller. 
 	
+	\tikzstyle{b} = [rectangle, draw, fill=blue!20, node distance=3cm, text width=7em, text centered, minimum height=4em, thick]
+	
+	
 	\begin{figure}[ht!]
 		\centering
-		\includegraphics[scale=0.70]{./model_view_controller.jpg}
+		%\includegraphics[scale=0.70]{./model_view_controller.jpg}
+		\begin{tikzpicture}[auto]
+		\node [b] (model) {Model};
+		\node[b] at (-3, -3) (view) {View};
+		\node[b] at (3, -3) (controller) {Controller};
+		\path[->,thick,black] 
+		(controller) edge  (model)
+		(view) edge  (model)
+		(controller) edge  (view);
+		\end{tikzpicture}
 		\caption{Components of MVC}
 		\label{fig:mvc}
 	\end{figure}
@@ -229,13 +291,15 @@
 	
 	\section{Implementation}
 	
-	%In this section: Describe the most significant implementation details, focussing on those where unusual or detailed solutions were required. Quote code fragments where necessary, but remember that the examiners have full access to your source code. Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
+	%In this section: Describe the most significant implementation details, focusing on those where unusual or detailed solutions were required. Quote code fragments where necessary, but remember that the examiners have full access to your source code. Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
 	
 	\subsection{Front End}
 	\subsection{Back-end}
-	As mentioned before, the ray tracing algorithm is mainly about checking if the ray, which goes from the camera or reflects from objects because of lights, hits/intersects with the object or not. Furthermore, ray tracing depends on the material of each object, and so we should take that into our consideration. In addition to that, each scene has lights and cameras, and since each of these can have different type, we need to implement that to be scalable and open for extension.\\
+	Most of the code in the back-end is based on the book discussed in \textbf{Section \ref{sssec:book}}. As mentioned before, the ray tracing algorithm is mainly about checking if the ray, which goes from the camera or reflects from objects because of lights, hits/intersects with the object or not. Furthermore, ray tracing depends on the material of each object, and so we should take that into our consideration. In addition to that, each scene has lights and cameras, and since each of these can have different type, we need to implement that to be scalable and open for extension.\\
 	\par In our implementation we make use of different object oriented principles such as abstract classes, inheritance, overriding and Polymorphism. In the following sections, we will discuss in details how we used each of these concepts in our codes.
-	\subsubsection{Basic Elements}
+	\subsubsection{Models}
+	Our architecture is mainly based on the MVC model as previously discussed in \textbf{Section \ref{sssec:arch}}. This section will introduce and discuss the models used in our system.
+	\subsubsubsection{Basic Elements}
 	There are many basic elements which are required to build a ray tracer. These elements were reflected in our project as classes: 
 	\begin{itemize}
 		\item \textbf{Point3D}: This class is used to create a point in the 3D with x,y and z double values. In this class all the addition, subtraction, division and multiplication were overridden in order to perform them correctly in the context of points. Also, there are other methods such as the distance, which will be used to return the distance between two points.
@@ -244,15 +308,15 @@
 		\item \textbf{Point2D}: This class is used to create a point in 2D with x and y double values. No other methods were added to this class; since they are not needed in this class.
 		\item \textbf{Ray}: This class is used to create a ray, which will have an origin with type of \textbf{Point3D}, and a direction with type of \textbf{Vector3D}. This ray will be used in most of the calculations of ray tracing. There are no methods directly implemented in this class, but it will make use of other methods implemented in \textbf{Point3D} and \textbf{Vector3D}.
 	\end{itemize}
-	\subsubsection{Configurations}
+	\subsubsubsection{Configurations}
 	In order to make it easier to change any configured value in our program, we created a class called \textbf{Config}, where you can find any default values used in our program. By doing that, we make sure that changing the value in one place will change it in all the places where it is used. For example, the default colour, material, vector, point ... etc are defined in that class. 
-	\subsubsection{Materials}
+	\subsubsubsection{Materials}
 	One of the main factors which will affect the final result of ray tracing is the material of the object. All materials will have a colour, in addition to many different coefficients that might be needed for other materials, such as the diffusion, specular, ambient. In each material, we need a method that will calculate the shades caused by lights and other objects. \\
 	\par It is clear that we need to have an abstract class with the previously mentioned attributes, in addition to an abstract method which will be called calculateShade, which will be implemented differently based on the material. As we mentioned in the introduction, we covered three types of materials. The class diagram for this part of our program is shown in Figure \ref{fig:matcd}.
 	\begin{figure}[ht!]
 		\centering
 		%\includegraphics[scale=0.50]{./materials.png}
-		\begin{tikzpicture}[scale=0.8, every node/.style={scale=0.8}]
+		\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.7}]
 		\umlclass[type=abstract]
 		{Material}
 		{
@@ -273,32 +337,32 @@
 			{CalculateShade (hitInfo: HitInfo, scene: Scene = null ): HitInfo 
 			} 
 		} 
-		\umlclass[x=0, y=-7]{Phong}{}
+		\umlclass[x=0, y=-8.5]{Phong}{}
 		{
 			+ Phong ()\\
 			+ Phong  ( rgbColor: ColorRGB,  \\ \hspace{0.15cm} diffusionCoeff: double, \\ \hspace{0.15cm} specularCoeff: double,  \\ \hspace{0.15cm} specular: double, \\ \hspace{0.15cm} lightColorInf: double)\\
 		}
-		\umlclass[x=7.2, y=-7]{Flat}{}
+		\umlclass[x=7.2, y=-8.5]{Flat}{}
 		{
 			+ Flat() \\ 
 			+ Flat(RGBColor : ColorRGB)
 		} 
-		\umlclass[x=-7.2, y=-7]{Mirror}{}
+		\umlclass[x=-7.2, y=-8.5]{Mirror}{}
 		{
 			+ Mirror () \\
 			+ Mirror ( \\  \hspace{0.15cm} rgbColor: ColorRGB = WHITE,  \\ \hspace{0.15cm} diffusionCoeff: double = 1.0, \\ \hspace{0.15cm} specularCoeff: double = 0.5 ,  \\ \hspace{0.15cm} specular: double = 1.0, \\ \hspace{0.15cm} lightColorInf: double = 0.01)\\
 		}
-		\umlclass[x=-7, y=-12]{Chalk}{}
+		\umlclass[x=-7, y=-14.5]{Chalk}{}
 		{
 			+ Mirror () \\
 			+ Mirror ( \\  \hspace{0.15cm} rgbColor: ColorRGB,  \\ \hspace{0.15cm} diffusionCoeff: double = 0.4, \\ \hspace{0.15cm} specularCoeff: double = 0.2 ,  \\ \hspace{0.15cm} specular: double = 2.0, \\ \hspace{0.15cm} lightColorInf: double = 0.25)\\
 		}
-		\umlclass[x=0, y=-12]{Plastic}{}
+		\umlclass[x=0, y=-14.5]{Plastic}{}
 		{
 			+ Mirror () \\
 			+ Mirror ( \\  \hspace{0.15cm} rgbColor: ColorRGB, \\ \hspace{0.15cm} diffusionCoeff: double = 0.4, \\ \hspace{0.15cm} specularCoeff: double = 0.2 ,  \\ \hspace{0.15cm} specular: double = 20, \\ \hspace{0.15cm} lightColorInf: double = 0.35)\\
 		}
-		\umlclass[x=7, y=-12]{Metal}{}
+		\umlclass[x=7, y=-14.5]{Metal}{}
 		{
 			+ Mirror () \\
 			+ Mirror ( \\  \hspace{0.15cm} rgbColor: ColorRGB, \\ \hspace{0.15cm} diffusionCoeff: double = 0.4 \\ \hspace{0.15cm} specularCoeff: double = 0.2 ,  \\ \hspace{0.15cm} specular: double = 100, \\ \hspace{0.15cm} lightColorInf: double = 0.001)\\
@@ -314,9 +378,8 @@
 		\label{fig:matcd}
 	\end{figure}
 	%I need to add a class diagram for this part also.
-	\subsubsection{Geometry Objects}
-	\label{sssec:geo}
-	From the basic idea of ray tracing, we need a method to test whether a ray intersects with the object or not, and since we need our program to be scalable and open for extension, we created an abstract class called geometry object, which will have an attribute called the material; because each object will have a material. In addition to an abstract method called intersect. \\
+	\subsubsubsection{Geometry Objects}
+	\label{sssec:geo}From the basic idea of ray tracing, we need a method to test whether a ray intersects with the object or not, and since we need our program to be scalable and open for extension, we created an abstract class called geometry object, which will have an attribute called the material; because each object will have a material. In addition to an abstract method called intersect. \\
 	\par In order to add a new geometry object, we need to add a new class, which inherits the GeometryObject abstract class. Then add the attributes needed for the new class, and finally implement the intersect abstract method. The intersect returns an object of type \textbf{HitInfo} which will include the following attributes:
 	\begin{itemize}
 		\item \textbf{hasHit}: boolean attribute which be \textbf{true} if the ray hits the object, and \textbf{false} if not.
@@ -331,7 +394,7 @@
 	\begin{figure}[ht!]
 		\centering
 		%\includegraphics[scale=0.50]{./objects.png}
-		\begin{tikzpicture} 
+		\begin{tikzpicture} [scale=0.7, every node/.style={scale=0.7}]
 		\umlclass[type=abstract]
 		{GeometryObject}
 		{+ material : Material}
@@ -360,19 +423,17 @@
 		\caption{Geometry Objects Class Diagram}
 		\label{fig:geo}
 	\end{figure}
-	\subsubsection{Lights}
-	Each light will have a colour, intensity and a position. There might be different types of lights, and that's why we created a class called \textbf{Light}, and it is not an abstract class; since we want to create instances of it. Therefore, we defined it is method to be virtual, and so they can be overridden if we need to change their default implementation.
-	\par The methods in this class are:
+	\subsubsubsection{Lights}
+	Each light will have a colour, intensity and a position. There might be different types of lights, and that's why we created a class called \textbf{Light}, and it is not an abstract class; since we want to create instances of it. Therefore, we defined it is method to be virtual, and so they can be overridden if we need to change their default implementation. The methods in this class are:
 	\begin{itemize}
 		\item \textbf{GetDistance}: this method will calculate the distance between some point, and the position of the light.	 	\item \textbf{GetDirection}: this method will calculate the direction of the light with respect to some given point.
 		\item \textbf{GetColor}: this method will calculate the final colour after considering the light effects, such as the colour and intensity.
 	\end{itemize}
-	\subsubsection{Tracer}
+	\subsubsubsection{Tracer}
 	The tracer class will be responsible for tracing an input ray with all objects in the scene. Then, if the ray hits one of the objects, it will call the method another time recursively for some predefined depth value. Then, it will use the hitInfo in order to call the \textbf{CalculateShade} method, which was previously discussed in the materials section, and the \textbf{TraceShadeRay} method, which will calculate the effects of lights on the object.\\  
 	\par Finally, the result will be the multiplication of the values returned by the previous two methods in case the ray hits one of the objects, otherwise, it will be the colour of the scene's background.
-	\subsubsection{Camera}
-	\label{sssec:cam}
-	Another important element of ray tracing is the camera, which represents the way of looking to the objects in the scene. There are many different types of cameras that can be used such as perspective and orthographic cameras. In our implementation, we used the perspective camera. But in order to keep our program open for any future extension, we created an abstract class called camera, which contains:
+	\subsubsubsection{Camera}
+	\label{sssec:cam}Another important element of ray tracing is the camera, which represents the way of looking to the objects in the scene. There are many different types of cameras that can be used such as perspective and orthographic cameras. In our implementation, we used the perspective camera. But in order to keep our program open for any future extension, we created an abstract class called camera, which contains:
 	\begin{itemize}
 		\item \textbf{Attributes}:
 		\begin{itemize} 
@@ -386,10 +447,10 @@
 		\end{itemize}
 	\end{itemize}
 	\par In the perspective camera's implementation, the \textbf{Render} loops through all pixels in the image plane,  and then calculate the point, which in order will be used as an input to \textbf{FindRayDirection} method, and then call the \textbf{TraceRay}, which was discussed before in the previous section. To make the resulting colour smoother, we used one of the sampling techniques called the regular sampling technique.
-	\subsubsection{Sampling}
+	\subsubsubsection{Sampling}
 	One of the enhancements that we did to our output is to use one of the sampling techniques. In our application, we used the \textbf{Regular Sampling Technique}. The main idea behind it is to do the tracing on the same square of the image plane, but at different sampling values, and calculate the colour at different points inside that square for \textbf{N \footnote{The number of samples}} times.\\
 	\par Finally, we sum up these values together, and divide the result by \textbf{N} which will be the final colour of that square. By applying this technique, the final colour will be smoother than not using any sampling technique at all.
-	\subsubsection{Scene}
+	\subsubsubsection{Scene}
 	The scene will be the container of all the previously mentioned classes. Each scene will have a list of geometry objects, list of lights, camera, background colour, sampler, file name which will be the final name of the output file.\\
 	\par The scene will also have many different methods:
 	\begin{itemize}
@@ -398,9 +459,10 @@
 		\item \textbf{DisplayPixel}: it will take the x and y indices of a point, with the calculated colour as inputs, and then assign that colour to the appropriate index in the final picture pixels result.
 		\item \textbf{FinalPicture}: this method will just print the colours in the final pixels array, which are filled by the \textbf{DisplayPixel}, that is called by the \textbf{Render} method, into an image of jpg type, with the filename received from the front end.
 	\end{itemize}
-	\subsubsection{Api Controller}
-	In our project, we have one controller that will act as a post API. It will receive a JSON from the front-end side, the responsibility of that controller is to parse the received JSON, in a way that can be understood by the back-end's implementation. That's why we are having JSON folder in our project.\\
-	\par After parsing the JSON, we can create the scene object, then call the  \textbf{Render} method, after that call the \textbf{FinalPicture} method, and finally return the image to front-end.
+	\subsubsection{Controllers}
+	In our project, we have one controller called \textbf{RenderController}, that will act as a post API. It will receive a JSON from the front-end side, the responsibility of that controller is to parse the received JSON, in a way that can be understood by the back-end's implementation. That's why we are having JSON folder in our project.\\
+	\par The parsing process is done by a method called \textbf{ProcessJSON} in \textbf{JSONObject} class. We need this class as an interpreter between the front and back ends; since the way front-end dealing with the environment and object values is not the same for back-end. Therefore, for simplicity and to avoid doing a lot of processing calculations and computations on the client side, it is done on the back-end side.
+	\par Now and after parsing the JSON to the appropriate format, we can create the scene object, then call the \textbf{Render} method. This method will take some time until it renders the whole scene. After that \textbf{FinalPicture} method is called, and finally return the image to front-end as JPG file.
 	\subsubsection{Unit Testing}
 	\section{Team work} 
 	
@@ -437,8 +499,9 @@
 	
 	
 	\section{Evaluation}
-	Considering the mandatory requirements that were previously set out, all of them have been accomplished. %TODO: double check
-	On the other hand, our optional requirements have not been completed. However, if the deadline was not a factor, they would have been completed as most of them were quite similar to the mandatory ones. 
+	Considering the mandatory requirements that were previously set out, all of them have been accomplished.
+	On the other hand, our optional requirements have been
+	completed as well apart from allowing the users to create extra objects like polygon but instead we have implemented a plane object. However, if the deadline was not a factor, more objects would have been completed as most of them were quite similar to the mandatory ones. 
 	
 	As mentioned earlier, the team was divided into two. This was a success as each team member decided whether they wanted to work in either the front-end or the back-end depending on their own skills,desires or work experience. This was crucial as everyone choose the area they were more comfortable working with which allowed less issues to arise in the future. Each sub-team also had at least one member who had work experience in the particular field. David had experience in the front-end, whereas Othman had experience in the back-end. This was important as both of them were able to lead their sub-team and any problems would be solved efficiently. It also gave the rest of the team members a look into the future as both of their experience helped the team visualise and learn how different code practices and tools are used in the workplace.
 	

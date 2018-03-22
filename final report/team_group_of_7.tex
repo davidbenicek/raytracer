@@ -99,7 +99,7 @@
 		\item \textbf{Light source(s)}: The algorithm of ray tracing itself doesn't require having a light source. However, a scene without any light source isn't very practical for ray tracing.
 		\item \textbf{Image Plane}: referred to as \textbf{window frame} in our implementation. This plane has a set width and height and it is divided into small squares, where each square covers a number of pixels on the objects of the scene.
 		\item \textbf{Eye or Camera:} In order to render the scene, it is mandatory to have an eye or camera, with a certain position and direction. The camera is used to determine the way of looking to the scene elements. From the eye or camera, view rays are produced which travel through the image plane and determine the way the object is rendered.
-		%DB-NOTE: I change the last bullet point - let's just double check this is correct
+		%DB-NOTE: I changed the last bullet point - let's just double check this is correct
 		
 		%DB-NOTE: The top part is a good intro, I think bellow is getting a bit too technical for introduction. In the end I don't think it matters where we have this info as long as we don't duplicate it here and in the implementation. So this is something we can talk about
 	\end{itemize}
@@ -110,16 +110,17 @@
 		\label{fig:raytracing}
 	\end{figure}
 	\par \textbf{Figure \ref{fig:raytracing}} shows an example of a scene with the previously listed elements. Now, and after discussing the elements of the scene, it is the time to describe the algorithm of ray tracing. Despite the implementation not being trivial, the main idea is quite simple; in each scene there will an eye or camera, from that camera many rays will be produced and go across the small squares in the image plane, for each ray we need to check whether it intersects with any of the objects or not, and return the colour of that pixel. Other rays are possible to be produced caused by reflection. These rays also will follow the ray tracing algorithm before returning the final colour.\\
-	\par The algorithm itself is really simple. Nevertheless, it is previously mentioned that environment variables play a big role in the calculations. And so, returning the colour of the pixel, which was hit by the the ray, won't be that simple; since it will require additional computations related to the reflections, shades ... etc. 
+	\par The algorithm itself is relatively simple. Nevertheless, as previously mentioned, environment variables play a big role in the calculations. As a result, returning the colour of the pixel, which was hit by the the ray, won't be that simple; since it will require additional computations related to the reflections, shades ... etc. 
+	
 	\section{Our Solution}
-	Our final product is able to render a scene created by the end-user using our web interface. This web interface provides 2D and 3D views, where the user can create his own scene, and then just click render. After that, the user's input will be processed by the back-end engine, and returned the rendered image as JPG file with the name chosen by the end-user.\\ 
-	\par The scene can contain multiple objects of three different supported objects. Each object can have any material from six different available materials in our program. In addition to that, the scene can have multiple light sources. Each of those elements will be discussed later in \textbf{Chapter \ref{ch:imp}}.\\
+	Over the course of the project we worked hard to deliver a final product that is able to render a scene created by the end-user using a web interface. The web interface provides both 2D and 3D views, where the user can create his own scene, and then just click render. After that, the user's input will be processed by the back-end engine, which in turn returns the rendered image as JPG file, with the name chosen by the end-user,back to the front-end.\\ 
+	\par The scene can contain multiple objects of three different supported objects. Each object can have any material from six different available materials in our program. In addition to that, the scene can have multiple light sources. Each of those elements will be discussed, in more details, later in \textbf{Chapter \ref{ch:imp}}.\\
 	\par Our solution showed great results for the inputs we defined, and in order to make our product more reliable, we covered both the front and the back ends with many tests. More details about the implementation and testing will be discussed later in \textbf{Chapter \ref{ch:imp}}.
 	% 	Although the idea behind ray tracing is simple, there are many different solutions that can be developed for this idea. The solution consists of developing a web application where the user can pick the objects with different materials and sizes; and the scene that is then sent to the back-end to form a render of the scene through ray tracing.
 	\chapter{Review}
 	\section{Brief History of Ray tracing}
 	
-	\par Ray tracing is one of the popular methods of rendering. What is Rendering? Rendering is the act of generating an image (usually photorealistic) from a 2D or 3D model. There are three familiar techniques to image rendering and they are rasterisation, ray casting and ray tracing. These three techniques are quite similar but are differentiated by their representation of the optical effects such as reflection intensity which in turn makes the processing speed vary differently (Wald, Slusallek, Benthin, \& Wagner, 2001). This means that ray tracing would produce the most photorealistic image while also taking the most time to compute while rasterisation would produce the most basic image.\\
+	\par Ray tracing is one of the most popular methods of rendering. What is Rendering? Rendering is the act of generating an image (usually photorealistic) from a 2D or 3D model. There are three familiar techniques to image rendering and they are rasterisation, ray casting and ray tracing. These three techniques are quite similar but are differentiated by their representation of the optical effects such as reflection intensity which in turn makes the processing speed vary differently (Wald, Slusallek, Benthin, \& Wagner, 2001). This means that ray tracing would produce the most photorealistic image while also taking the most time to compute while rasterisation would produce the most basic image.\\
 	
 	\par The earliest known Ray tracing system was calculated by hand by Richard Hoyt in the 1950's while working on vehicle shotline at the Ballistic Research Library known today as DARPA (Klopcic \& L. Reed, 1999). In the 1960's, physicists coined the name "ray tracing" by plotting on paper the path taken by rays of light starting at a light source and passing through the lens in the design of lenses (Glassner, 1989).\\
 	
@@ -132,7 +133,7 @@
 	
 	\section{Review of Related Works}
 	\par In this section, the Ray tracers discussed either helped influence our design decisions or have a similar structure to what we have built.
-	\subsubsection{Ray Tracing from the Ground Up}
+	\subsection{Ray Tracing from the Ground Up}
 	\label{sssec:book}
 	\par This is a book written by Kevin Suffern.\\
 	
@@ -184,7 +185,7 @@
 	\section{Mandatory Requirements}
 	
 	
-	The beginning of the project saw the group discuss and decide what features were essential for the running of the ray tracer, that is to say, creating and developing a running system, consisting of the front-end, which is the client side, and the back-end, which is the server side. The bare minimum requirements for the entire system are as follows:
+	The beginning of the project saw the group discuss and decide what features were essential for the running of the ray tracer, that is to say, creating and developing a running system, consisting of the front-end, which is the client side, and the back-end, which is the server side. The bare minimum requirements for the entire system were determined to be as follows:
 	\begin{itemize}
 		\item Allow users to create spheres and cubes with specific parameters' values. Those parameters are:
 		\begin{itemize}
@@ -207,13 +208,13 @@
 	\section{Optional Requirements}
 	
 	If time allowed, the group established additional requirements.
-	The requirements specified in this category will extend the basic functionality of the raytracer, thus distinguishing our product from others. The optional requirements are as follows:
+	The requirements specified in this category will extend the basic functionality of the ray tracer, thus distinguishing our product from others. The optional requirements are as follows:
 	\begin{itemize}
 		\item Allow users to add multiple lights to the scene in different positions, colours and intensities.
 		\item Allow users to create other objects such as polygons.
 		\item Allow users to choose different materials, such as plastic, mirror, etc. for the objects.
 		\item Improve the colours of the output image, by using different techniques such as sampling.
-		\item Improve the performance of our system, by applying the multithreading concept, if the systems takes a long time while rendering the scene.
+		\item Improve the performance of our system, by applying the multit-hreading concept, if the systems takes a long time while rendering the scene.
 	\end{itemize}
 	
 	Due to time constraints we were unable to implement the use of polygons. However we successfully achieved the other optional requirements. 
@@ -225,62 +226,60 @@
 	
 	\section{Architecture}
 	
-	
-	This project has a two-tier, client-server architecture.
-	
-	1.  The front-end client is served up by the server.  The front-end has a user interface that allows the user to input their shapes and it will also dynamically render an approximation of the input to visualise what the user is about to ray trace.  The front-end will primarily be coded in HTML, CSS, JavaScript and AJAX.
-	
-	%OK-NOTE: It is just one controller.
-	2.   The  back-end  has  a  number  of  controllers  that  will  dynamically  process  the content specified by the user and generate a ray traced image.  The back-end is built in .Net, using WebApi2 to run the local server.
-	
-	\section{Architectural Pattern}
 	\label{sssec:arch}
-	
-	As we were using ASP.NET, it only made sense for the group to take advantage of the ASP.NET MVC web application framework. This framework implements the model–view–controller (MVC) pattern and allowed us to divide the application into a composition of three main logical components: Model, View and Controller. 
-	
-	\tikzstyle{b} = [rectangle, draw, fill=blue!20, node distance=3cm, text width=7em, text centered, minimum height=4em, thick]
-	
+	The project task as given to us involved developing the ray tracing engine and the GUI as distinct components which necessitated the creation of a third component to ferry input from the GUI to the Ray tracing Engine.
+	As we were using the ASP.NET technology, it was extremely necessary for the group to take advantage of the ASP.NET MVC web application framework. The different components of the ASP.NET MVC framework are designed in such a way that they can be easily replaced or customised independently without effect on other components (Microsoft). This framework implements the Model–View–Controller pattern and allowed us to divide the application into a composition of three main logical components: Model, View and Controller which represents the Business logic, UI logic and Input logic respectively.
+	\tikzstyle{b} = [rectangle, draw, fill=gray!20, node distance=3cm, text width=7em, text centered, minimum height=4em, thick]
 	
 	\begin{figure}[ht!]
 		\centering
-		%\includegraphics[scale=0.70]{./model_view_controller.jpg}
-		\begin{tikzpicture}[auto]
+		% 		\includegraphics[scale=0.15]{./mvc.png}
+		\begin{tikzpicture}[->,node distance=2.5cm,auto,main node/.style={rectangle,rounded corners,draw,align=center}]
 		\node [b] (model) {Model};
 		\node[b] at (-3, -3) (view) {View};
 		\node[b] at (3, -3) (controller) {Controller};
-		\path[->,thick,black] 
-		(controller) edge  (model)
-		(view) edge  (model)
-		(controller) edge  (view);
+		\node[b] at (3, -3) (controller) {Controller};
+		\node[b] at (0, -7) (user) {User};
+		\path[scale=1.3, ->, thick, solid] 
+		(model) edge[bend right=45 line width=1mm] node[ fill=white, anchor=center, pos=0.7,font=\bfseries] {UPDATES} (view)
+		(controller) edge[bend right=45] node[ fill=white, anchor=center, pos=0.3,font=\bfseries] {MANIPULATES} (model)
+		(view) edge node [ fill=white, anchor=center, pos=0.5,font=\bfseries] {SEES} (user)
+		(user) edge node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {USES} (controller);
 		\end{tikzpicture}
-		\caption{Components of MVC}
+		\caption{Model View Controller Architecture}
 		\label{fig:mvc}
 	\end{figure}
 	
 	\begin{itemize}
-		\item \textbf{Model} - The Model component corresponds to all the data-related logic that the User works with. This can represent either the data that is being transferred between the View and Controller components or any other business logic-related data. For example, a user object will retrieve the information from the database (i.e. list of shapes), manipulate it and update it data back to the back-end and use it to render data (the SVGs). \cite{modelstutorial}
-		\item \textbf{View} - The View component is used for all the UI logic of the application. For example, the User view will include all the UI components such as text boxes, dropdowns, etc. that the final user interacts with. \cite{viewstutorial}
-		\item \textbf{Controller} - Controllers act as an interface between Model and View components to process all the business logic and incoming requests, manipulate data using the Model component and interact with the Views to render the final output. For example, the User controller will handle all the interactions and inputs from the User View and update the database using the User Model. The same controller will be used to view the User data. \cite{controllertutorial}
+		\item \textbf{Model} - The Model component corresponds to the back-end and contains all of the business logic. This component is responsible for manipulating all data  transferred between the View and Controller components as well as the rules and logic associated with the system. In our system, this is the ray tracing engine that performs all of the calculations and determines if a ray hits an object as well as its colour, shadow, etc \cite{modelstutorial}.The data used in this component is gotten from the controller.\\
+		
+		\item \textbf{View} - The View component is used for all the UI logic of the application. This represents the interface that the user interacts with. In our case, this is represented by the front-end which includes an interactive SVG (where users can drag and drop objects as well as move them around), a 3D view which gives actual representation of the scene (including depth) and a form which is used to include additional details such as scene size, light position/intensity, point-of-view, etc. \cite{viewstutorial}\\
+		
+		\item \textbf{Controller} - The Controller acts as an interface between Model and View components. It receives input from the View converts it to understandable commands for the Model. In our system, the controller is represented by an API that extracts data objects from a JSON file and transmits them to the back-end. The controller is extremely useful as it also validates the input from the user. \cite{controllertutorial}
 	\end{itemize}
 	
 	
 	\section{Prototypes}
-	We produced prototypes to visualisation the design of our system and to evaluate its strengths. Its also assisted us in identify specifications for our system.
+	We produced prototypes to visualisation the design of our system and to evaluate its strengths. Its also assisted us in identify specifications for our system. %Justify prototypes%
 	
 	\subsection{First Iteration}
 	
 	Our first iteration is a low fidelity prototype drawn by hand to represent what the homepage might look like, this was our first impression of how it might look.
 	
-	\begin{figure}[h]
+	\begin{figure}[ht!]
 		\includegraphics[width=1\textwidth]{First_Iteration_Prototype.jpg}
+		\caption{First Iteration}
+		\label{fig:firstIt}
 	\end{figure}
 	
 	\subsection{Second Iteration}
 	
 	Our second iteration was a medium fidelity prototype which include our evolved requirements for the project (i.e. the SVG drag and drop).
-	
-	\begin{figure}[h]
+	\begin{figure}[ht!]
+		\centering
 		\includegraphics[width=1\textwidth]{second_prototype.png}
+		\caption{Second Iteration}
+		\label{fig:secondIt}
 	\end{figure}
 	
 	\chapter{Implementation}
@@ -462,20 +461,45 @@
 	In our project, we have one controller called \textbf{RenderController}, that will act as a post API. It will receive a JSON from the front-end side, the responsibility of that controller is to parse the received JSON, in a way that can be understood by the back-end's implementation. That's why we are having JSON folder in our project.\\
 	\par The parsing process is done by a method called \textbf{ProcessJSON} in \textbf{JSONObject} class. We need this class as an interpreter between the front and back ends; since the way front-end dealing with the environment and object values is not the same for back-end. Therefore, for simplicity and to avoid doing a lot of processing calculations and computations on the client side, it is done on the back-end side.
 	\par Now and after parsing the JSON to the appropriate format, we can create the scene object, then call the \textbf{Render} method. This method will take some time until it renders the whole scene. After that \textbf{FinalPicture} method is called, and finally return the image to front-end as JPG file.
-	\subsection{Unit Testing}
+	\subsection{Testing the backend}
+	
 	\section{Front End}
 	
-	In order to define the different elements of the scene, a web interface is developed to allow users enter the different values for the scene elements. Using this interface, the user can add different objects to the scene, with different materials, positions, sizes, colours. Furthermore, adding different lights at different positions with different colours.
-	\par We developed a web interface with two options. One option is the 2D option, where the user needs to define an element by providing its values in the top and side views. The 2D view is important as the user is able to view from every angle how the object is visible but it does not give an actual representation of how the object will be positioned once the ray tracing has been produced in the back-end. Hence the other option is the 3D view in which the user is able to change the scene elements including the lights. 
+	One of the main concerns of the team was to create a product that is easy and intuitive to use. In order to enable users to define the different elements they wish to have rendered on the scene, a simple web interface was developed. The interface allows users to enter the different values for the scene elements such as objects with different materials, positions, sizes and colours. Furthermore, the interface allows the user to define the specifications of the scene, even allowing them to add multiple lights at different positions with different colours and intensities. 
+	
+	\par The web interface has two main modes. One mode shows a 2D representation of the scene and is comprised of two views; a top down and a side view. The 2D view is important as the user is able to view from every angle how the object is visible but it does not give an actual representation of how the object will be positioned once the ray tracing has been produced in the back-end. Hence the other option is the 3D view in which the user is able to change the scene elements including the lights. 
+	
+	\subsection{Set up}
+	In order to make sure we followed good engineering practices and allowed our code to be easily extendable we implemented the entire client in ES6 styled JavaScript. ES6 is quickly becoming an industry standard with the rise of \textit{NodeJS} and \textit{TypeScript} and thanks to it's modularity, forces us into a neat pattern around which we can structure our code. What is more, because ES6 JavaScript can be ran both locally and in browser, we were able to implement extensive browsing using the \textit{Chai.js} testing framework and incorporate granular unit tests into our continuous integration pipeline - more about this in \ref{front-end-tests}.
+	
+	Thought adoption is ever growing, ES6 JavaScript is not supported by a number of current browsers and therefore we chose to transpile and bundle our code using \textit{Browserify} into browser runnable JavaScript. To avoid us having to continuously re-package the bundled code manually we utilised a hot module replacement tool called \textit{Watchify}. \textit{Watchify} monitored each of our included dependencies and whenever changes were saved to a file, the bundle would immediately be rebuilt, ready for us to see our code in action. The combination of an ES6 codebase, hot module replacement, bundling and good unit test coverage made developing the project a frictionless affair.
+	
+	\subsection{Testing the client} \label{front-end-tests}
+	Because it's all modules it's easy to test  - easy to separate logic from front end rendering code
+	We decided to omit the DOM related code from our testing due to the relative simplicity of the code and the brevity of the project.
 	
 	
 	\subsection{SVG}
+	
+	The first couple iterations of the project from the client side focused on creating a simple user interface that allows the user to input the most basic objects and parameters for the scene. By taking this approach we'd guarantee to be delivering a functional product from early in the project life cycle. As we began development, it was immediately obvious that we had to decide on standards that can be used to represent the scene and the objects within it in a concise yet expressive way. During our first meeting we created and documented a  \hyperlink{https://github.com/davidbenicek/raytracer/wiki/Initial-JSON-payload-design}{JSON structure} that would be used to express the render request and sent from the front end to the back end.
+	
+	The very first task was to first implement the kind of prototype you see in Figure \ref{fig:firstIt}.
+	We then iterated and largely stuck to the plan
+	
+	Implemented SVG
+	Wrote functions to map JSON -> SVG
+	Focus on being extendible
+	
+	Implemented drag and drop
+	Talk about how there's libraries out there to do it but we did it ourselfs. Also cite http://www.petercollingridge.co.uk/interactive-svg-components/draggable-svg-element
+	
+	Tooltip
 	
 	
 	\subsection{3D}
 	As mentioned before, the 3D aspect gives an actual representation of the back-end. This was developed using a JavaScript library called Three(three.js). Three is a combination of SVG and WebGL with a simpler way to create objects and all the other necessities such as clicking and labelling. This API is well known as diverse companies[reference] such as Toyota, Porsche or even Google[reference] use it. 
 	
-	Three is quite similar to our back-end as the majority of the functions that the back-end provides can be used in Three. Functions like adding different materials; adding lights with different intensities and colours; and obviously having a 3D aspect. Difference is, this library allows the user to rotate the scene which can then help them decide how they want the ray tracing image to look like. For example, one user might like an angle better than the other or another user will like the camera position to be higher or lower than the normal view. This gives the user more freedom as opposed to having those two parameters set as default in the background or just having a 2D view which would not be an actual representation. 
+	Three is quite similar to our back-end as majority of the functions that the back-end provides can be simulated in Three. Functions like adding different materials; adding lights with different intensities and colours; and obviously having a 3D aspect. Difference is, this library allows the user to rotate the scene which can then help them decide how they want the ray tracing image to look like. For example, one user might like an angle better than the other or another user will like the camera position to be higher or lower than the normal view. This gives the user more freedom as opposed to having those two parameters set as default in the background or just having a 2D view which would not be an actual representation. 
 	
 	
 	\chapter{Team work} 
@@ -494,11 +518,12 @@
 	
 	\section{Communication}
 	
-	Communication is one of the most important factors when it comes to working in a software engineering team. For our project we decided to utilise a number of different structured and unstructured communication channels. There exists a large array of great project management and issue tracking tools such as JIRA, Trac or Trello, however, we decided that given the brevity of our project and the relative low number of backlog items (especially at the start), that it would be best to keep our ticket system as close to the codebase as possible. As a result of this, we decided to make use of the inbuilt GitHub issue tracking system. This system does not provide the same calibre of project management tools as some of the forementioned products, however, it does enough for our purposes. We decided to use the GitHub milestone system as a way of scheduling issues for our sprints and implemented a branch naming convention such that we would refer to the issue we're addressing in the name of the branch - \{issue number\}/\{name of branch\}. This simple mechanism has worked tremendously because it ensures that on one hand all branches are addressing exactly one tasks or feature and on the other hand, that all tasks and features have been recorded in an issue. 
+	Communication is one of the most important factors when it comes to working in a software engineering team. For our project we decided to utilise a number of different structured and unstructured communication channels. There exists a large array of great project management and issue tracking tools such as JIRA, Trac or Trello, however, we decided that given the brevity of our project and the relative low number of backlog items (especially at the start), that it would be best to keep our ticket system as close to the codebase as possible. As a result of this, we decided to make use of the inbuilt GitHub issue tracking system. This system does not provide the same calibre of project management tools as some of the forementioned products, however, it does enough for our purposes. We decided to use the GitHub milestone system as a way of scheduling issues for our sprints and implemented a branch naming convention such that we would refer to the issue we're addressing in the name of the branch - \{issue number\}/\{name of branch\}. This simple mechanism has worked tremendously because it ensures that on one hand all branches are addressing exactly one tasks or feature and on the other hand, that all tasks and features have been recorded in an issue. \\
 	
-	Another way we structured our communication was by the use of pull requests whenever pushing code to master. By raising a pull request and having another team member review it we not only improved our code quality but also spread knowledge of the code base and cross-polinated ideas for features or more efficient solutions. Standout examples of a pull request flow can be seen here: TODO: Cite some nice PR from github
+	Another way we structured our communication was by the use of pull requests whenever pushing code to master. By raising a pull request and having another team member review it we not only improved our code quality but also spread knowledge of the code base and cross-polinated ideas for features or more efficient solutions. Standout examples of a pull request flow can be seen here: TODO: Cite some nice PR from github.\\
 	
-	Not all communication can be done over issue summaries and pull requests and therefore we scheduled weekly meetings to go over what has been achieved, what needs to be discussed and what is the plan for the following sprint. One could say that we condensed our daily scrum meeting, sprint planning, backlog refinement and sprint review all into one weekly meeting. This is not the textbook way of running an Agile project but given that we are not working on the project full time and that these meetings were kept as brief as possible, it still aligns to the core principles of Agile. During the meetings we would discuss the general trajectory of the project and what we want to accomplish in the next seven days, before breaking off into our sub teams and deciding on the exact issues we needed to create for the week ahead. This way of running a project has both advantages and disadvantages which is covered in section TODO: Cite section that covers this. We mostly met in person but on occasion, when we needed to, we used video conferencing tools such as Appear.In and Gruveo to connect with eachother.
+	Not all communication can be done over issue summaries and pull requests and therefore we scheduled weekly meetings to go over what has been achieved, what needs to be discussed and what is the plan for the following sprint. One could say that we condensed our daily scrum meeting, sprint planning, backlog refinement and sprint review all into one weekly meeting. This is not the textbook way of running an Agile project but given that we are not working on the project full time and that these meetings were kept as brief as possible, it still aligns to the core principles of Agile. During the meetings we would discuss the general trajectory of the project and what we want to accomplish in the next seven days, before breaking off into our sub teams and deciding on the exact issues we needed to create for the week ahead. This way of running a project has both advantages and disadvantages which is covered in section 
+	TODO: Cite section that covers this. We mostly met in person but on occasion, when we needed to, we used video conferencing tools such as Appear.In and Gruveo to connect with eachother.\\
 	
 	During the course of the sprints, our communication did not fade. We built on some ideas from Extreme Programming and met frequently in our work units to engage in pair programming while working on issues during the sprint. To facilitate the smooth operation of the team we used the lowest friction medium of communication for all of us which was a WhatApp group where we have discussed everything from meeting times, status of different issues or even specific lines of code in pull request. 
 	
@@ -515,19 +540,17 @@
 	\chapter{Evaluation}
 	Considering the mandatory requirements that were previously set out, all of them have been accomplished.
 	On the other hand, our optional requirements have been
-	completed as well apart from allowing the users to create extra objects like polygon but instead we have implemented a plane object. However, if the deadline was not a factor, more objects would have been completed as most of them were quite similar to the mandatory ones. 
+	completed as well apart from allowing the users to create extra objects like polygon but instead we have implemented a plane object. However, if the deadline was not a factor, more objects would have been completed as most of them were quite similar to the mandatory ones. \\
 	
-	As mentioned earlier, the team was divided into two. This was a success as each team member decided whether they wanted to work in either the front-end or the back-end depending on their own skills,desires or work experience. This was crucial as everyone choose the area they were more comfortable working with which allowed less issues to arise in the future. Each sub-team also had at least one member who had work experience in the particular field. David had experience in the front-end, whereas Othman had experience in the back-end. This was important as both of them were able to lead their sub-team and any problems would be solved efficiently. It also gave the rest of the team members a look into the future as both of their experience helped the team visualise and learn how different code practices and tools are used in the workplace.
+	As mentioned earlier, the team was divided into two. This was a success as each team member decided whether they wanted to work in either the front-end or the back-end depending on their own skills,desires or work experience. This was crucial as everyone choose the area they were more comfortable working with which allowed less issues to arise in the future. Each sub-team also had at least one member who had work experience in the particular field. David had experience in the front-end, whereas Othman had experience in the back-end. This was important as both of them were able to lead their sub-team and any problems would be solved efficiently. It also gave the rest of the team members a look into the future as both of their experience helped the team visualise and learn how different code practices and tools are used in the workplace.\\
 	
-	Focusing on the mandatory requirements first seemed logical as they were the functionality required for the software to work. Once those were accomplished, the optional requirements would be prioritised. This process went well as we did manage to finish the mandatory requirements. Most of the mandatory tasks were divided in the sub-teams which lead to both individual work and working in pairs. Critical tasks such as SVG implementation on the front-end or creating different shapes in the back-end, was either developed through pair programming or each team member had a small task to do in them, for example one team member would create a cube and the other a sphere. This helped us participate in every aspect of the project and improved our skills such as  team work and communication. This also lead to  coding problems being solved quickly as two minds are quicker and more knowledgeable than one. On the other hand, small tasks that were also important such as fixing a bug or creating forms, were done individually as not much time was needed for them. 
+	Focusing on the mandatory requirements first seemed logical as they were the functionality required for the software to work. Once those were accomplished, the optional requirements would be prioritised. This process went well as we did manage to finish the mandatory requirements. Most of the mandatory tasks were divided in the sub-teams which lead to both individual work and working in pairs. Critical tasks such as SVG implementation on the front-end or creating different shapes in the back-end, was either developed through pair programming or each team member had a small task to do in them, for example one team member would create a cube and the other a sphere. This helped us participate in every aspect of the project and improved our skills such as  team work and communication. This also lead to  coding problems being solved quickly as two minds are quicker and more knowledgeable than one. On the other hand, small tasks that were also important such as fixing a bug or creating forms, were done individually as not much time was needed for them. \\
 	%TODO: What else did go well?
 	
-	Communication was a major downside that could have been improved between the two sub-teams. This only came to our attention a few days before the first presentation while we were trying to integrate both front-end and the back-end together. It was a small issue at first which became big due to the fact that: variable names were not matching e.g spelling colour in the British way or American way; or the variables that were supposed to be hard coded either in the back-end or front-end e.g the back-end team assumed that the user would input where the camera would be pointing at. While the front-end thought that the back-end team would have it set as default and the user would not be able to change that as it made sense to always have the camera aiming at the middle of the walls with the user being able to change the position of the camera. This led to some confusion and a lot of changes in the code which wouldn't have been an issue if communication was more effective since the beginning. Communication became better once these issues came out and were pointed out to us but there was still some lack of effective communication.
+	Communication was a major downside that could have been improved between the two sub-teams. This only came to our attention a few days before the first presentation while we were trying to integrate both front-end and the back-end together. It was a small issue at first which became big due to the fact that: variable names were not matching e.g spelling colour in the British way or American way; or the variables that were supposed to be hard coded either in the back-end or front-end e.g the back-end team assumed that the user would input where the camera would be pointing at. While the front-end thought that the back-end team would have it set as default and the user would not be able to change that as it made sense to always have the camera aiming at the middle of the walls with the user being able to change the position of the camera. This led to some confusion and a lot of changes in the code which wouldn't have been an issue if communication was more effective since the beginning. Communication became better once these issues came out and were pointed out to us but there was still some lack of effective communication.\\
 	%TODO: What else didnt go well? and make the above paragraph more clear
 	
-	
-	Throughout each sprint planning, each team member had a task assigned to them which had to be completed before the next sprint. At times, these tasks were not completed due to time constraints or unable to fully complete it cause of some issues they found while developing.This lead to the deadlines being pushed back as another team member had to pick up the task or help out. This was good because everyone had enough time to complete the tasks if there was no issues. It was also bad because at times the work load was not managed well. This caused the internal deadline for the complete development to be pushed back for a week. Fortunately, we had set the internal deadline a month before the project was due which gave us four weeks to write the report. Even though it was pushed, we still had plenty of time to write the report and go over the project one last time before submitting.
-	
+	Throughout each sprint planning, each team member had a task assigned to them which had to be completed before the next sprint. At times, these tasks were not completed due to time constraints or unable to fully complete it cause of some issues they found while developing.This lead to the deadlines being pushed back as another team member had to pick up the task or help out. This was good because everyone had enough time to complete the tasks if there was no issues. It was also bad because at times the work load was not managed well. This caused the internal deadline for the complete development to be pushed back for a week. Fortunately, we had set the internal deadline a month before the project was due which gave us four weeks to write the report. Even though it was pushed, we still had plenty of time to write the report and go over the project one last time before submitting.\\
 	
 	%In this section: Critically evaluate your project: what worked well, and what didn’t? how did you do relative to your plan? what changes were the result of improved thinking and what changes were forced upon you? how did your team work together? etc. Note that you need to show that you understand the weaknesses in your work as well as its strengths. You may wish to identify relevant future work that could be done on your project.
 	
@@ -540,6 +563,13 @@
 	
 	
 	% Mention both strengths and weaknesses!!
+	
+	
+	%DB-NOTE:
+	% Testing - we could have done more there. We made a decision not to test code that is dependant on the DOM which came to bite us in the end. Our tests would indicate all was working but in reality we broke the front end a bunch of times and and no way of knowing. There are two possible solution: stub the DOM functions with something like Sinon or implement UI testing with something like Selenium. Ideally we would have done both but Sinon would probably have been the best single solution because unit tests are ran more often - see testing pyramid. 
+	
+	
+	
 	\clearpage
 	\bibliographystyle{plain}
 	\bibliography{references}

@@ -7,7 +7,9 @@ const d3 = require('../js/render-3d.js');
 
 let objectsJSON =[];
 
-let env = {};
+let env = {
+    "winFrame":{"Width": 500, "Height": 500 },
+    };
 
 function harvestAndSend() {
     const res = harvest();
@@ -18,6 +20,8 @@ function harvest() {
     const res = {};
     res.objects = objectsJSON;
     res.environment = getHarvest("env");
+    res.uv = getHarvest("user_view");
+    res.environment.lights = getHarvestforLight("light");
     env = res.environment;
     return res;
 }
@@ -36,8 +40,26 @@ function getHarvest(spec) {
 
 }
 
+function getHarvestforLight(spec) {
+    const objectSpecClasses = $("." + spec + "_spec");
+    //the above calls the class(mainlight_spec) in which the forms are put in for position,colour,intensity
+    //each form has a different id:light1, light2... but they all have the same class(mainlight_spec)
+    const final = [];
+    //checks the number of lights created
+    let object = {};
+    for (var i = 0; i < objectSpecClasses.length; i++) {
+    
+        object[objectSpecClasses[i].name] = getFormValues($(objectSpecClasses[i]).serializeArray());
+        if((i+1) % 3 == 0){
+            final.push(object);
+            object = {};
+        }
+    }
+    return final;
+}
+
 //TODO: Write a test for this
- function getFormValues(dataArray) {
+function getFormValues(dataArray) {
     const len = dataArray.length,
         dataObj = {};
 
@@ -47,11 +69,10 @@ function getHarvest(spec) {
     return dataObj;
 }
 
-
-
 module.exports = {
     objectsJSON,
     env,
     harvestAndSend,
     harvest
 }
+

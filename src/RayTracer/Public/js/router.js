@@ -11,17 +11,26 @@ function routeToView() {
     const res = form.harvest()
     const view = $('input[name=chosen-view]:checked')[0].value;
     let svg;
-    switch(view) {
+
+    switch (view) {
         case "3D":
-            $( "#ThreeJS" ).empty();
-            $(".2d-views").hide();
-            $("#ThreeJS").show();
-            d3.init(res.environment.background,res.environment.camera,res.environment.position);
-            d3.animate();
-            d3.jsonToShape(form.objectsJSON);
-            break;
+            if (res.environment.lights.length == 0) {
+                window.alert("Please add some lights and try again.");
+                $('input[id=3D]').prop('active', false);
+                $('input[id=Side]').prop('active', true);
+            }
+            else {
+                $("#ThreeJS").empty();
+                $(".2d-views").hide();
+                $("#ThreeJS").show();
+                d3.init(res.environment.background, res.environment.camera);
+                d3.addLights(res.environment.lights);
+                d3.animate();
+                d3.jsonToShape(form.objectsJSON);
+                break;
+            }
         case "Top":
-            $( "#ThreeJS" ).empty();
+            $("#ThreeJS").empty();
             $(".2d-views").show();
             $("#svg-container").show();
             $("#ThreeJS").hide();
@@ -30,7 +39,7 @@ function routeToView() {
             drag_drop.bindListeners()
             break;
         default:
-            $( "#ThreeJS" ).empty();
+            $("#ThreeJS").empty();
             $(".2d-views").show();
             $("#svg-container").show();
             $("#ThreeJS").hide();
@@ -42,9 +51,9 @@ function routeToView() {
 }
 
 $(document).ready(function () {
-  $(".form-control").change(routeToView)
-  $("#view").change(routeToView)
-  routeToView()
+    $(".form-control").change(routeToView)
+    $("#view").change(routeToView)
+    routeToView()
 })
 
 module.exports = {

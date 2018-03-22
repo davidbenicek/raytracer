@@ -19,162 +19,123 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 
+
 </head>
 
 
 <body>
   <div class="container">
-      <div class="row">
-        <h2>Ray Tracer</h2>
-      </div>
-      <div class="row">
-          <div id="render-view-picker" class="btn-group" data-toggle="buttons">
-              <label class="btn btn-primary">
-                  <input type="radio" onchange="module.routeToView()" name="chosen-view" value="Side" checked/>Side</label>
-              <label class="btn btn-primary">
-                  <input type="radio" onchange="module.routeToView()" name="chosen-view" value="Top" />Top</label>
-              <label class="btn btn-primary">
-                  <input type="radio" onchange="module.routeToView()" name="chosen-view" value="3D" />3D</label>
-          </div>
+    <div class="row">
+      <h2>Ray Tracer</h2>
+    </div>
+    <div class="row">
+      <div id="render-view-picker" class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary">
+          <input type="radio" onchange="module.routeToView()" name="chosen-view" id="Side" value="Side" checked/>Side</label>
+        <label class="btn btn-primary">
+          <input type="radio" onchange="module.routeToView()" name="chosen-view" id="Top" value="Top" />Top</label>
+        <label class="btn btn-primary">
+          <input type="radio" onchange="module.routeToView()" name="chosen-view" id="3D" value="3D" />3D</label>
       </div>
       <div class="row bottom-half">
         <div class="col-sm-4">
-            <div id="environment-input">
-                <h3>Choose environment specification</h3>
-            
-                <form id="user_view" name="user_view" class="user_view_spec">
-                  <div class="form-group" id="view_type">
-                    <label for="view">Type</label>
-                    <select name="view" class="form-control" id="view">
-                      <option>Top Down</option>
-                      <option>Side View</option>
-                    </select>
-                  </div>
-                </form>
-            
-                <form name="fileName" id="fileName" class="env_spec">
-                  <div class="form-group">
-                    <label for="filename">Filename</label>
-                    <input name="fileName" type="text" class="form-control" id="filename" value="scene">
-                  </div>
-                </form>
-            
-                <form name="winFrame" id="winFrame" class="env_spec">
-                  <label for="scene">Scene Size</label>
-                  <div class="form-group row" id="scene">
-                    <div class="col-xs-6">
-                      <label for="scene_x">x</label>
-                      <input name="Width" class="form-control" id="Width" type="text" value="800">
-                    </div>
-                    <div class="col-xs-6">
-                      <label for="scene_y">y</label>
-                      <input name="Height" class="form-control" id="Height" type="text" value="600">
-                    </div>
-                  </div>
-                </form>
-            
-                <form name="background" id="background" class="env_spec">
-                  <label for="background_color">Background Colour</label>
-                  <div class="form-group row" id="background_color">
-                    <div class="col-xs-4">
-                      <label for="background_r">R</label>
-                      <input name="r" class="form-control" id="background_r" type="text" value="100">
-                    </div>
-                    <div class="col-xs-4">
-                      <label for="background_g">G</label>
-                      <input name="g" class="form-control" id="background_g" type="text" value="100">
-                    </div>
-                    <div class="col-xs-4">
-                      <label for="background_b">B</label>
-                      <input name="b" class="form-control" id="background_b" type="text" value="100">
-                    </div>
-                  </div>
-                </form>
-            
-            
-                <h4>Choose light specification</h4>
-            
-                <form name="position" id="position" class="env_spec">
-                  <label for="light_position">Position</label>
-                  <div class="form-group row" id="light_position">
-                    <div class="col-xs-4">
-                      <label for="light_x">x</label>
-                      <input name="x" class="form-control" id="light_x" type="text" value="100">
-                    </div>
-                    <div class="col-xs-4">
-                      <label for="light_y">y</label>
-                      <input name="y" class="form-control" id="light_y" type="text" value="100">
-                    </div>
-                    <div class="col-xs-4">
-                      <label for="light_z">z</label>
-                      <input name="z" class="form-control" id="light_z" type="text" value="100">
-                    </div>
-                  </div>
-                </form>
-            
-                <form name="rgbColor" id="rgbColor" class="env_spec">
-                  <div class="form-group row" id="light_color">
-                    <div class="col-xs-4">
-                      <label for="light_r">R</label>
-                      <input name="r" class="form-control" id="light_r" type="text" value="100">
-                    </div>
-                    <div class="col-xs-4">
-                      <label for="light_g">G</label>
-                      <input name="g" class="form-control" id="light_g" type="text" value="100">
-                    </div>
-                    <div class="col-xs-4">
-                      <label for="light_b">B</label>
-                      <input name="b" class="form-control" id="light_b" type="text" value="100">
-                    </div>
-                  </div>
-                </form>
-            
-                <form name="intensity" id="intensity" class="env_spec">
-                  <div class="form-group">
-                    <label for="light_intensity">Intensity</label>
-                    <input name="intensity" type="text" class="form-control" id="light_intensity" value="1">
-                  </div>
-                </form>
-                <h4>Choose camera specification</h4>
-            
-                <form name="camera" id="camera" class="env_spec">
-                  <label for="cam_position">Position</label>
-                  <div class="form-group row" id="cam_position">
-                    <div class="col-xs-4">
-                      <label for="cam_x">x</label>
-                      <input name="x" class="form-control" id="cam_x" type="text" value="0">
-                    </div>
-                    <div class="col-xs-4">
-                      <label for="cam_y">y</label>
-                      <input name="y" class="form-control" id="cam_y" type="text" value="0">
-                    </div>
-                    <div class="col-xs-4">
-                      <label for="cam_z">z</label>
-                      <input name="z" class="form-control" id="cam_z" type="text" value="500">
-                    </div>
-                  </div>
-                </form>
-            
-                <button type="button" onclick="module.harvestAndSend()" id="submit">Render!</button>
-            
+          <div id="environment-input">
+            <h3>Choose environment specification</h3>
+
+            <form id="user_view" name="user_view" class="user_view_spec">
+              <div class="form-group" id="view_type">
+                <label for="view">Type</label>
+                <select name="view" class="form-control" id="view">
+                  <option>Top Down</option>
+                  <option>Side View</option>
+                </select>
               </div>
+            </form>
+
+            <form name="fileName" id="fileName" class="env_spec">
+              <div class="form-group">
+                <label for="filename">Filename</label>
+                <input name="fileName" type="text" class="form-control" id="filename" value="scene">
+              </div>
+            </form>
+
+            <form name="winFrame" id="winFrame" class="env_spec">
+              <label for="scene">Scene Size</label>
+              <div class="form-group row" id="scene">
+                <div class="col-xs-6">
+                  <label for="scene_x">x</label>
+                  <input name="Width" class="form-control" id="Width" type="text" value="800">
+                </div>
+                <div class="col-xs-6">
+                  <label for="scene_y">y</label>
+                  <input name="Height" class="form-control" id="Height" type="text" value="600">
+                </div>
+              </div>
+            </form>
+
+            <form name="background" id="background" class="env_spec">
+              <label for="background_color">Background Colour</label>
+              <div class="form-group row" id="background_color">
+                <div class="col-xs-4">
+                  <label for="background_r">R</label>
+                  <input name="r" class="form-control" id="background_r" type="text" value="100">
+                </div>
+                <div class="col-xs-4">
+                  <label for="background_g">G</label>
+                  <input name="g" class="form-control" id="background_g" type="text" value="100">
+                </div>
+                <div class="col-xs-4">
+                  <label for="background_b">B</label>
+                  <input name="b" class="form-control" id="background_b" type="text" value="100">
+                </div>
+              </div>
+            </form>
+
+            <fieldset id="lights">
+              <legend>Add lights!</legend>
+            </fieldset>
+            <input type="button" value="Add a light" class="add" id="add" />
+
+            <h4>Choose camera specification</h4>
+
+            <form name="camera" id="camera" class="env_spec">
+              <label for="cam_position">Position</label>
+              <div class="form-group row" id="cam_position">
+                <div class="col-xs-4">
+                  <label for="cam_x">x</label>
+                  <input name="x" class="form-control" id="cam_x" type="text" value="2000">
+                </div>
+                <div class="col-xs-4">
+                  <label for="cam_y">y</label>
+                  <input name="y" class="form-control" id="cam_y" type="text" value="1000">
+                </div>
+                <div class="col-xs-4">
+                  <label for="cam_z">z</label>
+                  <input name="z" class="form-control" id="cam_z" type="text" value="3000">
+                </div>
+              </div>
+            </form>
+
+            <button type="button" onclick="module.harvestAndSend()" id="submit">Render!</button>
+
+          </div>
         </div>
         <div class="col-sm-8" id="render-space">
-            <div class="row 2d-views inventory-container">
-              <svg id="inventory" width="500" height="100" x="0" y="0">
-                  <circle id="curve1" class="inventory-object" onmousedown="module.startObjectDrag('circle')"  cx="80" cy="50" r="35" />
-                  <rect id="curve2" class="inventory-object" onmousedown="module.startObjectDrag('rect')" x="150" y="15" width="70" height="70"/>
-              </svg>
-            </div>
-            <div class="row 2d-views">
-              <div id="svg-container"></div>
-            </div>
-            <div class="row" id="ThreeJS">
-            </div>
+          <div class="row 2d-views inventory-container">
+            <svg id="inventory" width="500" height="100" x="0" y="0">
+              <circle id="curve1" class="inventory-object" onmousedown="module.startObjectDrag('circle')" cx="80" cy="50" r="35" />
+              <rect id="curve2" class="inventory-object" onmousedown="module.startObjectDrag('rect')" x="150" y="15" width="70" height="70"
+              />
+            </svg>
+          </div>
+          <div class="row 2d-views">
+            <div id="svg-container"></div>
+          </div>
+          <div class="row" id="ThreeJS">
+          </div>
         </div>
       </div>
-  </div>
+    </div>
 </body>
 
 </html>

@@ -12,7 +12,7 @@ let targetList = [];
 let projector, mouse = { x: 0, y: 0 };
 // FUNCTIONS 		
 
- function init(b_color, camera_position, light_position) {
+ function init(b_color, camera_position) {
 
 	// SCENE
 	scene = new THREE.Scene();
@@ -36,10 +36,6 @@ let projector, mouse = { x: 0, y: 0 };
 	THREEx.FullScreen.bindKey({ charCode: 'm'.charCodeAt(0) });
 	// CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
-	// LIGHT
-	let light = new THREE.PointLight(0xffffff);
-	light.position.set(light_position.x, light_position.y, light_position.z);
-	scene.add(light);
 
 	// walls
 	let hex = cp.rgbToHex(b_color.r, b_color.g, b_color.b);
@@ -85,10 +81,20 @@ function onDocumentMouseDown(event) {
 
 }
 
+function addLights (array) {
+
+	for (let i = 0; i < array.length; i++) {
+		let lighthex = cp.rgbToHex(array[i].rgbColor.r, array[i].rgbColor.g, array[i].rgbColor.b);
+		let light = new THREE.PointLight(lighthex,array[i].intensity.intensity);
+		light.position.set(array[i].position.x, array[i].position.y, array[i].position.z);
+		scene.add(light);
+	}
+}
+
 function create_cube(id, color, size, material, point) {
 	let idGeometry = new THREE.CubeGeometry(size.x, size.y, size.z);
 	let hex = cp.rgbToHex(color.r, color.g, color.b);
-	let idMaterial = new THREE.MeshBasicMaterial({ color: hex, side: THREE.BackSide });
+	let idMaterial = new THREE.MeshPhongMaterial({ color: hex, side: THREE.BackSide });
 	id = new THREE.Mesh(idGeometry, idMaterial);
 	id.position.set(point.x, point.y, point.z);
 	scene.add(id);
@@ -97,7 +103,7 @@ function create_cube(id, color, size, material, point) {
 
 function create_sphere(id, color, size, material, point) {
 	let hex = cp.rgbToHex(color.r, color.g, color.b);
-	let faceColorMaterial = new THREE.MeshBasicMaterial({ color: hex, vertexColors: THREE.FaceColors });
+	let faceColorMaterial = new THREE.MeshPhongMaterial({ color: hex, vertexColors: THREE.FaceColors });
 	let sphereGeometry = new THREE.SphereGeometry(size.x, size.y, size.z);
 	id = new THREE.Mesh(sphereGeometry, faceColorMaterial);
 	id.position.set(point.x, point.y, point.z);
@@ -141,5 +147,6 @@ module.exports = {
 	init,
 	animate,
 	jsonToShape,
-	render
+	render,
+	addLights
 };

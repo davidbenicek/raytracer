@@ -9,7 +9,7 @@ let objectsJSON =[];
 
 let env = {
     "winFrame":{"Width": 500, "Height": 500 },
-    };;
+    };
 
 function harvestAndSend() {
     const res = harvest();

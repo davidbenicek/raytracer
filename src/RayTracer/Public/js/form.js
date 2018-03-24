@@ -8,8 +8,8 @@ const d3 = require('../js/render-3d.js');
 let objectsJSON =[];
 
 let env = {
-    "winFrame":{"Width": 500, "Height": 500 },
-    };
+  "winFrame":{"Width": 500, "Height": 500 },
+};
 
 function harvestAndSend() {
     const res = harvest();
@@ -23,6 +23,7 @@ function harvest() {
     res.uv = getHarvest("user_view");
     res.environment.lights = getHarvestforLight("light");
     env = res.environment;
+    module.exports.env = env;
     return res;
 }
 
@@ -48,8 +49,10 @@ function getHarvestforLight(spec) {
     //checks the number of lights created
     let object = {};
     for (var i = 0; i < objectSpecClasses.length; i++) {
-    
-        object[objectSpecClasses[i].name] = getFormValues($(objectSpecClasses[i]).serializeArray());
+        let res = getFormValues($(objectSpecClasses[i]).serializeArray());
+        if(objectSpecClasses[i].id in res)
+          res = res[objectSpecClasses[i].id];
+        object[objectSpecClasses[i].name] = res;
         if((i+1) % 3 == 0){
             final.push(object);
             object = {};

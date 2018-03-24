@@ -46,6 +46,7 @@ function showObjectDrag(){
       
       let x_new = e.pageX - $("#svg").position().left;
       let yz_new = e.pageY - $("#svg").position().top;
+      
       //We use the name yz to demonstrate that the values past in case be in both the y and z-axis,
       //whilst the x values are always in the x-axis. This is because; "top down view" -> z, "side view" -> y
       
@@ -168,8 +169,8 @@ function moveCircle(target,x,yz){
 }
 
 function moveRect(target,x,yz){
-  x -= target.width.baseVal.value/2
-  yz -= target.height.baseVal.value/2
+  x -= target.width.baseVal.value/2;
+  yz -= target.height.baseVal.value/2;
   $(target).attr("x",x).attr("y",yz);
 }
 

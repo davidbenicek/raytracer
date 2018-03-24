@@ -12,7 +12,7 @@ let targetList = [];
 let projector, mouse = { x: 0, y: 0 };
 // FUNCTIONS 		
 
- function init(b_color, camera_position) {
+ function init(env) {
 
 	// SCENE
 	scene = new THREE.Scene();
@@ -21,7 +21,7 @@ let projector, mouse = { x: 0, y: 0 };
 	let VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
 	camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(camera_position.x, camera_position.y, camera_position.z);
+	camera.position.set(env.camera.x, env.camera.y, env.camera.z);
 	camera.lookAt(scene.position);
 	// RENDERER
 	if (Detector.webgl)
@@ -38,8 +38,8 @@ let projector, mouse = { x: 0, y: 0 };
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 	// walls
-	let hex = cp.rgbToHex(b_color.r, b_color.g, b_color.b);
-	let wallsGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
+	let hex = cp.rgbToHex(env.background.r, env.background.g, env.background.b);
+	let wallsGeometry = new THREE.CubeGeometry(env.winFrame.Width, env.winFrame.Height, env.winFrame.Height);
 	let wallBoxMaterial = new THREE.MeshBasicMaterial({ color: hex, side: THREE.BackSide });
 	let wallBox = new THREE.Mesh(wallsGeometry, wallBoxMaterial);
 	wallBox.position.x = 0;

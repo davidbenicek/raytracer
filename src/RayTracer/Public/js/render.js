@@ -13,7 +13,7 @@ function getSVGForSphere(obj, dimension) {
   const x = convertJSONCordsToSVG(obj.point.x,"x");
   const y = convertJSONCordsToSVG(obj.point[dimension],dimension);
 
-  return `<circle id="${obj.id}" class="svg-object" cx="${x}" cy="${y}" r="${obj.size.x}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`
+  return `<circle id="${obj.id}" class="svg-object" cx="${x}" cy="${y}" r="${obj.size.x/2}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`;
 }
 
 function getSVGForCube(obj, dimension) {
@@ -25,8 +25,10 @@ function getSVGForCube(obj, dimension) {
     return "<text x=20 y=20>No dimension to render in</text>";
   }
 
-  const x = convertJSONCordsToSVG(obj.point.x,"x");
-  const y = convertJSONCordsToSVG(obj.point[dimension],dimension);
+  let x = convertJSONCordsToSVG(obj.point.x,"x");
+  let y = convertJSONCordsToSVG(obj.point[dimension],dimension);
+  x -= obj.size.x/2
+  y -= obj.size[dimension]/2
 
   return `<rect id="${obj.id}" class="svg-object" x="${x}" y="${y}" width="${obj.size.x}" height="${obj.size[dimension]}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`
 }
@@ -52,7 +54,7 @@ function convertToSvg(jsonObj, env, dimension) {
       `onmouseenter="module.showObjectDrag()" ` +
       `width="${env.winFrame.Width}" ` +
       `height="${env.winFrame.Height}" ` +
-      `style="fill:rgb(${env.background.r},${env.background.g},${env.background.b});"` +
+      `style="background:rgb(${env.background.r},${env.background.g},${env.background.b});"` +
       `>`;
     if (jsonObj && jsonObj.length > 0) 
       svg += jsonObj.map((obj) => {

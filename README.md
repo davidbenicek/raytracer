@@ -34,9 +34,9 @@ To bundle the code and transpile the individual JS files from ES6 to browser run
 
 * Make sure you have `npm` installed on your machine (typing `which npm` in terminal should resolve to a path if you have it installed)
 * Run `npm install` from the Public directory (i.e. src/RayTracer/Public/)
-* Run `npm run bundle` to run browserify once, `npm run dev` for hot reloading (you will need to have previously ran `npm run bundle` for this to work...or have the `dist/bundle.js` file already created)
+* Run `npm run bundle` to run browserify. If you are developing you'll likely want to bundle frequently. For this we have a small bash script that will bundle your code every couple seconds. Run `./hotreload.sh` to start it. 
 
-Please note, if you wish to run the front end without the backend, you can simple open the html files in views in your browser and it should work.
+Please note, if you wish to run the front end without the backend, you can simple open the html files in views in your browser and it should work (you may need to change the extension from `.cshtml` to `.html`).
 
 
 #### Running Tests
@@ -44,10 +44,10 @@ Please note, if you wish to run the front end without the backend, you can simpl
 * To run tests simply make sure you have previously ran the code as described above
 * Run the `npm test` command in the Public folder
 
-If you wish to see a comprehensive coverage report for the front end files, run `npm run coverage`. This will create a new folder in the directory called coverage, `/coverage/index.html` will show you a graphical view of all tested files. Please avoid committing the output of this to the repo.
+If you wish to see a comprehensive coverage report for the front end files, run `npm run coverage`. This will create a new folder in the directory called `coverage`, `/coverage/index.html` will show you a graphical view of all tested files. Please avoid committing the output of this to the repo.
 
 ## The back end:
 
 * Install Visual Studio
 
-* Press play (aka run)! Your default browser should open up to `localhost:8080` and display the landing page.
+* Press play (aka run)! Your default browser should open up to `localhost:1200` and display the landing page.

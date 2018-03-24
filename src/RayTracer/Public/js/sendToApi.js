@@ -34,11 +34,11 @@ function sendToApi(dataJSON){
     dataJSON.environment = formatJSONForBackEnd(dataJSON.environment);
 
     fetch('/api/Render', {
-      body: JSON.stringify(dataJSON), // must match 'Content-Type' header
+      body: JSON.stringify(dataJSON),
       headers: {
         'content-type': 'application/json'
       },
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      method: 'POST',
     })
     .then(function(res){
       return res.blob();

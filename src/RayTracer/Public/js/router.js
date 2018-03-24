@@ -7,6 +7,7 @@ const drag_drop = require("./drag_drop.js")
 const render = require('../js/render.js');
 const d3 = require('../js/render-3d.js');
 const tooltip = require('../js/tooltip.js');
+const color_picker = require('../js/color_picker.js');
 
 function routeToView() {
     const res = form.harvest();
@@ -38,9 +39,10 @@ function routeToView() {
             $("#svg-container").show();
             $("#ThreeJS").hide();
             svg = render.convertToSvg(form.objectsJSON, res.environment, "z");
-            $("#svg-container").html(svg)
+            $("#svg-container").html(svg);
             tooltip.assignToolTip();
-            drag_drop.bindListeners()
+            drag_drop.bindListeners();
+            color_picker.initialiseColourPickerListener();
             break;
         default:
             $("#ThreeJS").empty();
@@ -50,7 +52,8 @@ function routeToView() {
             svg = render.convertToSvg(form.objectsJSON, res.environment, "y");
             $("#svg-container").html(svg)
             tooltip.assignToolTip();
-            drag_drop.bindListeners()
+            drag_drop.bindListeners();
+            color_picker.initialiseColourPickerListener();
             break;
     }
 }

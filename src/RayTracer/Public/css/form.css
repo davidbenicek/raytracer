@@ -34,9 +34,15 @@ body {
     cursor: move;
 }
 
-.popover-markup {
+.tooltip-box {
     position: absolute;
     display: none;
     z-index: 9999;
+    width: 300px;
+    border: 1px solid black;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 6px 2px;
 }
 

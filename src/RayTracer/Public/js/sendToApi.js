@@ -1,30 +1,38 @@
+'use strict';
+
 const $ = require('jquery');
 
+function formatJSONForBackEnd(dataJSON){
 
-exports.sendToApi = function(dataJSON){
+    dataJSON.winFrame.Height = parseInt(dataJSON.winFrame.Height); 
+    dataJSON.winFrame.Width = parseInt(dataJSON.winFrame.Width); 
+    
+    dataJSON.wallPosition = dataJSON.winFrame.Width;
 
-    dataJSON = {
-        "objects":
-        [
-            {"shape":"sphere","size":{"x":30,"y":30,"z":30},"point":{"x":-50,"y":0,"z":60},
-            "color":{"r":0.0,"g":0.0,"b":1},"material":"flat"},
-            {"shape":"sphere","size":{"x":40,"y":40,"z":40},"point":{"x":50,"y":0,"z":0},
-            "color":{"r":1,"g":1,"b":1},"material":"flat"}
-        ],
-        "environment":
-        {
-            "fileName":"test",
-            "winFrame":{"Width":800,"Height":600 },
-            "background":{"r":0.2,"g":0.4,"b":0.4},
-            "camera" : { "position":{"x":0,"y":0,"z":500}, "lookAt": {"x":-5,"y":0,"z":0}, "distanceViewPlane":850 },
-            "lights":[
-                {"rgbColor":{"r":0.3,"g":0.3,"b":0.3}, "intensity": 1 },
-                {"position":{"x":0,"y":55,"z":95},"rgbColor":{"r":1.0,"g":0,"b":0}, "intensity": 0.5},
-                {"position":{"x":50,"y":55,"z":75},"rgbColor":{"r":1.0,"g":0,"b":1.0}, "intensity": 0.4}
-            ]
-        }
+    //Hardcoding camera
+    let camera = {
+        "position" : {}
     };
+    camera.position.x = parseInt(dataJSON.camera.x);
+    camera.position.y = parseInt(dataJSON.camera.y);
+    camera.position.z = parseInt(dataJSON.camera.z);
+    camera["lookAt"] = {x: 0, y: 0, z: 0};
+    camera["distanceViewPlane"] = 1500;
+    dataJSON["camera"] = camera;
 
+    //Converting background colours to fractions
+    dataJSON["background"].r = dataJSON["background"].r/255;
+    dataJSON["background"].g = dataJSON["background"].g/255;
+    dataJSON["background"].b = dataJSON["background"].b/255;
+
+
+    return dataJSON;
+}
+
+function sendToApi(dataJSON){
+    
+    dataJSON.environment = formatJSONForBackEnd(dataJSON.environment);
+    
     $.ajax({
         type: 'POST',
         url: '/api/Render',
@@ -40,4 +48,9 @@ exports.sendToApi = function(dataJSON){
             console.log(d);
         }
     });
+}
+
+module.exports = {
+    sendToApi,
+    formatJSONForBackEnd
 }

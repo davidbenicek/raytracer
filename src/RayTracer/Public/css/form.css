@@ -34,3 +34,9 @@ body {
     cursor: move;
 }
 
+.popover-markup {
+    position: absolute;
+    display: none;
+    z-index: 9999;
+}
+

@@ -54,7 +54,7 @@ function convertToSvg(jsonObj, env, dimension) {
       `onmouseenter="module.showObjectDrag()" ` +
       `width="${env.winFrame.Width}" ` +
       `height="${env.winFrame.Height}" ` +
-      `style="fill:rgb(${env.background.r},${env.background.g},${env.background.b});"` +
+      `style="background:rgb(${env.background.r},${env.background.g},${env.background.b});"` +
       `>`;
     if (jsonObj && jsonObj.length > 0) 
       svg += jsonObj.map((obj) => {

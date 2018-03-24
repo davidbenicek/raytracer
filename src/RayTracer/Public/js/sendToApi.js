@@ -18,7 +18,7 @@ function formatJSONForBackEnd(dataJSON){
     camera.position.y = parseInt(dataJSON.camera.y);
     camera.position.z = parseInt(dataJSON.camera.z);
     camera["lookAt"] = {x: 0, y: 0, z: 0};
-    camera["distanceViewPlane"] = 850;
+    camera["distanceViewPlane"] = dataJSON.camera.distanceViewPlane;
     dataJSON["camera"] = camera;
 
     //Converting background colours to fractions

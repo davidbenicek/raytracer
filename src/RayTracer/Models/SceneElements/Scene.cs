@@ -187,7 +187,7 @@ namespace RayTracer.Models.SceneElements
          * this object is in the ignore objects, and if it is there, so don't do
          * anything on that object
         */
-        public HitInfo GetHitInfo(Ray ray, List<GeometryObject> ignoreObjects = null)
+        public virtual HitInfo GetHitInfo(Ray ray, List<GeometryObject> ignoreObjects = null)
         {
             try
             {
@@ -293,14 +293,14 @@ namespace RayTracer.Models.SceneElements
             AddObject(cube);
 
             //// Build objects
-            //Sphere plastic_sphere = new Sphere(new Point3D(50, 0, 0), 40, new Plastic(new ColorRGB(1, 0, 0)));
-            //AddObject(plastic_sphere);
+            Sphere plastic_sphere = new Sphere(new Point3D(50, 0, 0), 40, new Plastic(new ColorRGB(1, 0, 0)));
+            AddObject(plastic_sphere);
 
-            //Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Metal(new ColorRGB(1,0, 0)));
-            //AddObject(metal_sphere);
+            Sphere metal_sphere = new Sphere(new Point3D(-50, 0, 60), 30, new Metal(new ColorRGB(1,0, 0)));
+            AddObject(metal_sphere);
 
-            //Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
-            //AddObject(mirror_sphere);
+            Sphere mirror_sphere = new Sphere(new Point3D(-60, 70, 0), 20, new Mirror());
+            AddObject(mirror_sphere);
         }
 
         public void FinalPicture()
@@ -341,6 +341,11 @@ namespace RayTracer.Models.SceneElements
         public void SetCamera(Camera camera)
         {
             this.camera = camera;
+        }
+
+        public void SetTracer(Tracer tracer)
+        {
+            this.tracer = tracer;
         }
     }
 }

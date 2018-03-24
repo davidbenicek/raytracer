@@ -9,23 +9,24 @@ const d3 = require('../js/render-3d.js');
 const tooltip = require('../js/tooltip.js');
 
 function routeToView() {
-    const res = form.harvest()
-    let view = $('input[name=chosen-view]:checked')[0].value;
+    const res = form.harvest();
+    const view = $('input[name=chosen-view]:checked')[0].value;
     let svg;
 
     switch (view) {
         case "3D":
             if (res.environment.lights.length == 0) {
-                //Small TODO: does not work
                 window.alert("Please add some lights and try again.");
-                $('input[id=3D]').prop('active', false);
-                $('input[id=Side]').prop('active', true);
+                $('#3D').removeClass('active');
+                $('#Side').click();
+                $('#3D').removeClass('active focus');
+
             }
             else {
                 $("#ThreeJS").empty();
                 $(".2d-views").hide();
                 $("#ThreeJS").show();
-                d3.init(res.environment.background, res.environment.camera);
+                d3.init(res.environment);
                 d3.addLights(res.environment.lights);
                 d3.animate();
                 d3.jsonToShape(form.objectsJSON);
@@ -57,7 +58,7 @@ function routeToView() {
 $(document).ready(function () {
     $(".form-control").change(routeToView)
     $("#view").change(routeToView)
-    routeToView()
+    routeToView();
 })
 
 module.exports = {

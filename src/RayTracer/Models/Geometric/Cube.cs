@@ -32,6 +32,8 @@ namespace RayTracer.Models.Geometric
             this.maxPoint = tempPoint;
         }
 
+        //Narg made a change
+
         public override HitInfo Intersect(Ray ray)
         {
             //This is the method that performs the calculation to determine whether 

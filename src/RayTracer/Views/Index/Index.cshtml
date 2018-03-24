@@ -42,16 +42,6 @@
           <div id="environment-input">
             <h3>Choose environment specification</h3>
 
-            <form id="user_view" name="user_view" class="user_view_spec">
-              <div class="form-group" id="view_type">
-                <label for="view">Type</label>
-                <select name="view" class="form-control" id="view">
-                  <option>Top Down</option>
-                  <option>Side View</option>
-                </select>
-              </div>
-            </form>
-
             <form name="fileName" id="fileName" class="env_spec">
               <div class="form-group">
                 <label for="filename">Filename</label>
@@ -64,11 +54,11 @@
               <div class="form-group row" id="scene">
                 <div class="col-xs-6">
                   <label for="scene_x">x</label>
-                  <input name="Width" class="form-control" id="Width" type="text" value="800">
+                  <input name="Width" class="form-control" id="Width" type="text" value="500">
                 </div>
                 <div class="col-xs-6">
                   <label for="scene_y">y</label>
-                  <input name="Height" class="form-control" id="Height" type="text" value="600">
+                  <input name="Height" class="form-control" id="Height" type="text" value="500">
                 </div>
               </div>
             </form>
@@ -114,6 +104,8 @@
                   <input name="z" class="form-control" id="cam_z" type="text" value="3000">
                 </div>
               </div>
+              <label for="cam_distance">Distance View Plane</label>
+              <input name="distanceViewPlane" class="form-control" id="cam_distance" type="text" value="850">
             </form>
 
             <button type="button" onclick="module.harvestAndSend()" id="submit">Render!</button>

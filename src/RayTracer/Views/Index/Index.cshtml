@@ -38,19 +38,10 @@
           <input type="radio" onchange="module.routeToView()" name="chosen-view" id="3D" value="3D" />3D</label>
       </div>
       <div class="row bottom-half">
+        <div id="pic"/>
         <div class="col-sm-4">
           <div id="environment-input">
             <h3>Choose environment specification</h3>
-
-            <form id="user_view" name="user_view" class="user_view_spec">
-              <div class="form-group" id="view_type">
-                <label for="view">Type</label>
-                <select name="view" class="form-control" id="view">
-                  <option>Top Down</option>
-                  <option>Side View</option>
-                </select>
-              </div>
-            </form>
 
             <form name="fileName" id="fileName" class="env_spec">
               <div class="form-group">
@@ -64,11 +55,11 @@
               <div class="form-group row" id="scene">
                 <div class="col-xs-6">
                   <label for="scene_x">x</label>
-                  <input name="Width" class="form-control" id="Width" type="text" value="800">
+                  <input name="Width" class="form-control" id="Width" type="text" value="500">
                 </div>
                 <div class="col-xs-6">
                   <label for="scene_y">y</label>
-                  <input name="Height" class="form-control" id="Height" type="text" value="600">
+                  <input name="Height" class="form-control" id="Height" type="text" value="500">
                 </div>
               </div>
             </form>

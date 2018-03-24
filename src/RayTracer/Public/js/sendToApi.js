@@ -1,6 +1,7 @@
 'use strict';
 
 const $ = require('jquery');
+var FileSaver = require('file-saver');
 
 function formatJSONForBackEnd(dataJSON){
 
@@ -17,7 +18,7 @@ function formatJSONForBackEnd(dataJSON){
     camera.position.y = parseInt(dataJSON.camera.y);
     camera.position.z = parseInt(dataJSON.camera.z);
     camera["lookAt"] = {x: 0, y: 0, z: 0};
-    camera["distanceViewPlane"] = 1500;
+    camera["distanceViewPlane"] = 850;
     dataJSON["camera"] = camera;
 
     //Converting background colours to fractions
@@ -30,24 +31,23 @@ function formatJSONForBackEnd(dataJSON){
 }
 
 function sendToApi(dataJSON){
-    
     dataJSON.environment = formatJSONForBackEnd(dataJSON.environment);
-    
-    $.ajax({
-        type: 'POST',
-        url: '/api/Render',
-        data: JSON.stringify(dataJSON),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function(d)
-        {
-            console.log(d);
-        },
-        error: function(d)
-        {
-            console.log(d);
-        }
+
+    fetch('/api/Render', {
+      body: JSON.stringify(dataJSON), // must match 'Content-Type' header
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    })
+    .then(function(res){
+      return res.blob();
+    })
+    .then(function(blob) {
+      console.log(blob);
+      FileSaver.saveAs(blob, dataJSON.environment.fileName+'.png');
     });
+
 }
 
 module.exports = {

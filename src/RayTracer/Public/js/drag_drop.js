@@ -223,19 +223,18 @@ function assignToolTipListener() {
     });
 
     //Populate the popover
-    for (let key in form.objectsJSON) {
-      if ( (form.objectsJSON[key].id) === svgID){
-        $(".form-control#type").val(form.objectsJSON[key].shape);
-        $(".form-control#material").val(form.objectsJSON[key].material);
+    const i = findObjectInJSON(svgID)
+    if ( i !== -1){
+      $(".form-control#type").val(form.objectsJSON[i].shape);
+      $(".form-control#material").val(form.objectsJSON[i].material);
 
-        $(".form-control#size_x").val(form.objectsJSON[key].size.x);
-        $(".form-control#size_y").val(form.objectsJSON[key].size.y);
-        $(".form-control#size_z").val(form.objectsJSON[key].size.z);
+      $(".form-control#size_x").val(form.objectsJSON[i].size.x);
+      $(".form-control#size_y").val(form.objectsJSON[i].size.y);
+      $(".form-control#size_z").val(form.objectsJSON[i].size.z);
 
-        $(".form-control#colour_r").val(form.objectsJSON[key].color.r);
-        $(".form-control#colour_g").val(form.objectsJSON[key].color.g);
-        $(".form-control#colour_b").val(form.objectsJSON[key].color.b);
-      }
+      $(".form-control#colour_r").val(form.objectsJSON[i].color.r);
+      $(".form-control#colour_g").val(form.objectsJSON[i].color.g);
+      $(".form-control#colour_b").val(form.objectsJSON[i].color.b);
     }
   });
 
@@ -245,12 +244,11 @@ function assignToolTipListener() {
   $(".form-control#type").unbind("change");
   $(".form-control#type").change(function(){
     //update the json and rerender
-    for (let key in form.objectsJSON) {
-      if ( (form.objectsJSON[key].id) === svgID){
-        form.objectsJSON[key].shape = $(".form-control#type").val();
+    const i = findObjectInJSON(svgID)
+    if ( i !== -1){
+      form.objectsJSON[i].shape = $(".form-control#type").val();
         
-        regenerateScene();
-      }
+      regenerateScene();
     }
   });
 
@@ -258,24 +256,22 @@ function assignToolTipListener() {
   $(".form-control#material").unbind("change");
   $(".form-control#material").change(function(){
     //update the json and rerender
-    for (let key in form.objectsJSON) {
-      if ( (form.objectsJSON[key].id) === svgID){
-        form.objectsJSON[key].material = $(".form-control#material").val();
-      }
+    const i = findObjectInJSON(svgID)
+    if ( i !== -1){
+      form.objectsJSON[i].material = $(".form-control#material").val();
     }
   });
   //Update size
   $("#size").unbind("change");
   $("#size").change(function(){
     //update the json and rerender
-    for (let key in form.objectsJSON) {
-      if ( (form.objectsJSON[key].id) === svgID){
-        form.objectsJSON[key].size.x = $("#size_x").val();
-        form.objectsJSON[key].size.y = $("#size_y").val();
-        form.objectsJSON[key].size.z = $("#size_z").val();
-        
-        regenerateScene();
-      }
+    const i = findObjectInJSON(svgID)
+    if ( i !== -1){
+      form.objectsJSON[i].size.x = $("#size_x").val();
+      form.objectsJSON[i].size.y = $("#size_y").val();
+      form.objectsJSON[i].size.z = $("#size_z").val();
+      
+      regenerateScene();
     }
   });
 
@@ -283,14 +279,13 @@ function assignToolTipListener() {
   $("#color").unbind("change");
   $("#color").change(function(){
     //update the json and rerender
-    for (let key in form.objectsJSON) {
-      if ( (form.objectsJSON[key].id) === svgID){
-        form.objectsJSON[key].color.r = $("#colour_r").val();
-        form.objectsJSON[key].color.g = $("#colour_g").val();
-        form.objectsJSON[key].color.b = $("#colour_b").val();
-      
-        regenerateScene();
-      }
+    const i = findObjectInJSON(svgID)
+    if ( i !== -1){
+      form.objectsJSON[i].color.r = $("#colour_r").val();
+      form.objectsJSON[i].color.g = $("#colour_g").val();
+      form.objectsJSON[i].color.b = $("#colour_b").val();
+    
+      regenerateScene();
     }
   });
 }

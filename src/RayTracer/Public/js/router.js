@@ -6,7 +6,6 @@ const form = require("./form.js")
 const drag_drop = require("./drag_drop.js")
 const render = require('../js/render.js');
 const d3 = require('../js/render-3d.js');
-const tooltip = require('../js/tooltip.js');
 const color_picker = require('../js/color_picker.js');
 
 function routeToView() {

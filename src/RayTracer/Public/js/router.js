@@ -40,7 +40,6 @@ function routeToView() {
             $("#ThreeJS").hide();
             svg = render.convertToSvg(form.objectsJSON, res.environment, "z");
             $("#svg-container").html(svg);
-            tooltip.assignToolTip();
             drag_drop.bindListeners();
             color_picker.initialiseColourPickerListener();
             break;
@@ -51,7 +50,6 @@ function routeToView() {
             $("#ThreeJS").hide();
             svg = render.convertToSvg(form.objectsJSON, res.environment, "y");
             $("#svg-container").html(svg)
-            tooltip.assignToolTip();
             drag_drop.bindListeners();
             color_picker.initialiseColourPickerListener();
             break;

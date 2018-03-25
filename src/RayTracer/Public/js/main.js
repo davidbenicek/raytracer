@@ -7,6 +7,5 @@ const drag_drop = require("./drag_drop.js")
 const colour_picker = require("./render.js")
 const router = require("./router.js")
 const lights = require("./lights.js")
-const tooltip = require("./tooltip.js");
-Object.assign(module.exports, form, sendToApi, render, router, drag_drop, colour_picker, lights, tooltip);
+Object.assign(module.exports, form, sendToApi, render, router, drag_drop, colour_picker, lights);
 

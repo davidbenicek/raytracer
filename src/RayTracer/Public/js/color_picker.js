@@ -28,7 +28,7 @@ function changeColourPickerValue(){
     const red = $("#colour_r")[0].value;
     const green = $("#colour_g")[0].value;
     const blue = $("#colour_b")[0].value;
-    const hex = exports.rgbToHex(red,green,blue);
+    const hex = rgbToHex(red,green,blue);
     document.getElementById("color_picker").value = hex;
 }
 

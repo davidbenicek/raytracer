@@ -2,8 +2,8 @@
 
 const $ = require('jquery');
 
-const form = require("./form.js")
-const tooltip = require("./tooltip.js")
+const form = require("./form.js");
+const render = require("./render.js");
 
 //Keeps id of generic created objs
 let count = 0;
@@ -75,7 +75,7 @@ function showObjectDrag(){
 }
 
 function bindListeners(){
-  tooltip.assignToolTip();
+  assignToolTipListener();
   $(".svg-object").mousedown(function(e){
     dragged_id = e.target.id;
     //Have to disable pointer events and all objects except for the one I am dragging
@@ -197,6 +197,123 @@ function createDefaultShape(shape,id,pos_x,pos_yz){
   }
 }
 
+let svgID = "";
+
+function assignToolTipListener() {
+    $(".svg-object").dblclick(function(e){
+    svgID = e.target.id;
+    //Get the position of the element we just clicked on
+    let x,y;
+    x = e.screenX //+ $("#svg").offset().left;
+    y = e.screenY //- $("#svg").offset().top;
+  
+    //Move the popover
+    const tooltip = $(".tooltip-box");
+    tooltip.show();
+    tooltip.css({top: y+'px', left: x+'px'});
+
+    //Highlight element
+    $("#"+svgID).attr('stroke','yellow');
+
+    //Activate click-off to close
+    $('.bottom-half').click(function(){
+        tooltip.hide();
+        $("#"+svgID).attr('stroke','none');
+        svgID = "";
+    });
+
+    //Populate the popover
+    for (let key in form.objectsJSON) {
+      if ( (form.objectsJSON[key].id) === svgID){
+        $(".form-control#type").val(form.objectsJSON[key].shape);
+        $(".form-control#material").val(form.objectsJSON[key].material);
+
+        $(".form-control#size_x").val(form.objectsJSON[key].size.x);
+        $(".form-control#size_y").val(form.objectsJSON[key].size.y);
+        $(".form-control#size_z").val(form.objectsJSON[key].size.z);
+
+        $(".form-control#colour_r").val(form.objectsJSON[key].color.r);
+        $(".form-control#colour_g").val(form.objectsJSON[key].color.g);
+        $(".form-control#colour_b").val(form.objectsJSON[key].color.b);
+      }
+    }
+  });
+
+
+
+  //Update type
+  $(".form-control#type").unbind("change");
+  $(".form-control#type").change(function(){
+    //update the json and rerender
+    for (let key in form.objectsJSON) {
+      if ( (form.objectsJSON[key].id) === svgID){
+        form.objectsJSON[key].shape = $(".form-control#type").val();
+        
+        regenerateScene();
+      }
+    }
+  });
+
+  //Update size
+  $(".form-control#material").unbind("change");
+  $(".form-control#material").change(function(){
+    //update the json and rerender
+    for (let key in form.objectsJSON) {
+      if ( (form.objectsJSON[key].id) === svgID){
+        form.objectsJSON[key].material = $(".form-control#material").val();
+      }
+    }
+  });
+  //Update size
+  $("#size").unbind("change");
+  $("#size").change(function(){
+    //update the json and rerender
+    for (let key in form.objectsJSON) {
+      if ( (form.objectsJSON[key].id) === svgID){
+        form.objectsJSON[key].size.x = $("#size_x").val();
+        form.objectsJSON[key].size.y = $("#size_y").val();
+        form.objectsJSON[key].size.z = $("#size_z").val();
+        
+        regenerateScene();
+      }
+    }
+  });
+
+  //Update color
+  $("#color").unbind("change");
+  $("#color").change(function(){
+    //update the json and rerender
+    for (let key in form.objectsJSON) {
+      if ( (form.objectsJSON[key].id) === svgID){
+        form.objectsJSON[key].color.r = $("#colour_r").val();
+        form.objectsJSON[key].color.g = $("#colour_g").val();
+        form.objectsJSON[key].color.b = $("#colour_b").val();
+      
+        regenerateScene();
+      }
+    }
+  });
+}
+
+function regenerateScene(){
+  const view = $('input[name=chosen-view]:checked')[0].value;
+  let svg;
+
+  switch (view) {
+    case "Top":
+    svg = render.convertToSvg(form.objectsJSON, form.env, "z");
+    $("#svg-container").html(svg);
+    bindListeners();
+    break;
+  default:
+    svg = render.convertToSvg(form.objectsJSON, form.env, "y");
+    $("#svg-container").html(svg)
+    bindListeners();
+    break;
+  }
+}
+
+
 module.exports = {
   dragged_id,
   new_object,
@@ -208,5 +325,6 @@ module.exports = {
   addToJSON,
   updateJSONWithMove,
   createDefaultShape,
-  convertSVGCordsToJSON
+  convertSVGCordsToJSON,
+  assignToolTipListener,
 } 

@@ -46,3 +46,9 @@ body {
     box-shadow: 2px 4px 6px 2px;
 }
 
+#submit { 
+  width: 100%;
+  margin-top: 20px;
+  font-size: 24px;
+}
+

@@ -19,6 +19,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>Ray Tracer</title>
 
 </head>
 
@@ -108,9 +109,10 @@
               <input name="distanceViewPlane" class="form-control" id="cam_distance" type="text" value="850">
             </form>
 
-            <button type="button" onclick="module.harvestAndSend()" id="submit">Render!</button>
+            <button type="button" class="btn btn-primary" onclick="module.harvestAndSend()" id="submit">Render!</button>
 
           </div>
+
         </div>
         <div class="col-sm-8" id="render-space">
           <div class="row 2d-views inventory-container">
@@ -128,6 +130,85 @@
         </div>
       </div>
     </div>
+
+    <!-- Popover Form for Objects -->
+    <div class="tooltip-box"> 
+      <div class="head">Object Specification</div>
+      <div class="content">
+          <div class="form-group">
+
+            <form id="shape" name="shape" class="object_spec">
+              <div class="form-group" id="object_type">
+                <label for="type">Type</label>
+                <select name="shape" class="form-control" id="type">
+                  <option>sphere</option>
+                  <option>cube</option>
+                </select>
+              </div>
+            </form>
+        
+            <form name="size" id="size" class="object_spec">
+              <label for="size">Size</label>
+              <div class="form-group row" id="size">
+                <div class="col-xs-4">
+                  <label for="size_x">x</label>
+                  <input name="x" class="form-control" id="size_x" type="text" value="50">
+                </div>
+                <div class="col-xs-4">
+                  <label for="size_y">y</label>
+                  <input name="y" class="form-control" id="size_y" type="text" value="100">
+                </div>
+                <div class="col-xs-4">
+                  <label for="size_z">z</label>
+                  <input name="z" class="form-control" id="size_z" type="text" value="100">
+                </div>
+              </div>
+            </form>
+            
+            <form name="color" id="color" class="object_spec">
+              <label for="colour">Colour</label>
+              <div class="form-group row" id="colour">
+                <div class="col-xs-4">
+                  <label for="colour_r">R</label>
+                  <input name="r" class="form-control" id="colour_r" type="text" value="100">
+                </div>
+                <div class="col-xs-4">
+                  <label for="colour_g">G</label>
+                  <input name="g" class="form-control" id="colour_g" type="text" value="100">
+                </div>
+                <div class="col-xs-4">
+                  <label for="colour_b">B</label>
+                  <input name="b" class="form-control" id="colour_b" type="text" value="100">
+                </div>
+                <div class="col-xs-3">
+                  <br>
+                  <label for="cp"></label>
+                  <input type="color" id="color_picker" value='#3355cc'>
+                </div>
+              </div>
+            </form>
+        
+            <form name="material" id="material" class="object_spec">
+              <label for="material">Material</label>
+              <div class="form-group" id="material">
+                <select name="material" class="form-control" id="material">
+                  <option>flat</option>
+                  <option>metal</option>
+                  <option>glass</option>
+                  <option>chalk</option>
+                  <option>mirror</option>
+                </select>
+              </div>
+            </form>
+
+
+          </div>
+      </div>
+    </div>
+
+    <!-- End Popover Markup -->
+
+
 </body>
 
 </html>

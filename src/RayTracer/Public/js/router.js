@@ -6,6 +6,7 @@ const form = require("./form.js")
 const drag_drop = require("./drag_drop.js")
 const render = require('../js/render.js');
 const d3 = require('../js/render-3d.js');
+const color_picker = require('../js/color_picker.js');
 
 function routeToView() {
     const res = form.harvest();
@@ -19,7 +20,7 @@ function routeToView() {
                 $('#3D').removeClass('active');
                 $('#Side').click();
                 $('#3D').removeClass('active focus');
-
+                break;
             }
             else {
                 $("#ThreeJS").empty();
@@ -37,8 +38,9 @@ function routeToView() {
             $("#svg-container").show();
             $("#ThreeJS").hide();
             svg = render.convertToSvg(form.objectsJSON, res.environment, "z");
-            $("#svg-container").html(svg)
-            drag_drop.bindListeners()
+            $("#svg-container").html(svg);
+            drag_drop.bindListeners();
+            color_picker.initialiseColourPickerListener();
             break;
         default:
             $("#ThreeJS").empty();
@@ -47,7 +49,8 @@ function routeToView() {
             $("#ThreeJS").hide();
             svg = render.convertToSvg(form.objectsJSON, res.environment, "y");
             $("#svg-container").html(svg)
-            drag_drop.bindListeners()
+            drag_drop.bindListeners();
+            color_picker.initialiseColourPickerListener();
             break;
     }
 }

@@ -28,7 +28,7 @@ function changeColourPickerValue(){
     const red = $("#colour_r")[0].value;
     const green = $("#colour_g")[0].value;
     const blue = $("#colour_b")[0].value;
-    const hex = exports.rgbToHex(red,green,blue);
+    const hex = rgbToHex(red,green,blue);
     document.getElementById("color_picker").value = hex;
 }
 
@@ -42,10 +42,8 @@ function initialiseColourPickerListener(){
         $("#colour_g")[0].value = cp.g;
         $("#colour_b")[0].value = cp.b;
         
-        form.renderSvg();        
     });
     
-    // changeColourPickerValue()
     $("#colour_r, #colour_g, #colour_b").keyup(changeColourPickerValue);
 }
 

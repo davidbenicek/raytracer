@@ -19,7 +19,6 @@ function routeToView() {
                 window.alert("Please add some lights and try again.");
                 $('#3D').removeClass('active');
                 $('#Side').click();
-                console.log($('input[name=chosen-view]:checked')[0].value);
                 $('#3D').removeClass('active focus');
                 break;
             }

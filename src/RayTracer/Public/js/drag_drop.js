@@ -144,7 +144,7 @@ function addToJSON(shape,id,x,yz){
       "id" : id,
       "size":{"x":70,"y":70,"z":70},
       "point":{"x":x,"y":yz,"z":yz},
-      "color":{"r":.0,"g":0.0,"b": 0.0},
+      "color":{"r":0.0,"g":0.0,"b": 0.0},
       "material":"flat"
     };
     form.objectsJSON.push(obj)
@@ -302,7 +302,7 @@ function regenerateScene(){
     break;
   default:
     svg = render.convertToSvg(form.objectsJSON, form.env, "y");
-    $("#svg-container").html(svg)
+    $("#svg-container").html(svg);
     bindListeners();
     break;
   }

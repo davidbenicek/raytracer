@@ -35,7 +35,6 @@ function changeColourPickerValue(){
 
 function initialiseColourPickerListener(){
     $("#color_picker").change(function () {
-      console.log("CHANGE");
         const hex = document.getElementById("color_picker").value;
         var cp = hexToRgb(hex);        
         
@@ -43,10 +42,8 @@ function initialiseColourPickerListener(){
         $("#colour_g")[0].value = cp.g;
         $("#colour_b")[0].value = cp.b;
         
-        //form.renderSvg();        
     });
     
-    // changeColourPickerValue()
     $("#colour_r, #colour_g, #colour_b").keyup(changeColourPickerValue);
 }
 

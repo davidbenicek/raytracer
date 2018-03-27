@@ -39,7 +39,7 @@ let projector, mouse = { x: 0, y: 0 };
 
 	// walls
 	let hex = cp.rgbToHex(env.background.r, env.background.g, env.background.b);
-	let wallsGeometry = new THREE.CubeGeometry(env.winFrame.Width, env.winFrame.Height, env.winFrame.Height);
+	let wallsGeometry = new THREE.CubeGeometry(env.wallPosition, env.wallPosition, env.wallPosition);
 	let wallBoxMaterial = new THREE.MeshBasicMaterial({ color: hex, side: THREE.BackSide });
 	let wallBox = new THREE.Mesh(wallsGeometry, wallBoxMaterial);
 	wallBox.position.x = 0;

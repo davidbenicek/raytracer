@@ -18,7 +18,7 @@ const sample_3d = [{
     "point": { "x": 50, "y": 50, "z": 50 },
     "color": { "r": 0, "g": 100, "b": 0 },
     "material": "metal",
-    "user_view": "3D"
+    "view": "3D"
   }]
 
 

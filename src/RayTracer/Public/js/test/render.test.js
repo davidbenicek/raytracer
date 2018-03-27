@@ -54,7 +54,7 @@ describe('2D Render front end functions', function () {
     it('processes sphere as input in y', function () {
 
       const svg = render.convertToSvg(sphere, env, "y");
-      expect(svg).to.equal('<svg id="svg" onmouseenter="module.showObjectDrag()" width="500" height="500" style="background:rgb(255,0,0);"><circle id="object0" class="svg-object" cx="300" cy="300" r="25" style="fill:rgb(0,100,0);"/></svg>');
+      expect(svg).to.equal('<svg id="svg" onmouseenter="module.showObjectDrag()" width="500" height="500" style="background:rgb(255,0,0);"><circle id="object0" class="svg-object" cx="300" cy="300" r="50" style="fill:rgb(0,100,0);"/></svg>');
 
     });
 
@@ -68,7 +68,7 @@ describe('2D Render front end functions', function () {
     it('processes cube and sphere as input in y', function () {
 
       const svg = render.convertToSvg(shpereAndCube, env, "y");
-      expect(svg).to.equal('<svg id="svg" onmouseenter="module.showObjectDrag()" width="500" height="500" style="background:rgb(255,0,0);"><circle id="object0" class="svg-object" cx="300" cy="300" r="25" style="fill:rgb(0,100,0);"/><rect id="object1" class="svg-object" x="275" y="275" width="50" height="50" style="fill:rgb(0,100,0);"/></svg>');
+      expect(svg).to.equal('<svg id="svg" onmouseenter="module.showObjectDrag()" width="500" height="500" style="background:rgb(255,0,0);"><circle id="object0" class="svg-object" cx="300" cy="300" r="50" style="fill:rgb(0,100,0);"/><rect id="object1" class="svg-object" x="275" y="275" width="50" height="50" style="fill:rgb(0,100,0);"/></svg>');
 
     });
 

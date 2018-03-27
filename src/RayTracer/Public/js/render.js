@@ -13,7 +13,7 @@ function getSVGForSphere(obj, dimension) {
   const x = convertJSONCordsToSVG(obj.point.x,"x");
   const y = convertJSONCordsToSVG(obj.point[dimension],dimension);
 
-  return `<circle id="${obj.id}" class="svg-object" cx="${x}" cy="${y}" r="${obj.size.x/2}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`;
+  return `<circle id="${obj.id}" class="svg-object" cx="${x}" cy="${y}" r="${obj.size.x}" style="fill:rgb(${obj.color.r},${obj.color.g},${obj.color.b});"/>`;
 }
 
 function getSVGForCube(obj, dimension) {
@@ -35,9 +35,9 @@ function getSVGForCube(obj, dimension) {
 
 function convertJSONCordsToSVG(value,dimension) {
   if(dimension == "x")
-    return value + parseInt(form.env.winFrame.Width)/2;
+    return value + parseInt(form.env.wallPosition)/2;
   else 
-    return value + parseInt(form.env.winFrame.Height)/2;
+    return value + parseInt(form.env.wallPosition)/2;
 }
 
 function convertToSvg(jsonObj, env, dimension) {
@@ -52,8 +52,8 @@ function convertToSvg(jsonObj, env, dimension) {
   try {
     let svg = `<svg id="svg" ` +
       `onmouseenter="module.showObjectDrag()" ` +
-      `width="${env.winFrame.Width}" ` +
-      `height="${env.winFrame.Height}" ` +
+      `width="${env.wallPosition}" ` +
+      `height="${env.wallPosition}" ` +
       `style="background:rgb(${env.background.r},${env.background.g},${env.background.b});"` +
       `>`;
     if (jsonObj && jsonObj.length > 0) 

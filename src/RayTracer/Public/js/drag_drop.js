@@ -130,19 +130,22 @@ Therefore, we set the value of z and y to be wherever the cursor entered the svg
 function addToJSON(shape,id,x,yz){
   if(findObjectInJSON(id) == -1){
     let shape_name = "";
+    let size;
     switch (shape){
       case "rect":
         shape_name = "cube"
+        size = 70;
         break;
       default:
         shape_name = "sphere"
+        size = 35;
         break;
     }
 
     const obj = {
       "shape": shape_name,
       "id" : id,
-      "size":{"x":70,"y":70,"z":70},
+      "size":{"x":size,"y":size,"z":size},
       "point":{"x":x,"y":yz,"z":yz},
       "color":{"r":0.0,"g":0.0,"b": 0.0},
       "material":"flat"
@@ -161,9 +164,9 @@ function updateJSONWithMove(id,dimension,x,yz){
 
 function convertSVGCordsToJSON(value,dimension) {
   if(dimension == "x")
-    return value - parseInt(form.env.winFrame.Width)/2;
+    return value - parseInt(form.env.wallPosition)/2;
   else 
-    return value - parseInt(form.env.winFrame.Height)/2
+    return value - parseInt(form.env.wallPosition)/2
 }
 
 function moveCircle(target,x,yz){

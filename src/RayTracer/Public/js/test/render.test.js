@@ -40,7 +40,7 @@ const shpereAndCube = [{
 
 const env = {
   "fileName": "render.png",
-  "winFrame":{"Width": 500, "Height": 500 },
+  "wallPosition":"500",
   "background": { "r": 255, "g": 0, "b": 0 }
 };
 

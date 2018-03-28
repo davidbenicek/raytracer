@@ -4,9 +4,9 @@
 \contentsline {chapter}{\numberline {2}Review}{3}{chapter.2}
 \contentsline {section}{\numberline {2.1}Brief History of Ray tracing}{3}{section.2.1}
 \contentsline {section}{\numberline {2.2}Overview of Ray Tracing}{3}{section.2.2}
-\contentsline {section}{\numberline {2.3}Review of Related Works}{4}{section.2.3}
+\contentsline {section}{\numberline {2.3}Review of Related Work}{4}{section.2.3}
 \contentsline {subsection}{\numberline {2.3.1}Ray Tracing from the Ground Up}{4}{subsection.2.3.1}
-\contentsline {chapter}{\numberline {3}Requirements and design}{6}{chapter.3}
+\contentsline {chapter}{\numberline {3}Requirements and Design}{6}{chapter.3}
 \contentsline {section}{\numberline {3.1}Mandatory Requirements}{6}{section.3.1}
 \contentsline {section}{\numberline {3.2}Optional Requirements}{7}{section.3.2}
 \contentsline {section}{\numberline {3.3}Architecture}{7}{section.3.3}
@@ -15,7 +15,7 @@
 \contentsline {subsection}{\numberline {3.4.2}Second Iteration}{9}{subsection.3.4.2}
 \contentsline {subsection}{\numberline {3.4.3}Final Iteration}{9}{subsection.3.4.3}
 \contentsline {chapter}{\numberline {4}Implementation}{11}{chapter.4}
-\contentsline {section}{\numberline {4.1}Back-end}{11}{section.4.1}
+\contentsline {section}{\numberline {4.1}Back End}{11}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}Models}{11}{subsection.4.1.1}
 \contentsline {subsubsection}{\numberline {4.1.1.1}Basic Elements}{11}{subsubsection.4.1.1.1}
 \contentsline {subsubsection}{\numberline {4.1.1.2}Configurations}{12}{subsubsection.4.1.1.2}
@@ -27,37 +27,25 @@
 \contentsline {subsubsection}{\numberline {4.1.1.8}Sampling}{16}{subsubsection.4.1.1.8}
 \contentsline {subsubsection}{\numberline {4.1.1.9}Scene}{16}{subsubsection.4.1.1.9}
 \contentsline {subsection}{\numberline {4.1.2}Controllers}{16}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Testing}{17}{subsection.4.1.3}
 \contentsline {section}{\numberline {4.2}Front End}{17}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Set up}{17}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.1}Set up}{18}{subsection.4.2.1}
 \contentsline {subsection}{\numberline {4.2.2}SVG}{18}{subsection.4.2.2}
 \contentsline {subsection}{\numberline {4.2.3}3D}{20}{subsection.4.2.3}
-\contentsline {section}{\numberline {4.3}Testing}{21}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Back end}{21}{subsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.1.1}Why Unit Testing is important?}{21}{subsubsection.4.3.1.1}
-\contentsline {subsubsection}{\numberline {4.3.1.2}Elements Testing}{21}{subsubsection.4.3.1.2}
-\contentsline {paragraph}{\numberline {4.3.1.2.1}Point3D}{21}{paragraph.4.3.1.2.1}
-\contentsline {paragraph}{\numberline {4.3.1.2.2}Vector3D}{22}{paragraph.4.3.1.2.2}
-\contentsline {paragraph}{\numberline {4.3.1.2.3}ColorRGB}{22}{paragraph.4.3.1.2.3}
-\contentsline {subsubsection}{\numberline {4.3.1.3}Scene Testing}{22}{subsubsection.4.3.1.3}
-\contentsline {subsubsection}{\numberline {4.3.1.4}Geometrics Testing}{22}{subsubsection.4.3.1.4}
-\contentsline {paragraph}{\numberline {4.3.1.4.1}Cube}{22}{paragraph.4.3.1.4.1}
-\contentsline {paragraph}{\numberline {4.3.1.4.2}Plane}{23}{paragraph.4.3.1.4.2}
-\contentsline {paragraph}{\numberline {4.3.1.4.3}Sphere}{23}{paragraph.4.3.1.4.3}
-\contentsline {subsubsection}{\numberline {4.3.1.5}Cameras Testing}{23}{subsubsection.4.3.1.5}
-\contentsline {subsubsection}{\numberline {4.3.1.6}Lights Testing}{23}{subsubsection.4.3.1.6}
-\contentsline {paragraph}{\numberline {4.3.1.6.1}Light}{23}{paragraph.4.3.1.6.1}
-\contentsline {paragraph}{\numberline {4.3.1.6.2}AmbientLight}{23}{paragraph.4.3.1.6.2}
-\contentsline {subsection}{\numberline {4.3.2}Front end tests}{24}{subsection.4.3.2}
-\contentsline {chapter}{\numberline {5}Team work}{25}{chapter.5}
-\contentsline {section}{\numberline {5.1}Process}{25}{section.5.1}
-\contentsline {section}{\numberline {5.2}Communication}{25}{section.5.2}
-\contentsline {section}{\numberline {5.3}Tools}{26}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Software Development Tools}{26}{subsection.5.3.1}
-\contentsline {subsubsection}{\numberline {5.3.1.1}Visual Studio}{26}{subsubsection.5.3.1.1}
-\contentsline {subsubsection}{\numberline {5.3.1.2}Visual Studio Code}{26}{subsubsection.5.3.1.2}
-\contentsline {subsection}{\numberline {5.3.2}Project Management Tools}{27}{subsection.5.3.2}
-\contentsline {subsubsection}{\numberline {5.3.2.1}Git}{27}{subsubsection.5.3.2.1}
-\contentsline {subsubsection}{\numberline {5.3.2.2}Travis CI}{27}{subsubsection.5.3.2.2}
-\contentsline {paragraph}{\numberline {5.3.2.2.1}Mocha}{27}{paragraph.5.3.2.2.1}
-\contentsline {subsection}{\numberline {5.3.3}Communication Tools}{27}{subsection.5.3.3}
-\contentsline {chapter}{\numberline {6}Evaluation}{28}{chapter.6}
+\contentsline {subsection}{\numberline {4.2.4}Testing}{21}{subsection.4.2.4}
+\contentsline {chapter}{\numberline {5}Team work}{22}{chapter.5}
+\contentsline {section}{\numberline {5.1}Process}{22}{section.5.1}
+\contentsline {section}{\numberline {5.2}Communication}{23}{section.5.2}
+\contentsline {section}{\numberline {5.3}Tools}{24}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Software Development Tools}{24}{subsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.1.1}Visual Studio}{24}{subsubsection.5.3.1.1}
+\contentsline {subsubsection}{\numberline {5.3.1.2}Visual Studio Code}{24}{subsubsection.5.3.1.2}
+\contentsline {subsection}{\numberline {5.3.2}Project Management Tools}{24}{subsection.5.3.2}
+\contentsline {subsubsection}{\numberline {5.3.2.1}Git}{24}{subsubsection.5.3.2.1}
+\contentsline {subsubsection}{\numberline {5.3.2.2}Travis CI}{24}{subsubsection.5.3.2.2}
+\contentsline {paragraph}{\numberline {5.3.2.2.1}Mocha}{25}{paragraph.5.3.2.2.1}
+\contentsline {subsection}{\numberline {5.3.3}Communication Tools}{25}{subsection.5.3.3}
+\contentsline {chapter}{\numberline {6}Evaluation}{26}{chapter.6}
+\contentsline {section}{\numberline {6.1}Our work}{26}{section.6.1}
+\contentsline {section}{\numberline {6.2}Future Work}{29}{section.6.2}
+\contentsline {section}{\numberline {6.3}Peer Assessment}{30}{section.6.3}

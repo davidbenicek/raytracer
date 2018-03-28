@@ -8,45 +8,45 @@ Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: references.bib
 Warning--empty publisher in tuckman_development_1965
-You've used 16 entries,
+You've used 17 entries,
             2849 wiz_defined-function locations,
-            705 strings with 7422 characters,
-and the built_in function-call counts, 5848 in all, are:
-= -- 603
-> -- 165
+            710 strings with 7574 characters,
+and the built_in function-call counts, 6170 in all, are:
+= -- 635
+> -- 173
 < -- 1
-+ -- 64
-- -- 44
-* -- 265
-:= -- 834
-add.period$ -- 55
-call.type$ -- 16
-change.case$ -- 68
++ -- 67
+- -- 46
+* -- 276
+:= -- 876
+add.period$ -- 58
+call.type$ -- 17
+change.case$ -- 72
 chr.to.int$ -- 0
-cite$ -- 17
-duplicate$ -- 167
-empty$ -- 627
-format.name$ -- 44
-if$ -- 1560
+cite$ -- 18
+duplicate$ -- 176
+empty$ -- 666
+format.name$ -- 46
+if$ -- 1650
 int.to.chr$ -- 0
-int.to.str$ -- 16
+int.to.str$ -- 17
 missing$ -- 10
-newline$ -- 90
-num.names$ -- 32
-pop$ -- 175
+newline$ -- 95
+num.names$ -- 34
+pop$ -- 188
 preamble$ -- 1
-purify$ -- 54
+purify$ -- 57
 quote$ -- 0
-skip$ -- 466
+skip$ -- 494
 stack$ -- 0
-substring$ -- 153
-swap$ -- 22
+substring$ -- 158
+swap$ -- 23
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 58
+type$ -- 62
 warning$ -- 1
-while$ -- 38
-width$ -- 18
-write$ -- 183
+while$ -- 40
+width$ -- 19
+write$ -- 193
 (There was 1 warning)

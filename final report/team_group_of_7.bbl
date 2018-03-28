@@ -1,9 +1,103 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
-\bibitem{raytracingpic}
-An overview of the ray-tracing rendering technique.
-\newblock
-  \url{https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-overview}.
-\newblock Accessed: 2018-03-07.
+\bibitem{bentley_programmimg_1985}
+Jon Bentley.
+\newblock Programmimg {Pearls}.
+\newblock {\em Commun. ACM}, 28(9):896--901, September 1985.
+\newblock URL: \url{http://doi.acm.org/10.1145/4284.315122}, \href
+  {http://dx.doi.org/10.1145/4284.315122} {\path{doi:10.1145/4284.315122}}.
+
+\bibitem{collingridge_draggable_2011}
+Peter Collingridge.
+\newblock Draggable {SVG} element, September 2011.
+\newblock URL:
+  \url{http://www.petercollingridge.co.uk/interactive-svg-components/draggable-svg-element}.
+
+\bibitem{dzone_mocha_2018}
+{DZone}.
+\newblock {Unit} {Testing} {with} {JS} {Promise}, January 2018.
+\newblock URL: \url{https://dzone.com/articles/unit-testing-js-promise}.
+
+\bibitem{glassner_introduction_1989}
+Andrew~S. Glassner.
+\newblock {\em An {Introduction} to {Ray} {Tracing}}.
+\newblock Morgan Kaufmann, 1989.
+\newblock Google-Books-ID: YPblYyLqBM4C.
+
+\bibitem{google_rubiks_2014}
+{Google}.
+\newblock Rubik's {Cube}, May 2014.
+\newblock URL: \url{https://www.google.com/doodles/rubiks-cube}.
+
+\bibitem{klopcic_historical_1999}
+J.~Terrence Klopcic and Harry~L. Reed.
+\newblock Historical perspectives on vulnerability/lethality analysis.
+\newblock Technical report, ARMY RESEARCH LAB ABERDEEN PROVING GROUND MD, 1999.
+\newblock URL: \url{https://permanent.access.gpo.gov/gpo77917/ARL-SR-90.pdf}.
+
+\bibitem{microsoft_asp.net_2018}
+{Microsoft}.
+\newblock {ASP}.{NET} {MVC} {Overview}, March 2018.
+\newblock URL:
+  \url{https://msdn.microsoft.com/en-us/library/dd381412(v=vs.108).aspx}.
+
+\bibitem{scratchapixel_overview_2014}
+{Scratchapixel}.
+\newblock An {Overview} of the {Ray}-{Tracing} {Rendering} {Technique}, August
+  2014.
+\newblock URL:
+  \url{https://www.scratchapixel.com//lessons/3d-basic-rendering/ray-tracing-overview}.
+
+\bibitem{scratchapixel_phong_2015}
+{Scratchapixel}.
+\newblock The {Phong} {Model}, {Introduction} to the {Concepts} of {Shader},
+  {Reflection} {Models} and {BRDF}, July 2015.
+\newblock URL:
+  \url{https://www.scratchapixel.com//lessons/3d-basic-rendering/phong-shader-BRDF}.
+
+\bibitem{suffern_ray_2007}
+Kevin~G. Suffern.
+\newblock {\em Ray tracing from the ground up}.
+\newblock A K Peters, Wellesley, Mass, 2007.
+\newblock OCLC: ocn137222832.
+
+\bibitem{three.js_three.js_2018}
+{three.js}.
+\newblock three.js - {Javascript} 3d library, March 2018.
+\newblock URL: \url{https://threejs.org/}.
+
+\bibitem{tuckman_development_1965}
+Bruce~W. Tuckman.
+\newblock {\em Development {Sequence} in {Small} {Groups}}, volume~63.
+\newblock July 1965.
+\newblock \href {http://dx.doi.org/10.1037/h0022100}
+  {\path{doi:10.1037/h0022100}}.
+
+\bibitem{tutorialspoint_mvc_2018}
+{Tutorialspoint}.
+\newblock {MVC} {Framework} {Introduction}, January 2018.
+\newblock URL:
+  \url{https://www.tutorialspoint.com/mvc_framework/mvc_framework_introduction.htm}.
+
+\bibitem{vocke_practical_2018}
+Ham Vocke.
+\newblock The {Practical} {Test} {Pyramid}.
+\newblock {\em MartinFowler.com}, February 2018.
+\newblock URL:
+  \url{https://martinfowler.com/articles/practical-test-pyramid.html}.
+
+\bibitem{wald_interactive_2001}
+Ingo Wald, Philipp Slusallek, Carsten Benthin, and Markus Wagner.
+\newblock Interactive {Rendering} with {Coherent} {Ray} {Tracing}.
+\newblock {\em Computer Graphics Forum}, 20(3):153--165, September 2001.
+\newblock URL:
+  \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/1467-8659.00508}, \href
+  {http://dx.doi.org/10.1111/1467-8659.00508}
+  {\path{doi:10.1111/1467-8659.00508}}.
+
+\bibitem{weghorst_improved_1984}
+Hank Weghorst, Gary Hooper, and Donald~P. Greenberg.
+\newblock Improved computational methods for ray tracing.
+\newblock {\em ACM Transactions on Graphics (TOG)}, 3(1):52--69, 1984.
 
 \end{thebibliography}

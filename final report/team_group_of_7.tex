@@ -1,33 +1,19 @@
 \documentclass[a4paper]{report}
 \usepackage[utf8]{inputenc}
-%\usepackage[margin=1in]{geometry}
 \usepackage{tikz-uml}
 \usepackage{tikz}
 \usepackage{notoccite}
 \usepackage{hyperref}
 \usetikzlibrary{fit,arrows,calc,positioning}
 \usepackage{titlesec}
-
+\usepackage{amsmath}
+%\usepackage[margin=1in]{geometry}
 %\usepackage[tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in]{geometry}
-
-% \title{Group of Seven Report}
-% \author{1756850 Alkhamra, Othman Bader \\
-% 1739256 Benicek, David \\
-% 1770922 Bari, Aadam Ali \\
-% 1425704 Mankani Vinod, Hitesh \\
-% 1755013 Obimma, Timothy Uzochukwu \\ 
-% 1783087 Vaddiraju, Nagarjuna}
-% \date{January 2018}
-
-\usepackage{natbib}
-\usepackage{graphicx}
+%\usepackage{natbib}
+\usepackage[round, sort, numbers]{natbib}\usepackage{graphicx}
 \usepackage{url}
 \usepackage{lipsum}
-
 \usepackage{etoolbox}
-
-% \BeforeBeginEnvironment{figure}{\vskip-2ex}
-% \AfterEndEnvironment{figure}{\vskip-1ex}
 
 \newcommand{
 	\subsubsubsection}[1]
@@ -38,6 +24,8 @@
 \titleformat{\chapter}[display]   
 {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}   
 \titlespacing*{\chapter}{0pt}{-50pt}{40pt}
+
+%TODO : CHECK SPELLING: colour, front-end, back-end,ray tracer 
 
 \begin{document}
 	\begin{titlepage}
@@ -77,7 +65,7 @@
 		
 		\vfill
 		supervised by\par
-		Dr.~Laurence \textsc{Tratt}\\
+		Dr.~Laurence \textsc{Tratt}
 		\vfill
 		{\large \today\par}
 	\end{titlepage}
@@ -89,75 +77,73 @@
 	\pagenumbering{arabic}
 	\chapter{Introduction}
 	%In this section: Describe the context for the work and the problem you are addressing. Briefly summarise what you achieved in the project.
+	Over the last several years, photo realistic digital imagery has become a mainstream technology. Computer graphics are now at a stage where they closely resemble real world objects and trends such as mixed, augmented and virtual reality are supercharging that paradigm shift. Ray tracing is one of the many techniques that are used to produce different images, video renderings, games and animations. In this project we implemented our own version of a ray tracer that is able to render multiple simple objects inside a user defined scene. 
 	
-	In real life, we have different objects such as spheres, cubes ... etc. What's mutual between them is that they are all geometry objects. However, those objects might appear in different ways, based on their environment. For example, a mirror sphere placed in an environment with many light sources will react in a different way than a metal sphere. And so, it is clear that different factors such as the material type, light sources and many other factors, will produce many different outputs. \\
-	\par Ray tracing is one of the techniques which helps in producing different images for different environment variables. It is widely used in producing films, video games, animations and many other areas. It can be applied on any object and not just geometry objects.
 	\section{What is the Idea behind  Ray Tracing?}
-	Before discussing the idea behind ray tracing, and explaining its algorithm. Let's begin with listing the basic required elements to run the ray tracing algorithm. Those elements will be in one container which will be called \textbf{scene}. The elements of the scene are:
+	
+	Before discussing the algorithms behind ray tracing and diving into details of our project let us begin with listing the basic required elements to run the ray tracing algorithm. In real life, we have different objects such as spheres, cubes, polygons etc. What's mutual between them is that they are all geometry objects. Those objects might appear in different ways, based on their environment and their combinations. A mirror sphere placed in an environment with many light sources will for example react and appear vastly differently than a metal sphere would. Due to the multiple factors that influence  the appearance of a scene and the objects within it, we must take the following elements into account:   
 	\begin{itemize}
-		\item \textbf{Object(s)}: a scene can contain one or many objects. Each object can be one of the previously mentioned objects types or any other object, which exists in real life. For example, an object could be a sphere, triangle, tree, car, building ... etc.
-		\item \textbf{Light source(s)}: The algorithm of ray tracing itself doesn't require having a light source. However, a scene without any light source isn't very practical for ray tracing.
-		\item \textbf{Image Plane}: referred to as \textbf{window frame} in our implementation. This plane has a set width and height and it is divided into small squares, where each square covers a number of pixels on the objects of the scene.
-		\item \textbf{Eye or Camera:} In order to render the scene, it is mandatory to have an eye or camera, with a certain position and direction. The camera is used to determine the way of looking to the scene elements. From the eye or camera, view rays are produced which travel through the image plane and determine the way the object is rendered.
-		%DB-NOTE: I changed the last bullet point - let's just double check this is correct
+		\item \textbf{Object(s)}: a scene can contain one or many objects. In real life, objects can be absolutely anything (cars, houses, tress...), however, for the purposes of this project we are only going to consider simple geometric objects such as spheres, cubes or planes.
+		\item \textbf{Light source(s)}: The algorithm of ray tracing itself doesn't require having a light source, however, a scene without any light source isn't very practical for ray tracing. Furthermore, each light source is likely to influence how a scene is rendered in substantial ways and therefore it's a necessary element to consider.
+		\item \textbf{Image Plane}: referred to as \textbf{window frame} in our implementation. This plane has a set width and height and is divided into small squares, where each square covers a number of pixels on the objects of the scene.
+		\item \textbf{Eye or Camera:} In order to render the scene, it is mandatory to have an eye or camera, with a certain position and direction. The camera is used to determine the way of looking at the scene elements. From the eye or camera, view rays are produced which travel through the image plane and determine the way the object is rendered.
 		
-		%DB-NOTE: The top part is a good intro, I think bellow is getting a bit too technical for introduction. In the end I don't think it matters where we have this info as long as we don't duplicate it here and in the implementation. So this is something we can talk about
 	\end{itemize}
 	\begin{figure}[ht!]
 		\centering
 		\includegraphics[scale=0.30]{./raytracing.png}
-		\caption{Ray Tracing's Scene Elements \cite{raytracingpic}}
+		\caption{Ray Tracing's Scene Elements \cite{scratchapixel_overview_2014}}
 		\label{fig:raytracing}
 	\end{figure}
-	\par \textbf{Figure \ref{fig:raytracing}} shows an example of a scene with the previously listed elements. Now, and after discussing the elements of the scene, it is the time to describe the algorithm of ray tracing. Despite the implementation not being trivial, the main idea is quite simple; in each scene there will an eye or camera, from that camera many rays will be produced and go across the small squares in the image plane, for each ray we need to check whether it intersects with any of the objects or not, and return the colour of that pixel. Other rays are possible to be produced caused by reflection. These rays also will follow the ray tracing algorithm before returning the final colour.\\
-	\par The algorithm itself is relatively simple. Nevertheless, as previously mentioned, environment variables play a big role in the calculations. As a result, returning the colour of the pixel, which was hit by the the ray, won't be that simple; since it will require additional computations related to the reflections, shades ... etc. 
+	\par \textbf{Figure \ref{fig:raytracing}} shows an example of a scene with the previously listed elements. Despite the implementation not being trivial, the main idea is quite simple; in each scene there will be an eye or camera from which many rays will be produced and go across the small squares in the image plane. For each ray we check whether it intersects with any of the objects in the scene or not, and return the colour of that pixel. Rays, other than the initial camera rays, are produced by reflection. These rays also follow the ray tracing algorithm before returning the final colour. Even though the algorithm itself is relatively simple to describe, environment variables play a big role in the calculations and as a result, returning the colour of a pixel, which was hit by the a certain ray, is not nearly as simple since it requires additional computations related to the reflections, shades etc.
 	
 	\section{Our Solution}
-	Over the course of the project we worked hard to deliver a final product that is able to render a scene created by the end-user using a web interface. The web interface provides both 2D and 3D views, where the user can create his own scene, and then just click render. After that, the user's input will be processed by the back-end engine, which in turn returns the rendered image as JPG file, with the name chosen by the end-user,back to the front-end.\\ 
-	\par The scene can contain multiple objects of three different supported objects. Each object can have any material from six different available materials in our program. In addition to that, the scene can have multiple light sources. Each of those elements will be discussed, in more details, later in \textbf{Chapter \ref{ch:imp}}.\\
+	Over the course of the project we worked hard to deliver a final product that is able to render a scene created by the end-user using a web interface. The web interface provides both 2D and 3D views, where the user can create his own scene, and then just click render. After that, the user's input will be processed by the back-end engine, which in turn returns the rendered image as a PNG file, with the name chosen by the end-user, back to the front-end.\newline  
+	
+	\par The scene can contain multiple objects of two different supported object types, each constituting of any of the six available materials in our program. In addition to that, the scene can have multiple light sources. Further information on how each of these is implemented and present to the user can be found in \textbf{Chapter \ref{ch:imp}}.\newline
+	
 	\par Our solution showed great results for the inputs we defined, and in order to make our product more reliable, we covered both the front and the back ends with many tests. More details about the implementation and testing will be discussed later in \textbf{Chapter \ref{ch:imp}}.
-	% 	Although the idea behind ray tracing is simple, there are many different solutions that can be developed for this idea. The solution consists of developing a web application where the user can pick the objects with different materials and sizes; and the scene that is then sent to the back-end to form a render of the scene through ray tracing.
+	
 	\chapter{Review}
 	\section{Brief History of Ray tracing}
 	
-	\par Ray tracing is one of the most popular methods of rendering. What is Rendering? Rendering is the act of generating an image (usually photorealistic) from a 2D or 3D model. There are three familiar techniques to image rendering and they are rasterisation, ray casting and ray tracing. These three techniques are quite similar but are differentiated by their representation of the optical effects such as reflection intensity which in turn makes the processing speed vary differently (Wald, Slusallek, Benthin, \& Wagner, 2001). This means that ray tracing would produce the most photorealistic image while also taking the most time to compute while rasterisation would produce the most basic image.\\
+	\par Digital photo-realistic images are usually generated by rendering a 2D or 3D model based on a set of inputs and ray tracing is one of the prominent approaches that is used to achieve this. There are, in total, three similar techniques to image rendering and they are rasterisation, ray casting and ray tracing. These three techniques are differentiated by their representation of the optical effects such as reflection and intensity, which impacts the end result and the processing speed \cite{wald_interactive_2001}. Ray tracing produces the most photorealistic image while also taking the most time to compute while rasterisation produces more basic image but is generally faster.\newline
 	
-	\par The earliest known Ray tracing system was calculated by hand by Richard Hoyt in the 1950's while working on vehicle shotline at the Ballistic Research Library known today as DARPA (Klopcic \& L. Reed, 1999). In the 1960's, physicists coined the name "ray tracing" by plotting on paper the path taken by rays of light starting at a light source and passing through the lens in the design of lenses (Glassner, 1989).\\
+	\par The earliest known Ray tracing system was calculated by hand by Richard Hoyt in the 1950's, while working on vehicle shotline at the Ballistic Research Library, known today as DARPA \cite{klopcic_historical_1999}. In the 1960's, physicists coined the name "ray tracing" by plotting on paper the path taken by rays of light starting at a light source and passing through the lens in the design of lenses \cite{glassner_introduction_1989}.\newline
 	
-	\par Computer Graphic researchers at the university of Utah thought it would be a good idea to apply this simulation of light physics to create images but the computers of the 1960's were too slow to produce images of better quality than those made by using cheaper image rendering techniques hence the idea of ray tracing was dropped for several years.\\
+	\par Computer Graphics researchers at the university of Utah thought it would be a good idea to apply this simulation of light physics to create images, however, the computers of the 1960's were too slow to produce images of better quality than those made by using cheaper image rendering techniques. As a result of the processing intensity of ray tracing, the idea was dropped for several years, only to be revisited later as computer grew more powerful and became capable of simulating real physics\cite{weghorst_improved_1984}. Since then, several optimised algorithms were implemented and this led to computers being able to simulate various kinds of optical effects. Ray tracing have evolved greatly  over the following years and it is now one of the most powerful technique used in image rendering. Ray tracers have become both faster and more efficient and can even produce hyper-realistic images that are indistinguishable from the real world. We will Discuss some notable Ray tracers in Section \ref{sec:review-of-tracers}.\newline
 	
-	\par Over several years, as computers grew more powerful, it became imperative to simulate the real physics. Several optimised algorithms were implemented and this led to computers being able to simulate various kinds of optical effects. Ray tracing have evolved greatly since then and is now one of the most powerful technique used in image rendering. Ray tracers have become both faster and more efficient and can even produce hyper-realistic images that are indistinguishable from the real world. We will Discuss some Ray tracers in 2.3.\\
 	
 	\section{Overview of Ray Tracing}
-	\par Ray tracing is a simple and powerful technique. It involves shooting rays from a point-of-view (usually represented by an eye or a camera). These rays then go through each pixel of the viewing plane and some calculations are done to determine if they intersect with objects. When an intersection is detected, reflected or refracted rays are always generated (Weghorst, Hooper, \& Greenberg, 1984). Each of the reflected/refracted rays must be recursively calculated to determine which surfaces they intersect. At each pixel where intersection occurs, the ray tracer must work out the intensity of the light and how much of it reflected back in order to determine the exact colour of the pixel (Suffern, 2007). This is usually a long process and the time taken to generate each image increases exponentially with respect to an increase in the size of the viewing plane(image frame).\\
+	\par Ray tracing is a simple yet powerful technique. It involves shooting rays from a point-of-view (usually represented by an eye or a camera) which then go through each pixel of the viewing plane while calculations are done to determine if they intersect with objects. When an intersection is detected, reflected or refracted rays are generated \cite{weghorst_improved_1984}. Each of the reflected/refracted rays must be recursively calculated to determine which surfaces they intersect. At each pixel where intersection occurs, the ray tracer must work out the intensity of the light and how much of it is reflected back in order to determine the exact colour of the pixel \cite{suffern_ray_2007}. This is usually a long process and the time taken to generate each image increases exponentially with respect to an increase in the size of the viewing plane(image frame).\newline
 	
-	\section{Review of Related Works}
-	\par In this section, the Ray tracers discussed either helped influence our design decisions or have a similar structure to what we have built.
+	\section{Review of Related Works} \label{sec:review-of-tracers}
+	\par The Ray tracer discussed in this section helped inform our design decisions and served as an inspiration for the structure of our own ray tracer.
+	
 	\subsection{Ray Tracing from the Ground Up}
-	\label{sssec:book}
-	\par This is a book written by Kevin Suffern.\\
+	\par The ray tracer described in this book was developed using Object-Oriented(OO) techniques due to its size and complexity. Ray tracers are incredibly large and complex and as a result the tools provided by OO techniques such as inheritance and polymorphism are extremely useful as they enable extensibility and allow us to use existing code to handle different types of object. The book uses C++ as its development language because of its OO facilities and its computational efficiency. Some useful coding tips such as data storage, references and floating-point division were also gathered from this book though we would go on to implement our solution in C\#. Important mathematical calculations such as sets, vectors, points, normal and the operations that can be carried out among them are also discussed extensively in this book \cite{suffern_ray_2007}.
+	% 	\texorpdfstring{\cite{suffern_ray_2007}}{}
+	% 	\nocite{suffern_ray_2007}
+	\label{sssec:book}\newline
 	
-	This ray Tracer was developed using Object-Oriented(represented by OO henceforth) techniques due to its size and complexity. Ray tracers are incredibly large and complex and OO techniques are known for handling these. It also enables extensibility; Different types of object can be rendered without having to alter existing codes. This Book uses C++ as its development language because of its OO facilities and its computational efficiency. Some useful coding tips such as data storage, references and floating-point division were also gotten from this book. Important mathematical calculations such as sets, vectors, points, normal and the operations that can be carried out among them are also discussed extensively in this book.\\
-	
-	\par The book focuses on the Ray Tracing engine (Equivalent to the back-end) and largely ignores any form of user-interface. The necessary inputs such as objects, material, light and frame size are hard-coded. The workings of this ray tracer can be represented using the pseudo-code below:\\
+	\par The book focuses on the Ray Tracing engine (i.e. the back-end) and largely ignores any form of user-interface. The necessary inputs such as objects, material, light and frame size are hard-coded. The workings of the ray tracer described in the book can be represented using the pseudo-code below:\newline
 	\begin{itemize}
-		\item Define some objects
-		\item Specify material type for each object
-		\item Define light sources
-		\item Define a plane whose surface is covered with pixels
-		\item  For each pixel:
-		\par   Shoot a ray towards the object from the centre of the pixel
-		\par Compute the nearest hit point of the ray with the objects (if any)
+		\item Add the objects to be rendered
+		\item Add the type of material each object possesses
+		\item Add the source(s) of light 
+		\item Add a plane which is made up of pixels
+		\item Per individual pixel:\newline
+		Trace a ray in the direction of the object from the pixels centre.\newline
+		Compute the closest point of intersection of the ray with an object (if any exists)
 		\begin{itemize}
-			\item If the ray hits an object
-			\par Use the objects material and the lights to calculate the pixel colour
+			\item If an object is hit by a ray
+			\par Calculate the colour of a pixel using the material of the object as well as the light 
 			\item Else
-			\par Set the pixel colour to black
-			
+			\par The default colour of the pixel is the background colour\cite{suffern_ray_2007}. 
 		\end{itemize}
-	\end{itemize}
+	\end{itemize} 
 	
-	\par Colours are represented using their RGB value which is then stored in a 3D colour space. This allows various calculations to be carried out in order to produce an extensive variety of colours. See \textbf{Figure \ref{fig:colour}} below for representation of pure Red, Green and Blue.
+	\par Colours are represented using their RGB value which is then stored in a 3D colour space. This allows various calculations to be carried out in order to produce an extensive variety of colours. See \textbf{Figure \ref{fig:colour}} for representation of pure Red, Green and Blue.
 	
 	\begin{figure}[ht!]
 		\centering
@@ -166,7 +152,7 @@
 		\label{fig:colour}
 	\end{figure}
 	
-	\par This book also discusses the bounding-box technique. This technique is used to improve efficiency when an object is expensive(this refers to non-conventional shapes or objects such as animals or figures) to trace. This method only saves time if the bounding box is significantly cheaper to intersect than the object inside such as in \textbf{Figure \ref{fig:boundingbox}} below. It works by enclosing the object in a rectangular box and when running the ray tracer, it first check if a ray misses the bounding box, then it cannot hit the object inside (Suffern, 2007). We did not implement this technique as our ray tracer only supports simple objects at this time.
+	\par The book also discusses the bounding-box technique. This technique is used to improve efficiency when an object is expensive(this refers to non-conventional shapes or objects such as animals or figures) to trace. This method only saves time if the bounding box is significantly cheaper to intersect than the object inside such as in \textbf{Figure \ref{fig:boundingbox}} below. It works by enclosing the object in a rectangular box and when running the ray tracer, it first check if a ray misses the bounding box, then it cannot hit the object inside \cite{suffern_ray_2007}. We did not implement this technique as our ray tracer only supports simple objects at this time however it could be a future improvement.
 	
 	\begin{figure}[ht!]
 		\centering
@@ -175,19 +161,16 @@
 		\label{fig:boundingbox}
 	\end{figure}
 	
-	
-	%DB-NOTE: this sounds dope! Are Nvidia Optix,BRL-CAD and OpenRL all thing we used or considered using?
-	
-	\chapter{Requirements and design}
-	
+	\chapter{Requirements and design} \label{chapter:requirements}
 	%In this section: Describe the requirements you set for your project at the beginning and the design you have taken for your project. Focus on why you decided to tackle the problem in the way you did, and what effects that had on the design. You may also wish to mention the impact of team-working on your requirements and design.
+	The very first stage of software engineering is requirements elicitation. The initial set of requirements for our project were informed partly by the literature that we have reviewed and also by the description of the project given to us by Dr. Tratt. These simple requirements were not enough, and so we analysed the possible requirements that we would need in order to understand what are the goals and objectives to be achieved as part of this project. From this analysis, we ended up with a set of mandatory and optional requirements.\newline
+	\par As we are following an agile methodology, we performed the design stage, then moved to the implementation, wrote some tests for each sprint of requirements and goals. All the software engineering stages and steps, will be explained and described in more details in the Chapter \ref{chapter:teamwork}.
 	
 	\section{Mandatory Requirements}
 	
-	
-	The beginning of the project saw the group discuss and decide what features were essential for the running of the ray tracer, that is to say, creating and developing a running system, consisting of the front-end, which is the client side, and the back-end, which is the server side. The bare minimum requirements for the entire system were determined to be as follows:
+	At the beginning of the project the group discussed and decide what features were essential for the ray tracer to function. This debate covered what is needed to create and develop a functioning system, consisting of a client side and a back-end server. The minimum requirements for the entire system were determined to be as follows:
 	\begin{itemize}
-		\item Allow users to create spheres and cubes with specific parameters' values. Those parameters are:
+		\item Allow users to create spheres and cubes with specific parameters values. Those parameters are:
 		\begin{itemize}
 			\item The size of the object.
 			\item The position of the object.
@@ -204,31 +187,24 @@
 		\item Render multiple objects in the same scene, with at most one light source.
 	\end{itemize}
 	
-	
 	\section{Optional Requirements}
 	
-	If time allowed, the group established additional requirements.
+	The group established additional requirements that were deemed lower priority and would be completed if time allows..
 	The requirements specified in this category will extend the basic functionality of the ray tracer, thus distinguishing our product from others. The optional requirements are as follows:
 	\begin{itemize}
 		\item Allow users to add multiple lights to the scene in different positions, colours and intensities.
 		\item Allow users to create other objects such as polygons.
 		\item Allow users to choose different materials, such as plastic, mirror, etc. for the objects.
 		\item Improve the colours of the output image, by using different techniques such as sampling.
-		\item Improve the performance of our system, by applying the multit-hreading concept, if the systems takes a long time while rendering the scene.
+		\item Improve the performance of our system, by applying the multi-threading concept, if the systems takes a long time while rendering the scene.
 	\end{itemize}
 	
-	Due to time constraints we were unable to implement the use of polygons. However we successfully achieved the other optional requirements. 
-	
-	
-	\section{Methodology}
-	
-	The methodology the group decided to adopt was the Agile software methodology. 
-	
 	\section{Architecture}
-	
 	\label{sssec:arch}
-	The project task as given to us involved developing the ray tracing engine and the GUI as distinct components which necessitated the creation of a third component to ferry input from the GUI to the Ray tracing Engine.
-	As we were using the ASP.NET technology, it was extremely necessary for the group to take advantage of the ASP.NET MVC web application framework. The different components of the ASP.NET MVC framework are designed in such a way that they can be easily replaced or customised independently without effect on other components (Microsoft). This framework implements the Model–View–Controller pattern and allowed us to divide the application into a composition of three main logical components: Model, View and Controller which represents the Business logic, UI logic and Input logic respectively.
+	The project task involved developing the ray tracing engine and the GUI as distinct components which interacted with each other over a well defined interface.
+	
+	A decision was made to use the ASP.NET technology, which made it extremely easy for the group to take advantage of the ASP.NET MVC web application framework. The different components of this framework are designed in such a way that they can be easily replaced or customised independently without effect on other components \cite{microsoft_asp.net_2018}. The .NET framework implements the Model–View–Controller pattern and allowed us to divide the application into a composition of three main logical components: Model, View and Controller which represents the Business logic, UI logic and Input logic respectively. Each of the components is loosely couple with the other but tightly aligned to make sure they work together nicely. By using such an architecture we were able to develop multiple sections of the system at once and thus easily divide up the labour. 
+	
 	\tikzstyle{b} = [rectangle, draw, fill=gray!20, node distance=3cm, text width=7em, text centered, minimum height=4em, thick]
 	
 	\begin{figure}[ht!]
@@ -251,66 +227,94 @@
 	\end{figure}
 	
 	\begin{itemize}
-		\item \textbf{Model} - The Model component corresponds to the back-end and contains all of the business logic. This component is responsible for manipulating all data  transferred between the View and Controller components as well as the rules and logic associated with the system. In our system, this is the ray tracing engine that performs all of the calculations and determines if a ray hits an object as well as its colour, shadow, etc \cite{modelstutorial}.The data used in this component is gotten from the controller.\\
+		\item \textbf{Model} - The Model component corresponds to the back-end and contains all of the business logic. This component is responsible for manipulating all data transferred between the View and Controller components as well as the rules and logic associated with the system. In our system, this is the ray tracing engine that performs all of the calculations and determines if a ray hits an object as well as its colour, shadow, etc \cite{tutorialspoint_mvc_2018}.The data used in this component is gotten from the controller.\newline
 		
-		\item \textbf{View} - The View component is used for all the UI logic of the application. This represents the interface that the user interacts with. In our case, this is represented by the front-end which includes an interactive SVG (where users can drag and drop objects as well as move them around), a 3D view which gives actual representation of the scene (including depth) and a form which is used to include additional details such as scene size, light position/intensity, point-of-view, etc. \cite{viewstutorial}\\
+		\item \textbf{View} - The View component is used for all the UI logic of the application. This represents the interface that the user interacts with. In our case, this is represented by the front-end which includes an interactive SVG (where users can drag and drop objects as well as move them around), a 3D view which gives actual representation of the scene (including depth) and a form which is used to include additional details such as scene size, light position/intensity, point-of-view, etc. \cite{tutorialspoint_mvc_2018}\newline
 		
-		\item \textbf{Controller} - The Controller acts as an interface between Model and View components. It receives input from the View converts it to understandable commands for the Model. In our system, the controller is represented by an API that extracts data objects from a JSON file and transmits them to the back-end. The controller is extremely useful as it also validates the input from the user. \cite{controllertutorial}
+		\item \textbf{Controller} - The Controller acts as an interface between Model and View components. It receives input from the View, converts it to understandable commands for the Model. In our system, the controller is represented by an API that extracts data objects from a JSON file and transmits them to the back-end. The controller is extremely useful as it also validates the input from the user. \cite{tutorialspoint_mvc_2018}
 	\end{itemize}
 	
+	%DB-NOTE: @Aadam, this would be a good place to talk about why our prototypes look the way they do
+	% just be like - we made the design lik this cause it's easy both for us and for the user. Therefore even after the first couple iterations we would be delivering a complete product. Then we decied to not think about waht's easy but what's best for the user...we came up with the 2nd prototype that is much more refined....talk about how it's easier to use a GUI rather than fill out a form etc
 	
-	\section{Prototypes}
-	We produced prototypes to visualisation the design of our system and to evaluate its strengths. Its also assisted us in identify specifications for our system. %Justify prototypes%
+	\section{Prototypes} \label{sec:prototypes}
+	We produced prototypes to visualise the design of our web page and to evaluate its strengths. Its also assisted us in identify specifications for our system. 
 	
 	\subsection{First Iteration}
 	
-	Our first iteration is a low fidelity prototype drawn by hand to represent what the homepage might look like, this was our first impression of how it might look.
+	Our first iteration is a low fidelity prototype drawn by hand to represent what the homepage might look like. This prototype reflects our early assumptions about the system and the inputs required for the ray tracer back-end to operate. The simplicity of this prototype (in that it is a simple form) also reflects our early intention of usability, that is to say, keeping the system use-able for the user. We had initially desired to keep development process simple also and a form seemed the simplest way to deliver the front end component of the project fulfilling the basic requirements.
+	% 	@David, justified our low fidelity prototype above^ 
+	
 	
 	\begin{figure}[ht!]
-		\includegraphics[width=1\textwidth]{First_Iteration_Prototype.jpg}
+		\centering
+		\includegraphics[angle=90, width=0.3\textwidth]{First_Iteration_Prototype.jpg}
 		\caption{First Iteration}
 		\label{fig:firstIt}
 	\end{figure}
 	
 	\subsection{Second Iteration}
 	
-	Our second iteration was a medium fidelity prototype which include our evolved requirements for the project (i.e. the SVG drag and drop).
+	Our second iteration was a medium fidelity prototype which included our evolved requirements for the project. This prototype demonstrates the change in our outlook of how we should present the front-end of the system. As mentioned above we were initially concerned with usability and ease of development, however, at this stage we decided to focus on ease of use in favour of ease of development. We aimed to be more ambitious than producing a merely \textit{use-able} system, rather we endeavoured to deliver an advanced and high functioning graphical user interface that ensured accessibility for the users. This design visualises how our GUI, (in the form of a drag and drop SVG interface), would appear and we believed this would be far more practical than a time-consuming form.
+	% 	@David more of that justification you love so much above
+	
+	%Note: HM - I think we should have the final prototype. We can just take a screenshot of the webpage. DB: I agree @Aadam plz do that. There's two files called final-all.png and finaldesign-top.png in the project - pick one 
+	
+	
+	
 	\begin{figure}[ht!]
 		\centering
-		\includegraphics[width=1\textwidth]{second_prototype.png}
+		\includegraphics[scale=0.85]{second_prototype.png}
 		\caption{Second Iteration}
 		\label{fig:secondIt}
 	\end{figure}
+	
+	\subsection{Final Iteration}
+	
+	
+	%Note: HM - I think we should have the final prototype. We can just take a screenshot of the webpage. DB: I agree @Aadam plz do that. There's two files called final-all.png and finaldesign-top.png in the project - pick one 
+	
+	
+	
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[scale=0.85]{second_prototype.png}
+		\caption{Second Iteration}
+		\label{fig:secondIt}
+	\end{figure}
+	
+	
+	
+	
 	
 	\chapter{Implementation}
 	
 	%In this section: Describe the most significant implementation details, focusing on those where unusual or detailed solutions were required. Quote code fragments where necessary, but remember that the examiners have full access to your source code. Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
 	\label{ch:imp}\section{Back-end}
-	Most of the code in the back-end is based on the book discussed in \textbf{Section \ref{sssec:book}}. As mentioned before, the ray tracing algorithm is mainly about checking if the ray, which goes from the camera or reflects from objects because of lights, hits/intersects with the object or not. Furthermore, ray tracing depends on the material of each object, and so we should take that into our consideration. In addition to that, each scene has lights and cameras, and since each of these can have different type, we need to implement that to be scalable and open for extension.\\
-	\par In our implementation we make use of different object oriented principles such as abstract classes, inheritance, overriding and Polymorphism. In the following sections, we will discuss in details how we used each of these concepts in our codes.
+	The code in the back-end is inspired by the ray tracer solution covered in the book discussed in \textbf{Section \ref{sssec:book}}. As mentioned before, the ray tracing algorithm is mainly about checking if the ray hits/intersects with the object or not, which goes from the camera or reflects from objects because of lights. Furthermore, ray tracing depends on the material of each object; since not all materials will react in the same way to light sources - some materials absorb light, while others reflect it.	Therefore, we should take that into our consideration. In addition to that, each scene has lights and cameras, and since each of these can have different type, we need to implement that to be scalable and open for extension.\newline
+	\par In our implementation we make use of different object oriented principles such as abstract classes, inheritance, overriding and polymorphism. In the following sections, we will discuss in details how we used each of these concepts in our codes.
 	\subsection{Models}
 	Our architecture is mainly based on the MVC model as previously discussed in \textbf{Section \ref{sssec:arch}}. This section will introduce and discuss the models used in our system.
 	\subsubsection{Basic Elements}
 	There are many basic elements which are required to build a ray tracer. These elements were reflected in our project as classes: 
 	\begin{itemize}
 		\item \textbf{Point3D}: This class is used to create a point in the 3D with x,y and z double values. In this class all the addition, subtraction, division and multiplication were overridden in order to perform them correctly in the context of points. Also, there are other methods such as the distance, which will be used to return the distance between two points.
-		\item \textbf{Vector3D}: This class is used to create a vector in the 3D with x,y and z double values. In this class all the addition, subtraction, division and multiplication were overridden in order to perform them correctly in the context of vectors. Also, there are other methods such as the length, which will be used to return the length of a vector. Furthermore, the dot and cross products methods were implemented; since they are crucial in our project.
-		\item \textbf{ColorRGB}: This class is used to create a colour with R, G, and B double values. In this class all the addition, subtraction, division and multiplication were overridden in order to perform them correctly in the context of colours.
+		\item \textbf{Vector3D}: Vector3D is responsible for representing a vector in the 3D with x,y and z double values. In this class all the addition, subtraction, division and multiplication were overridden in order to perform them correctly in the context of vectors. Also, there are other methods such as the length, which will be used to return the length of a vector. Furthermore, the dot and cross products methods were implemented; since they are crucial in our project.
+		\item \textbf{ColorRGB}: ColorRGB is used to create a colour with R, G, and B double values. In this class all the addition, subtraction, division and multiplication were overridden in order to perform them correctly in the context of colours.
 		\item \textbf{Point2D}: This class is used to create a point in 2D with x and y double values. No other methods were added to this class; since they are not needed in this class.
-		\item \textbf{Ray}: This class is used to create a ray, which will have an origin with type of \textbf{Point3D}, and a direction with type of \textbf{Vector3D}. This ray will be used in most of the calculations of ray tracing. There are no methods directly implemented in this class, but it will make use of other methods implemented in \textbf{Point3D} and \textbf{Vector3D}.
+		\item \textbf{Ray}: The Ray class is used to represent a ray, which will have an origin with type of \textbf{Point3D}, and a direction with type of \textbf{Vector3D}. This ray will be used in most of the calculations of ray tracing. There are no methods directly implemented in this class, but it will make use of other methods implemented in \textbf{Point3D} and \textbf{Vector3D}.
 	\end{itemize}
 	\subsubsection{Configurations}
 	In order to make it easier to change any configured value in our program, we created a class called \textbf{Config}, where you can find any default values used in our program. By doing that, we make sure that changing the value in one place will change it in all the places where it is used. For example, the default colour, material, vector, point ... etc are defined in that class. 
 	\subsubsection{Materials}
-	\label{sssec:mat}One of the main factors which will affect the final result of ray tracing is the material of the object. All materials will have a colour, in addition to many different coefficients that might be needed for other materials, such as the diffusion, specular, ambient. In each material, we need a method that will calculate the shades caused by lights and other objects. \\
+	\label{sssec:mat}One of the main factors which will affect the final result of ray tracing is the material of the object. All materials will have a colour, in addition to many different coefficients such as:  diffusion; specular; ambient, that might be needed for other materials. In each material, we need a method that will calculate the shades caused by lights and other objects. \newline
 	\par It is clear that we need to have an abstract class with the previously mentioned attributes, in addition to an abstract method which will be called calculateShade, which will be implemented differently based on the material. In our solution, we covered three types of materials:
 	\begin{itemize}
-		\item \textbf{Phong materials}:  which follows the phong theory such as chalk, metal, plastic. The difference between those materials is the values of diffusion, specular coefficients and the light colour influence.
+		\item \textbf{Phong materials}:  These materials follow what is called the Phong model. This model says that it is possible to create new materials and compute them as sum of weighted specular and diffusion components. As a result, the reflection of lights by those materials is a combination of the sepcular and diffusion reflections. In our program, we have three different types of materials following that model which are: Chalk, Metal and Plastic. The difference between those materials is the values of diffusion, specular coefficients and the light colour influence \cite{scratchapixel_phong_2015}.
 		\item \textbf{Flat material}: which is the simplest material, that will return the colour of that object regardless to any other environment variables and parameters.
-		\item \textbf {Mirror material}: this material is the most complicated one, which will do many different calculations in order to calculate the colour of each pixel of that object.
-		%DB-NOTE:  This is reflective right? Might want to add that in
+		\item \textbf {Mirror material}: this material is the most complicated one because it is highly reflective and therefore produces many rays. As a result, many different calculations must be done in order to calculate the colour of each pixel of the object.
 	\end{itemize}
-	Each of those materials can have a colour chosen by the user, or just use the default colour, if null. \textbf{Figure \ref{fig:matcd}} shows the class diagram of the supported materials in our program.
+	In our program, we implemented these three different types. However, for the phong material, we covered three different materials, which follows the phong model, and so we have six supported materials in total. Each of those materials can have a colour chosen by the user, or just use the default colour, if null. \textbf{Figure \ref{fig:matcd}} shows the class diagram of the supported materials in our program.
 	\begin{figure}[ht!]
 		\centering
 		%\includegraphics[scale=0.50]{./materials.png}
@@ -375,13 +379,12 @@
 		\caption{Materials Class Diagram}
 		\label{fig:matcd}
 	\end{figure}
-	%I need to add a class diagram for this part also.
 	\subsubsection{Geometry Objects}
-	\label{sssec:geo}From the basic idea of ray tracing, we need a method to test whether a ray intersects with the object or not, and since we need our program to be scalable and open for extension, we created an abstract class called geometry object, which will have an attribute called the material; because each object will have a material. In addition to an abstract method called intersect. \\
+	\label{sssec:geo}From the basic idea of ray tracing, we need a method to test whether a ray intersects with the object or not, and since we need our program to be scalable and open for extension, we created an abstract class called geometry object, which will have an attribute called the material; because each object will have a material. In addition to an abstract method called intersect. \newline
 	\par In order to add a new geometry object, we need to add a new class, which inherits the GeometryObject abstract class. Then add the attributes needed for the new class, and finally implement the intersect abstract method. The intersect returns an object of type \textbf{HitInfo} which will include the following attributes:
 	\begin{itemize}
 		\item \textbf{hasHit}: boolean attribute which be \textbf{true} if the ray hits the object, and \textbf{false} if not.
-		\item \textbf{hitPoint}: it will be the point of where the ray hit the object. This value will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
+		\item \textbf{hitPoint}: it will be the point of where the ray hit the object. This value will be \textbf{ignored} if \textbf{hasHit} is \textbf{false}.
 		\item \textbf{normalAtHit}: it will be the vector which is perpendicular to the hitPoint. This value will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
 		\item \textbf{Ray}: it will be the ray which hits the object. This value will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
 		\item \textbf{hitObject}: it will be the object which was hit by the ray. This value will be \textbf{ignored}, if \textbf{hasHit} is \textbf{false}.
@@ -428,10 +431,12 @@
 		\item \textbf{GetColor}: this method will calculate the final colour after considering the light effects, such as the colour and intensity.
 	\end{itemize}
 	\subsubsection{Tracer}
-	The tracer class will be responsible for tracing an input ray with all objects in the scene. Then, if the ray hits one of the objects, it will call the method another time recursively for some predefined depth value. Then, it will use the hitInfo in order to call the \textbf{CalculateShade} method, which was previously discussed in the materials section, and the \textbf{TraceShadeRay} method, which will calculate the effects of lights on the object.\\  
+	The tracer class will be responsible for tracing an input ray with all objects in the scene. Then, if the ray hits one of the objects, it will recursively call the method for some predefined depth value. Then, it will use the hitInfo in order to call the \textbf{CalculateShade} method, which was previously discussed in the materials section, and the \textbf{TraceShadeRay} method, which will calculate the effects of lights on the object.\newline
 	\par Finally, the result will be the multiplication of the values returned by the previous two methods in case the ray hits one of the objects, otherwise, it will be the colour of the scene's background.
 	\subsubsection{Camera}
-	\label{sssec:cam}Another important element of ray tracing is the camera, which represents the way of looking to the objects in the scene. There are many different types of cameras that can be used such as perspective and orthographic cameras. In our implementation, we used the perspective camera. But in order to keep our program open for any future extension, we created an abstract class called camera, which contains:
+	\label{sssec:cam}Another important element of ray tracing is the camera, which represents the way of looking to the objects in the scene. There are many different types of cameras that can be used such as perspective and orthographic cameras. In our implementation, we decided to make our application as simple as possible for end-users and as a result we chose to only implement the perspective camera. This choice means that the user can set the camera to be a certain distance from the scene, thus giving them the ability to zoom in and out unlike with the orthographic camera where there is no distance from the scene.
+	
+	In order to keep our program open for any future extension, we created an abstract class called camera, which contains:
 	\begin{itemize}
 		\item \textbf{Attributes}:
 		\begin{itemize} 
@@ -444,12 +449,12 @@
 			\item \textbf{FindRayDirection(Point2D point)} : this method will calculate the ray direction from a given point in the window frame with respect to the camera's values.
 		\end{itemize}
 	\end{itemize}
-	\par In the perspective camera's implementation, the \textbf{Render} loops through all pixels in the image plane,  and then calculate the point, which in order will be used as an input to \textbf{FindRayDirection} method, and then call the \textbf{TraceRay}, which was discussed before in the previous section. To make the resulting colour smoother, we used one of the sampling techniques called the regular sampling technique.
+	\par In the perspective camera's implementation, the \textbf{Render} loops through all pixels in the image plane,  and then calculate the point, which will be used as an input to \textbf{FindRayDirection} method, and then call the \textbf{TraceRay}, which was discussed before in the previous section. 
 	\subsubsection{Sampling}
-	One of the enhancements that we did to our output is to use one of the sampling techniques. In our application, we used the \textbf{Regular Sampling Technique}. The main idea behind it is to do the tracing on the same square of the image plane, but at different sampling values, and calculate the colour at different points inside that square for \textbf{N \footnote{The number of samples}} times.\\
-	\par Finally, we sum up these values together, and divide the result by \textbf{N} which will be the final colour of that square. By applying this technique, the final colour will be smoother than not using any sampling technique at all.
+	To make the resulting colour smoother, we used one of the sampling techniques called the regular sampling technique. In our application, we used the \textbf{Regular Sampling Technique}. The main idea is to do the tracing on the same square of the image plane, but at different sampling values, and calculate the colour at different points inside that square for \textbf{N \footnote{The number of samples}} times.\newline
+	\par Finally, we sum up these values together, and divide the result by \textbf{N} which will be the final colour of that square. By applying this technique, the final colour will be smoother than not utilising any sampling technique at all.
 	\subsubsection{Scene}
-	The scene will be the container of all the previously mentioned classes. Each scene will have a list of geometry objects, list of lights, camera, background colour, sampler, file name which will be the final name of the output file.\\
+	The scene will be the container of all the previously mentioned classes. Each scene will have a list of geometry objects, list of lights, camera, background colour, sampler, file name which will be the final name of the output file.\newline
 	\par The scene will also have many different methods:
 	\begin{itemize}
 		\item \textbf{GetHitInfo}: This method will find if the ray hits any of the objects in the scene, and will return the hitInfo of the nearest object which was hit by the ray, in addition to other values of hitInfo, which were discussed before in \textbf{Section \ref{sssec:geo}}.
@@ -458,119 +463,156 @@
 		\item \textbf{FinalPicture}: this method will just print the colours in the final pixels array, which are filled by the \textbf{DisplayPixel}, that is called by the \textbf{Render} method, into an image of jpg type, with the filename received from the front end.
 	\end{itemize}
 	\subsection{Controllers}
-	In our project, we have one controller called \textbf{RenderController}, that will act as a post API. It will receive a JSON from the front-end side, the responsibility of that controller is to parse the received JSON, in a way that can be understood by the back-end's implementation. That's why we are having JSON folder in our project.\\
-	\par The parsing process is done by a method called \textbf{ProcessJSON} in \textbf{JSONObject} class. We need this class as an interpreter between the front and back ends; since the way front-end dealing with the environment and object values is not the same for back-end. Therefore, for simplicity and to avoid doing a lot of processing calculations and computations on the client side, it is done on the back-end side.
-	\par Now and after parsing the JSON to the appropriate format, we can create the scene object, then call the \textbf{Render} method. This method will take some time until it renders the whole scene. After that \textbf{FinalPicture} method is called, and finally return the image to front-end as JPG file.
-	\subsection{Testing the backend}
+	In our project, we have one controller called \textbf{RenderController}, that will act as a post API. It will receive a JSON from the front-end side, the responsibility of that controller is to parse the received JSON, in a way that can be understood by the back-end's implementation. That's why we are having JSON folder in our project.\newline
+	\par The parsing process is done by a method called \textbf{ProcessJSON} in \textbf{JSONObject} class. We need this class as an interpreter between the front and back ends; since the way front-end dealing with the environment and object values is not the same for back-end. Therefore, for simplicity and to avoid doing a lot of processing calculations and computations on the client side, it is done on the back-end side.\newline
+	\par After parsing the JSON to the appropriate format, we can create the scene object by then calling the \textbf{Render} method. This method requires time to render the whole scene.The bigger the scene and the number of objects and lights, the more time it takes for the scene to render. After that \textbf{FinalPicture} method is called, to finally return the image to the front-end as JPG file.
 	
 	\section{Front End}
-	
-	One of the main concerns of the team was to create a product that is easy and intuitive to use. In order to enable users to define the different elements they wish to have rendered on the scene, a simple web interface was developed. The interface allows users to enter the different values for the scene elements such as objects with different materials, positions, sizes and colours. Furthermore, the interface allows the user to define the specifications of the scene, even allowing them to add multiple lights at different positions with different colours and intensities. 
-	
-	\par The web interface has two main modes. One mode shows a 2D representation of the scene and is comprised of two views; a top down and a side view. The 2D view is important as the user is able to view from every angle how the object is visible but it does not give an actual representation of how the object will be positioned once the ray tracing has been produced in the back-end. Hence the other option is the 3D view in which the user is able to change the scene elements including the lights. 
-	
+	One of the main objectives of the project was to create a product that is easy and intuitive to use. In order to enable users to define the various elements they wish to have rendered on the scene, a simple web interface was developed. The interface allows users to enter the different values for the scene elements such as objects with different materials, positions, sizes and colours. Furthermore, the interface allows the user to define the specifications of the scene, even allowing them to add multiple lights at different positions with different colours and intensities.\newline 
+	\par The web interface has two main modes. One mode shows a 2D representation of the scene and is comprised of two views; a top down and a side view. The 2D view is useful because it allows the user to accurately position the objects in the scene with easy since the camera is always static and only from two different perspectives. The shortcoming of the 2D view is that even though it gives the user the ability to position elements exactly as they want, the user has to continuously imagine and think about how their scene will actually look in the end. Furthermore, the different lighting and camera positions that the user has configured are not rendered in the 2D views. The 3D view, on the other hand, does allow the user to rotate around the scene and see how objects are positioned in every dimension at once whilst also showing a rough approximation of what the ray traced scene is going to look like. 
 	\subsection{Set up}
-	In order to make sure we followed good engineering practices and allowed our code to be easily extendable we implemented the entire client in ES6 styled JavaScript. ES6 is quickly becoming an industry standard with the rise of \textit{NodeJS} and \textit{TypeScript} and thanks to it's modularity, forces us into a neat pattern around which we can structure our code. What is more, because ES6 JavaScript can be ran both locally and in browser, we were able to implement extensive browsing using the \textit{Chai.js} testing framework and incorporate granular unit tests into our continuous integration pipeline - more about this in \ref{front-end-tests}.
+	In order to make sure we followed good engineering practices and allowed our code to be easily extendable, we implemented the entire client in ES6 styled JavaScript. ES6 is quickly becoming an industry standard with the rise of \textit{NodeJS} and \textit{TypeScript} and thanks to it's modularity, forces us into a neat pattern around which we can structure our codebase. What is more, because ES6 JavaScript can be ran both locally and in browser, we were able to implement extensive testing using the \textit{Mocha.js} testing framework and incorporate granular unit tests into our continuous integration pipeline - we expand on our front end testing process in section \ref{sec:frontend-tests}.\newline
+	\par Though adoption is ever growing, ES6 JavaScript is not supported by a number of current browsers and therefore we chose to transpile and bundle our code using \textit{Browserify} into browser runnable JavaScript. To avoid us having to continuously re-package the bundled code manually we utilised a hot module replacement tool called \textit{Watchify}. \textit{Watchify} monitored each of our included dependencies and whenever changes were saved to a file, the bundle would immediately be rebuilt, ready for us to see our code in action. The combination of an ES6 codebase, hot module replacement, bundling and good unit test coverage made developing the project a frictionless affair.
 	
-	Thought adoption is ever growing, ES6 JavaScript is not supported by a number of current browsers and therefore we chose to transpile and bundle our code using \textit{Browserify} into browser runnable JavaScript. To avoid us having to continuously re-package the bundled code manually we utilised a hot module replacement tool called \textit{Watchify}. \textit{Watchify} monitored each of our included dependencies and whenever changes were saved to a file, the bundle would immediately be rebuilt, ready for us to see our code in action. The combination of an ES6 codebase, hot module replacement, bundling and good unit test coverage made developing the project a frictionless affair.
+	\subsection{SVG} \label{sec:svg}
 	
-	\subsection{Testing the client} \label{front-end-tests}
-	Because it's all modules it's easy to test  - easy to separate logic from front end rendering code
-	We decided to omit the DOM related code from our testing due to the relative simplicity of the code and the brevity of the project.
+	The first couple iterations of the project from the client side focused on creating a simple user interface that allows the user to input the most basic objects and parameters for the scene. By taking this approach we'd guarantee to be delivering a functional product from early in the project life cycle. As we began development, it was immediately obvious that we had to decide on standards that can be used to represent the scene and the objects being rendered in a concise yet expressive way. During our first meeting we created and documented a  \href{https://github.com/davidbenicek/raytracer/wiki/Initial-JSON-payload-design}{\underline{\textit{JSON structure}}} that would be used to hold the render request and sent from the front end to the back end.\newline
+	
+	\par The very first task was to implement the kind of prototype you see in Figure \ref{fig:firstIt}. By starting with just a simple form page we enabled ourselves to verify some of the assumptions we made about the JSON structure and the kind of controls we were planning on presenting to the user. While parts of the form were going to change in subsequent iterations, we established a way to harvest the values from any form by developing a generic function that takes a class name and strips out the values from child inputs of the target class and saves them in a JSON. This piece of code is instrumental to how the frontend client works and was used throughout development, including in the final solution - see \href{https://github.com/davidbenicek/raytracer/blob/e85055df16c4534989220de84ce67656a276bf33/src/RayTracer/Public/js/form.js#L30}{\underline{\textit{form.js}}} for the code.\newline 
+	
+	In one of the early iterations we also implemented the \textit{sendToApi.js} file which is responsible for the communication with the backend. The file has evolved over time as the interface between the two parts of the system changed, however, it's main role has remained unchanged. The main objective of the functions within the sendToApi module are to sanitise the output of the front end, send a POST request with the resulting JSON that represents the users input to the back end and receive and save the ray traced image. 
+	
+	\par Once we had a simple interface that allowed us to send the simplest configuration possible (simple scene and one object) to be the backend, it was time to make the product more user friendly. The first step was to create two 2D views (top down and side view) to allow the user to get an idea of what the scene they were rendering would look like in terms of colour and position. There was some debate about how to implement the 2D views, including the usage of some third party libraries but we opted to use a completely custom solution using SVGs since it would give us the freedom of defining it's exact behaviour and appearance. During this iteration the second pivotal set of functions was implemented - the JSON to SVGs converting function that can be found in \href{https://github.com/davidbenicek/raytracer/blob/e85055df16c4534989220de84ce67656a276bf33/src/RayTracer/Public/js/render.js#L43}{\underline{\textit{render.js}}}. The aim of these functions is to take each of the object expressed in the JSON and create equivalent SVG objects and place them into the SVG canvas. The main focus while writing these functions was extensibility and therefore if you examine the code you'll see that all that is needed to implement an extra shape is to define a getSVGFor\textit{object} function that would then be called based on the execution of the switch statement inside convertToSvg. Even though we did not manage to implement other objects apart from a cube and sphere, this could be easily achieved in the future. \newline
 	
 	
-	\subsection{SVG}
+	\par One of the best features the front end has is the support for dragging and dropping elements. This feature enables users to interact with the product in a familiar way and enables them to add multiple objects to the scene without having to key in the values for their positions into a long and hard to understand form. The drag and drop functionality was also implemented from scratch to allow us to customise the behaviour and fine tune it to our expectations. The code was loosely inspired by the work of Collingridge \cite{collingridge_draggable_2011} however our solution is more complex and refined than his. The implementation of the feature was difficult because it involved dragging an object from one SVG (the itinerary on top in Figure \ref{fig:drag_drop}) into the main canvas below it, which is itself a different SVG. \newline
 	
-	The first couple iterations of the project from the client side focused on creating a simple user interface that allows the user to input the most basic objects and parameters for the scene. By taking this approach we'd guarantee to be delivering a functional product from early in the project life cycle. As we began development, it was immediately obvious that we had to decide on standards that can be used to represent the scene and the objects within it in a concise yet expressive way. During our first meeting we created and documented a  \hyperlink{https://github.com/davidbenicek/raytracer/wiki/Initial-JSON-payload-design}{JSON structure} that would be used to express the render request and sent from the front end to the back end.
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[scale=0.30]{drag.png}
+		\caption{Screenshot to illustrate the drag and drop functionality}
+		\label{fig:drag_drop}
+	\end{figure}
 	
-	The very first task was to first implement the kind of prototype you see in Figure \ref{fig:firstIt}.
-	We then iterated and largely stuck to the plan
 	
-	Implemented SVG
-	Wrote functions to map JSON -> SVG
-	Focus on being extendible
+	\par The final piece to the puzzle was creating a feature that allows the user to modify individual objects once they are on the scene. We decided to implement a tooltip that appears when any element is double clicked as seen bellow in Figure \ref{fig:tooltip}. The solution for the tooltip is again completely custom made and works similarly to the initial version of the form, except that its values are always populated depending on which object is clicked and during the harvesting of the values we save them such that they overide the correct object details rather than limiting the JSON to being only one object.
 	
-	Implemented drag and drop
-	Talk about how there's libraries out there to do it but we did it ourselfs. Also cite http://www.petercollingridge.co.uk/interactive-svg-components/draggable-svg-element
-	
-	Tooltip
-	
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[scale=0.30]{tooltip.png}
+		\caption{Screenshot of tooltip}
+		\label{fig:tooltip}
+	\end{figure}
 	
 	\subsection{3D}
-	As mentioned before, the 3D aspect gives an actual representation of the back-end. This was developed using a JavaScript library called Three(three.js). Three is a combination of SVG and WebGL with a simpler way to create objects and all the other necessities such as clicking and labelling. This API is well known as diverse companies[reference] such as Toyota, Porsche or even Google[reference] use it. 
+	The 3D is used to give the user an approximation of the image that will be produced by the back-end. The 3D view was developed using a JavaScript library called Three(three.js)\cite{three.js_three.js_2018}. Three is a combination of SVG and WebGL with a simpler way to create objects and all the other necessities such as clicking and labelling. This API is well known as diverse companies\cite{three.js_three.js_2018} such as Toyota, Porsche or even Google \cite{google_rubiks_2014} use it.\newline
 	
-	Three is quite similar to our back-end as majority of the functions that the back-end provides can be simulated in Three. Functions like adding different materials; adding lights with different intensities and colours; and obviously having a 3D aspect. Difference is, this library allows the user to rotate the scene which can then help them decide how they want the ray tracing image to look like. For example, one user might like an angle better than the other or another user will like the camera position to be higher or lower than the normal view. This gives the user more freedom as opposed to having those two parameters set as default in the background or just having a 2D view which would not be an actual representation. 
+	\par Three is quite similar to our back-end as majority of the functions that the back-end provides can be simulated in Three. Functions like adding different materials; adding lights with different intensities and colours; and obviously having a 3D aspect. Difference is, this library allows the user to rotate the scene which can then help them decide how they want the ray tracing image to look like. For example, one user might like an angle better than the other or another user will like the camera position to be higher or lower than the normal view. This gives the user more freedom as opposed to having those two parameters set as default in the background or just having a 2D view which would not be an actual representation.\newline 
+	
+	\par Rendering the 3D scene was quite straightforward, this was due to the fact that every time an element was added to the scene, it was saved to a JSON. The JavaScript file implementing the three read the JSON and added objects and lights according to the users' input. It also changed the values of the scene and lights if the user wanted to change them while they were viewing the 3D scene. This was done using JQuery which allowed a "refresh" of the scene without loading the page again and inputting all the elements from scratch. Reading the JSON and adding the elements to the scene was simple as well because the three library had all of these elements predefined already. Therefore, all we had to do was create functions that would add the certain element to the scene by just getting the values from the JSON. There are 2 different functions in the file. One is to add the lights to the scene and the other is to add the shape to the scene which would then call another function depending on the users choice of shape. Having the file read the JSON made applying this library to our front-end simple and also it reassured us that the JSON was coded in the right format as this same JSON was then sent to the back-end to render the same exact scene.
 	
 	
-	\chapter{Team work} 
+	\section{Testing}
+	In real life, a running software without being reliable is not enough. Therefore, we tried to cover our software with as many tests as felt appropriate, in order to improve reliability of our software, and made sure that it met the requirements. This section will deeply discuss the different tests, which were written on both the back and front end.
+	\subsection{Back end}\label{sec:backend-tests}
+	In the back end we made a decision to write unit tests to cover the main and critical functionality of our system. We used the \textbf{NUnit} package in order to write our tests. In this section, we will discuss the importance of unit testing, and the details of implementing it.
+	\subsubsection{Why Unit Testing is important?}
+	\par Unit testing is a specialized form of automated testing that software developers write and run. The unit tests check that the program works and continues to work as the developer intended or planned for it to work.\newline
+	\par This type of testing is classified as White box testing because the tests are performed with full knowledge of the source code. Ideally, a developer would be able to run unit tests such that all the code paths would be executed. In other words, the unit tests would need to create the conditions to go through each line of code to ensure all the code was operating correctly.\newline
+	\par Unit testing is important because it is one of the earliest testing efforts performed on the code and the earlier the defects are detected, the easier they are to fix. Early bug-detection is also the most cost-effective for a project, with code fixes becoming more expensive the later they're found in the project lifecycle. %NOTE: HM - We need a reference for this last point @Narg
+	\subsubsection{Elements Testing}
+	\subsubsubsection{Point3D}
+	This class uses Point3D and Vector3D to carry out addition, subtraction and multiplication operations. This class uses some of these operations to calculate the distance between two points. This class also contains four different constructors. So, while building the Unit tests, it was important to test the operations with all the constructors that were created. The operations were tested by comparing the actual result to the expected result, this way we understand the correctness of the source code. Testing the operations is so vital as they are used throughout the project in other classes.
+	\subsubsubsection{Vector3D}
+	Vector3D class uses instances of Vector3D (vectors) to carry out addition, subtraction, multiplication, division, dot product and cross product. Some of the above operations are used to also calculate the square value of vector’s length; to calculate the length of the vector; and to normalize the vector. Vector3D class also contains four different constructors. During the testing of the operation, it was important for us to initiate Vector3D from all four constructors. The testing of the operations is vital as it leads to the accuracy of the results that affect the ray tracing. These tests were carried out by comparing the actual result to the expected output and it is asserted true if the values match.
+	\subsubsubsection{ColorRGB}
+	ColorRGB class contains four different constructors. The Unit test of ColorRGB tests: addition of two ColorRGB; multiplying two colorRGB; multiply colorRGB to a scale; dividing colorRGB by a scale and increasing the colorRGB to a power. These tests are verified by checking the output to the expected output and asserted true if matched. This is important when producing the ray tracer image as it determines the colour change of objects are affected by change of direction of the rays.
+	\subsubsection{Scene Testing}
+	This test was a crucial part of Unit Testing, as it involves creating the final picture of the model of the scene. When testing the scene class there are methods calling other methods and so in order to perform tests, we had to create a class that overrides some of the methods to return custom value. Testing the GetHitInfo method involved the usage of the Mock objects. These mock objects act as temporary objects which were used to carry out the tests successfully. 
+	\subsubsection{Geometrics Testing}
+	All the objects that we implemented in our ray tracer are inherited from the abstract class GeometryObject. This abstract class holds the attribute material and has an abstract method intersect. The intersect method is responsible for the calculation which determines whether a particular ray hits the object or not. In our program we have three different objects; Plane, Sphere and Cube. The inherited method intersect then gets improvised by these classes to make it suitable to their dimensions.
+	\subsubsubsection{Cube}
+	Unit test for Cube contains four test methods. The first test CubeTestMethod checks out that minimum and maximum points don’t equal (unless they are set the same values). The next three test methods are to checks for the intersect method. First of three is to test if Ray hits the cube if Ray direction equals zero, asserted true if ray hits object. Second is to test if Ray hits cube when direction is less than zero, asserted false if hits cube. Final test is if Ray direction equals zero and cube is higher, asserted true if hit.
+	\subsubsubsection{Plane}
+	The Unit test for the class Plane contains five test methods all related to intersect method. Each one of the test methods has different inputs and they are all as important as each other. The success scenario for all the test methods are asserted true if their given condition is true. This is vital because intersect checks if the ray is hitting the plane, by checking if the hit point is inside or outside the plane itself. It compares the value with epsilon value and return the hit information, so they can be used by other classes such as render.
+	\subsubsubsection{Sphere}
+	All the tests methods for the Sphere Unit test are related to it’s intersect method. Each one of the test methods has different inputs and they are all as important as each other. The success criteria for all the tests carried out are asserted true or false depending on their given condition. This is vital because the hitinfo details are used by other classes.
+	\subsubsection{Cameras Testing}
+	Cameras are an important part of the ray tracer. They determine the vision of the objects in the exported image. An abstract class Camera is inherited into the Perspective class. Hence only the Perspective class is tested since it has all the elements involved in the Parent class too. 
+	The first test is to find the ray direction which will be calculated from a given point in the window frame with respect to the camera’s values. The output from the FindRayDirection should equal the expected result. The test is asserted true if the values match. 
+	The last test is similar to previous test except all the input values are equalled to zero. The test is asserted true if the expected output equals the actual output.
+	\subsubsection{Lights Testing}
+	The class Lights is not an abstract class as we decided to create instances of it. Hence, both Light and AmbientLight were part of the Testing phase. On the other hand, AmbientLight inherits the Light class and its attributes.
+	\subsubsubsection{Light}
+	The first test to get the direction of the point of the surface with respect to the light and test if it matches with the expected result. The test is asserted true if it matches. The second test method involves the same concept as last, but the surface point is the origin. The same success scenario is used here, true if the output matches expected result. Next test method is responsible for testing the accurate distance was being calculated from the surface point and the position of the light. If value matches, test is asserted true. The last test is to determine that the right light intensity, distance and color of light are calculated which is compared to the expected output and asserted true if matched.
+	\subsubsubsection{AmbientLight}
+	The tests carried out for AmbientLight are TestGetDirection, TestGetDistance and TestGetColor. These exact tests were also carried out for Light. Though there were few minor changes in the codework, these tests are similar to tests carried out for Light including the success scenario. 
+	\subsection{Front end tests} \label{sec:frontend-tests}
+	\par One of the strengths of ES6 Javascript is that it enables developers to code in a very modular way. The general approach we took was to have different features separated over individual files with one exported module per file. Thanks to this structure, testing was quite easy. We have multiple tests files, each importing the module it is testing. A decision was made to leave out front end dependant code from the test coverage because this would involve either simulating a DOM or at least simulating our interactions with the DOM both of which have quite a high up front cost in terms of set up time. Due to the relative simplicity of the code and the brevity of the project, this upfront investment of time and effort would likely not yield much interest in the short time the project is run for. \newline
+	\par The testing was carried out using a testing framework called \textit{Chai.js}, which works on a basis of assertions that can either pass or fail. Periodically, we would use a tool called \textit{Istanbul} to run a coverage report to get an idea of how much of our code base is being visited during the tests. The test coverage differed on a file by file basis, mostly determined by how much background logic and how much DOM interaction happened within the code of a given file. Some files, such as render.js, have 100\% statement coverage because they are completely independent of the DOM and contain important logic that determines how different objects are rendered as SVG elements. Other files, such as render-3d.js, that are heavily dependant both on DOM interactions and external libraries have far lower test coverage. \newline
 	
+	\chapter{Team work}\label{chapter:teamwork}
 	%In this section: Describe how you worked together, including the tools and processes you used to facilitate group work.
-	
 	\section{Process}
-	Weekly meetings
-	At the start of each meeting standup style sync up:
-	Everyone speaks, says what they did, what still needs to be done, calls out any blockers that we can go over in the follow on meeting.
-	Discussion: 
-	Talk about what the next steps are, what could be improved, what has blocked us in the previous sprint. Try arrive at outcomes - outcomes made into tickets
-	Next steps:
-	Illicit next steps both from discussion and from product roadmap
-	
+	%DB-NOTE: Talk about how we used to go issue by issue, then went to going by what you actually did - this was to make sure that we covered everything...it's kind of bullshit but it fits with the communication paragraph I wrote in the evaluation @Aadam
+	We decided early on to establish weekly meetings so as to reinforce communication and collaboration within the group. The meetings had the format whereby each member of the group would explain what they had achieved over the past week and the others would provide feedback. We would then discuss and decide what needed to be accomplished by the next week. So each weekly meeting produced weekly targets to streamline progress on the project, these targets would often be converted into Github issues (more on this below). These meetings also gave us the opportunity to assist each other on areas where we might be having difficulty and very often the group would continue to work together after the meetings in the same vein as pair programming. Working and coding together as a group helped us become more productive and had the added benefit of allowing us to bond (more on this below).\newline
+	\par Outside of our physical meetings we took advantage of messaging services like Whatsapp and Facebook Messenger to stay in touch and Gruveo for online meetings (more on this below).
 	
 	\section{Communication}
+	Communication is one of the most important factors when it comes to working in a software engineering team. For our project we decided to utilise a number of different structured and unstructured communication channels. There exists a large array of great project management and issue tracking tools such as JIRA, Trac or Trello, however, we decided that given the brevity of our project and the relative low number of backlog items (especially at the start), that it would be best to keep our ticket system as close to the codebase as possible. As a result of this, we decided to make use of the inbuilt GitHub issue tracking system. This system does not provide the same calibre of project management tools as some of the forementioned products, however, it does enough for our purposes. We decided to use the GitHub milestone system as a way of scheduling issues for our sprints and implemented a branch naming convention such that we would refer to the issues we are addressing in the name of the branch - \{issue number\}/\{name of branch\}. This simple mechanism has worked tremendously; because it ensures that on one hand all branches are addressing exactly one tasks or feature and on the other hand, that all tasks and features have been recorded in an issue. \newline
+	\par Another way we structured our communication was by the use of pull requests whenever pushing code to master. By raising a pull request and having another team member review it, we not only improved our code quality but also spread knowledge of the code base and cross-pollinated ideas for features or more efficient solutions. Standout examples of a pull request flow can be seen \href{https://github.com/davidbenicek/raytracer/pull/36}{\underline{\textit{here (pull request \#36)}}} and \href{https://github.com/davidbenicek/raytracer/pull/66}{\underline{\textit{here (pull request \#66)}}}\newline
 	
-	Communication is one of the most important factors when it comes to working in a software engineering team. For our project we decided to utilise a number of different structured and unstructured communication channels. There exists a large array of great project management and issue tracking tools such as JIRA, Trac or Trello, however, we decided that given the brevity of our project and the relative low number of backlog items (especially at the start), that it would be best to keep our ticket system as close to the codebase as possible. As a result of this, we decided to make use of the inbuilt GitHub issue tracking system. This system does not provide the same calibre of project management tools as some of the forementioned products, however, it does enough for our purposes. We decided to use the GitHub milestone system as a way of scheduling issues for our sprints and implemented a branch naming convention such that we would refer to the issue we're addressing in the name of the branch - \{issue number\}/\{name of branch\}. This simple mechanism has worked tremendously because it ensures that on one hand all branches are addressing exactly one tasks or feature and on the other hand, that all tasks and features have been recorded in an issue. \\
-	
-	Another way we structured our communication was by the use of pull requests whenever pushing code to master. By raising a pull request and having another team member review it we not only improved our code quality but also spread knowledge of the code base and cross-polinated ideas for features or more efficient solutions. Standout examples of a pull request flow can be seen here: TODO: Cite some nice PR from github.\\
-	
-	Not all communication can be done over issue summaries and pull requests and therefore we scheduled weekly meetings to go over what has been achieved, what needs to be discussed and what is the plan for the following sprint. One could say that we condensed our daily scrum meeting, sprint planning, backlog refinement and sprint review all into one weekly meeting. This is not the textbook way of running an Agile project but given that we are not working on the project full time and that these meetings were kept as brief as possible, it still aligns to the core principles of Agile. During the meetings we would discuss the general trajectory of the project and what we want to accomplish in the next seven days, before breaking off into our sub teams and deciding on the exact issues we needed to create for the week ahead. This way of running a project has both advantages and disadvantages which is covered in section 
-	TODO: Cite section that covers this. We mostly met in person but on occasion, when we needed to, we used video conferencing tools such as Appear.In and Gruveo to connect with eachother.\\
+	\par Not all communication can be done over issue summaries and pull requests and therefore we scheduled weekly meetings to go over what has been achieved, what needs to be discussed and what is the plan for the following sprint. One could say that we condensed our daily scrum meeting, sprint planning, backlog refinement and sprint review all into one weekly meeting. This is not the textbook way of running an Agile project but given that we are not working on the project full time and that these meetings were kept as brief as possible, it still aligns to the core principles of Agile. During the meetings we would discuss the general trajectory of the project and what we want to accomplish in the next seven days, before breaking off into our sub teams and deciding on the exact issues we needed to create for the week ahead. This way of running a project has both advantages and disadvantages, which is covered in section
+	TODO: Cite section that covers this. We mostly met in person but on occasion, when we needed to, we used video conferencing tools such as Appear.In and Gruveo to connect with each other.\newline
+	%NOTE: HM - I spoke about having two meetings and how that went well in the evaluation. Can we write a line or two expanding that here as well? @Aadam - also watch out you have TODO there 
 	
 	During the course of the sprints, our communication did not fade. We built on some ideas from Extreme Programming and met frequently in our work units to engage in pair programming while working on issues during the sprint. To facilitate the smooth operation of the team we used the lowest friction medium of communication for all of us which was a WhatApp group where we have discussed everything from meeting times, status of different issues or even specific lines of code in pull request. 
-	
-	\section{Tools}
-	
-	Things that enabled us
-	Visual Studio, Visual Studio Code, Git,
-	Things that kept us on track
-	Travis, Mocha, Istanbull,
-	Things that connected us
-	Appear.In, Gruveo, Whatsapp, Facebook,
-	
-	
+	\section{Tools} \label{sec:tools}
+	Various tools were used by us, in order to build our final product. These tools will be discussed in this section in further details.
+	\subsection{Software Development Tools}
+	\subsubsection{Visual Studio}
+	IDE from Microsoft that our back end team used in the development of the main ray tracing components, supporting our coding in C\#. It was key in helping us implement and maintain the MVC model. Visual Studio offers many helpful features, including a code editor supporting IntelliSense \footnote{The code completion component}, as well as code re-factoring and an integrated debugger.
+	\subsubsection{Visual Studio Code}
+	The source code editor that the front end team mainly used, offers a plethora of beneficial features as it includes support for debugging, embedded Git control, syntax highlighting, intelligent code completion, snippets, and code refactoring. 
+	\subsection{Project Management Tools}
+	Management is a very important key for a project to succeed, and since we all believe in that, we used different tools to manage and organise our work. 
+	% 	Git, Travis, Mocha, Istanbull,
+	\subsubsection{Git}
+	Git was used as our version control software. This helped us manage our source code, keep track of files and store a complete history of our code base. It also help us create tickets to improve goal setting as explained above. The project was hosted at the GitHub website.
+	\subsubsection{Travis CI}
+	It is continuous integration service that we used to build and test software projects hosted at GitHub. It ran our tests before any code was pushed up to GitHub.
+	\subsubsubsection{Mocha}
+	Mocha is a JavaScript testing framework that we used for further testing of our code (mainly on the front end). It features browser support, asynchronous testing, test coverage reports and use of any assertion library. \cite{dzone_mocha_2018}
+	\subsection{Communication Tools}
+	% 	Gruveo, Whatsapp, Facebook
+	The main tools we used to stay in touch outside of our physical meetings was \textbf{Whatsapp} and to a lesser extent \textbf{Facebook Messenger}. We set up a group with everyone in it on Whatsapp and relied on both Facebook and Whatsapp for direct messaging. These messaging services allowed us to query each other anytime we had a question about the project or when we needed information from one of our team members. This ease of contact helped decrease the amount time that we spent stuck on problems as we could quickly rely on each other should any problem arise. The WhatsApp group also made group announcements easier ensuring everyone was up to date on the project progress and direction.\newline
+	\par\textbf{Gruveo} enabled us to have online video conferences for those instances when we weren't available to meet in person (e.g. when a group member was abroad). It doesn't require any sign up so the team leader just had to send a link in the group and everyone was able to join the call with ease.
 	\chapter{Evaluation}
-	Considering the mandatory requirements that were previously set out, all of them have been accomplished.
-	On the other hand, our optional requirements have been
-	completed as well apart from allowing the users to create extra objects like polygon but instead we have implemented a plane object. However, if the deadline was not a factor, more objects would have been completed as most of them were quite similar to the mandatory ones. \\
+	Throughout the life cycle of the project we encountered both a number of challenges that throttled our progress and discovered things that were easier than initial expected. Considering the mandatory requirements that were set out at the onset of the project, all of them have been accomplished. Furthermore, we managed to complete most of our optional requirements except for allowing the users to input extra objects like polygons since we choose to implemented a plane object instead. We made sure to structure the code base such that it was easily extensible and therefore, if it wasn't for the project deadline serving as a time constraint, it would be trivial to implement more custom objects since we would be able to simply extend and inherit a lot of the functionality that we have already implemented. \newline
 	
-	As mentioned earlier, the team was divided into two. This was a success as each team member decided whether they wanted to work in either the front-end or the back-end depending on their own skills,desires or work experience. This was crucial as everyone choose the area they were more comfortable working with which allowed less issues to arise in the future. Each sub-team also had at least one member who had work experience in the particular field. David had experience in the front-end, whereas Othman had experience in the back-end. This was important as both of them were able to lead their sub-team and any problems would be solved efficiently. It also gave the rest of the team members a look into the future as both of their experience helped the team visualise and learn how different code practices and tools are used in the workplace.\\
+	\par As described in Chapter \ref{chapter:teamwork}, the team was divided into two. This was largely a success as each team member decided whether they wanted to work on either the front-end or the back-end depending on their own skills, desires or work experience. This was crucial as everyone choose the area they were more comfortable working with which allowed less issues to arise in the future. Each sub-team also had at least one member who had work experience in the particular field. David had experience in front-end development, whereas Othman had experience working with back-end systems. This was important as both of them were able to lead their sub-team and any problems would be solved efficiently. It also gave the rest of the team members a look into the future as both of their experience helped the team visualise and learn how different code practices and tools such as testing suites or linting software are used in the workplace. Despite some of these tools having steep learning curves it was a worthwhile investment of our time because in the long run they allowed us to work more efficiently and to better software engineering standards as described in section \ref{sec:tools}. Another aspect that went well is being able to always have meetings. There were times that some group members had to travel but meetings were never cancelled. We always worked a way round it, either by scheduling the meeting to another day or by having the meeting through video calls instead of face to face. We also decided to have two meetings per week as the work load increased at the end and more reviewing, team work was required by one another. If tasked to complete the project again, it would be interesting to see what effect, if any, there would be on the functioning of the team if we had rotated individuals between the sub-teams. Such an experiment may lead to more cross-pollination of ideas and could serve the team well if carried out well. \newline 
 	
-	Focusing on the mandatory requirements first seemed logical as they were the functionality required for the software to work. Once those were accomplished, the optional requirements would be prioritised. This process went well as we did manage to finish the mandatory requirements. Most of the mandatory tasks were divided in the sub-teams which lead to both individual work and working in pairs. Critical tasks such as SVG implementation on the front-end or creating different shapes in the back-end, was either developed through pair programming or each team member had a small task to do in them, for example one team member would create a cube and the other a sphere. This helped us participate in every aspect of the project and improved our skills such as  team work and communication. This also lead to  coding problems being solved quickly as two minds are quicker and more knowledgeable than one. On the other hand, small tasks that were also important such as fixing a bug or creating forms, were done individually as not much time was needed for them. \\
-	%TODO: What else did go well?
 	
-	Communication was a major downside that could have been improved between the two sub-teams. This only came to our attention a few days before the first presentation while we were trying to integrate both front-end and the back-end together. It was a small issue at first which became big due to the fact that: variable names were not matching e.g spelling colour in the British way or American way; or the variables that were supposed to be hard coded either in the back-end or front-end e.g the back-end team assumed that the user would input where the camera would be pointing at. While the front-end thought that the back-end team would have it set as default and the user would not be able to change that as it made sense to always have the camera aiming at the middle of the walls with the user being able to change the position of the camera. This led to some confusion and a lot of changes in the code which wouldn't have been an issue if communication was more effective since the beginning. Communication became better once these issues came out and were pointed out to us but there was still some lack of effective communication.\\
-	%TODO: What else didnt go well? and make the above paragraph more clear
+	\par Focusing on the mandatory requirements first seemed logical as they were the functionality required for the software to work. Once those were accomplished, the optional requirements would be prioritised. This process went well as we did manage to finish the mandatory requirements. Most of the mandatory tasks were divided in the sub-teams which lead to both individual work and working in pairs. Critical tasks such as SVG implementation on the front-end or creating different shapes in the back-end, was either developed through pair programming or each team member had a small task to do in them, for example one team member would create a cube and the other a sphere. This helped us participate in every aspect of the project and improved our skills such as  team work and communication. This also led  to coding problems being solved quickly as two minds are quicker and more knowledgeable than one. On the other hand, small tasks that were also important such as fixing a bug or creating forms, were done individually as not much time was needed for them.  \newline
 	
-	Throughout each sprint planning, each team member had a task assigned to them which had to be completed before the next sprint. At times, these tasks were not completed due to time constraints or unable to fully complete it cause of some issues they found while developing.This lead to the deadlines being pushed back as another team member had to pick up the task or help out. This was good because everyone had enough time to complete the tasks if there was no issues. It was also bad because at times the work load was not managed well. This caused the internal deadline for the complete development to be pushed back for a week. Fortunately, we had set the internal deadline a month before the project was due which gave us four weeks to write the report. Even though it was pushed, we still had plenty of time to write the report and go over the project one last time before submitting.\\
+	\par Communication within a team can often be a challenging and frustrating task, especially at early stages of team formation. As described by Tuckman, groups usually go through a number of stages namely forming, storming and norming before finally reaching a stage where the team can operate efficiently and effectively \cite{tuckman_development_1965} and this could not be more true for our team. At the beginning of the project, all of us started with an optimistic mindset and were eager to begin. We made an effort at the beginning to plan and coordinate our future actions by creating prototypes (\ref{sec:prototypes}), establishing interfaces(\ref{sec:svg}) and eliciting requirements (\ref{chapter:requirements}) however this proved to not be enough. As weeks passed and we dove deeper into the project, we encountered problems and questions that we had not previously answered as a team. This uncertainty and lack of forward planning led to individuals making well intentioned decision (often the correct ones) but not doing a good enough job at communicating these slight course adjustments back to the rest of the team. The result was unsurprising. At the time of the initial presentation, we arrived as two systems - a front end and a back end, that had deviated from one another, not in major ways but in slight details that made the two systems incompatible. The issues faced were indeed trivial (Amercian versus British spelling conventions, differentiating default values of variables etc.) however, they were indicative of a larger issue in team communication.\newline
+	
+	\par As we scrambled to integrate the two systems, just days and hours before the presentation,it was clear that this was not the correct way forward. Fortunately, there was ample time to improve our communication as a team. Immediately after the presentation we came up with a number of actions and policies that would keep us on track and enforce a healthy level of communication and integration policing. The steps, outlined in our \href{https://github.com/davidbenicek/raytracer/wiki/5th-Meeting-(14th-Feb-2018)}{\underline{\textit{meeting minutes}}}, included restructuring the code base to better fit with our architecture, setting up a continuous integration system and changing the structure of our team meetings to be more action oriented rather than issue focused as described in Chapter \ref{chapter:teamwork}. Changing the way we worked halfway through the project was not a comfortable task and definitely made us go through a storming period within the team, however, the processes yielded great results and taught us valuable lessons not only for this project but also for our future endeavours. In the future, we could consider adopting weekly or bi-weekly retrospectives which would allow the team to self-critique it's process from within and perhaps uncover dysfunctional parts of our process quicker. \newline
+	
+	\par Teams are frequently faced with difficult dilemmas about their processes that boil down to whether it is worth investing time and effort in the short term in order to harvest the benefits further down the development cycle. For long lasting teams. it is generally a good idea to invest into establishing things such as testing suites or rigorous coding standard because in the long term they are likely to benefit from these early investments. When it comes to short term projects, especially at university, this can be a tricky decision to make. Under invest into your development practices and you get caught up in spaghetti code, over commit and you end up with a great, clean code base but no end product. In our team we decided that it was important for us to have the main program logic and interfaces covered by unit and integration tests respectively. The different parts of the system that were covered, as well as the rationale for these decisions can be found in sections \ref{sec:backend-tests} and \ref{sec:frontend-tests}. Our approach served us well, especially in the backend because we had a defined process thanks to taking guidance from the book \cite{suffern_ray_2007} and therefore we simply kept building atop individual functions. In the frontend, however, as we iterated and implemented varying functionalities we could have done with better test coverage. At the start we made a decision not to test functions that involved interacting directly with the DOM as this seemed too extensive, especially given the brevity of the project, however later on our code started to rely more and more on front end interactions and therefore this is something we should have considered more closely. \newline
+	
+	\par If given a change to start again, it would be beneficial for us to implement some sort of front end testing or at least mocking/stubbing tests to simulate DOM interactions. Using libraries such as Selenium we could have simulated user interactions in the browser and ran these as part of our CI pipeline rather than having to rely on manual testing as we did. On one or two occasions we accepted breaking changes coming into master because weren't able to cover all scenarios of UI interactions during manual inspections and having automated browser tests would have prevented this. Another option to test our front end dependant code would have been to mock the interactions of our code with the DOM by using a library such as Sinon to stub the functions that interact with the rendered elements and make them return different results, which would simulate user interactions without having to launch the code in a browser. In an ideal scenario and in a longer term project, we would implement both of these techniques and run them as often as possible to ensure we are not introducing any breaking changes during development. By having unit tests, integration tests and browser tests, we would be adhering to the notion of the test pyramid \cite{vocke_practical_2018}, having a couple large, slow test that examine the system on an end to end basis and plenty of fast, granular unit tests that test the code in isolation, hopefully guaranteeing a healthy code base.\newline
+	
+	\par At the start of each sprint, we would hold a sprint planning session during which each team member would commit to complete a number of tasks before the next meeting. Seeing as everyone was working on the project only part time, there was a high probability that external issues such as deadlines for other courses or holidays may impact individuals ability to complete the work on time and impact the schedule of the project. We aimed to plan our work with this in mind and often had to re-assign issues to other members when individuals struggled to finish their tasks. Generally, this mechanism worked as members owned up to their decreased throughput in one sprint and worked harder to improve their track record in the following weeks. Knowing that scheduling can be difficult, we went as far as setting an internal deadline for the main parts of the code to be done by the 28th of February in order to have plenty of time to write the final report due at the end of March. As is frequently the case with software engineering, "the first 90 percent of the code accounts for the first 90 percent of the development time. The remaining 10 percent of the code accounts for the other 90 percent of the development time" \cite{bentley_programmimg_1985} and we ended up having to push back the deadline by a week in order to complete all the requirements with some small and final bug fixing continuing throughout March. The decision to set an internal deadline far ahead of the official deadline was perhaps one of the best choices we made as a team; because it decreased pressure at the end of the project and allowed us to exert a constant amount of effort over time rather than having to rely on a spike in effort at the end.\newline
+	
+	\par Projects, especially in the computer industry can be never ending. One can argue that a ray tracer falls into this category, as there are always new features that can be implemented to make the ray tracer better, faster and more complete. One of the many features could be to add different shapes. There are numerous shapes that we have not touched upon and adding a greater number of shapes can make this ray tracer unique. However, this is challenging as these shapes need to be showcased in both 2D and 3D in the front end, and then again in 3D in the back end. The reason why this is challenging is because a lot of the shapes are not similar to one another, therefore each aspect of the shapes would have to be created from scratch, which is both difficult and time consuming. Additionally, another future feature could be allowing the user the freedom to create their own shape by letting them sketch it out, for example, consider drawing a shape in 2D in Microsoft Paint and then allowing the back end to form a 3D version of it. A new feature of our product could be a new technology that replaces our 3D library. This feature could give a more accurate representation of the back end without sending the values. This is not possible with the current technologies available to us. An ideal feature would be having a library that allows the exact same ray tracer that we are using in the back end to be shown in the web page. This feature would make it completely accurate and would satisfy the customers.There are also improvements that could be made in the front-end.\newline
+	
+	\par There is always a trade off between a simple and clean user interface and over complication. However, there are certainly ways in which we could improve. Small adjustments such as including a colour picker next to all colour selection input rather than just the objects ones or making some input boxes into sliders could already significantly improve both the aesthetic of the interface and it's ease of use. Other future improvements could also include making the user interface more friendly towards disabled users by making sure we specify correct alt text for screen readers, using high contrast colours for the colour blind and enabling the entire page to be operated using just keyboard operations for users with low dexterity. \newline
+	
+	\par  Overall, the project has been a great learning experience for each of us as individuals and we have managed to accomplish a significant amount while successfully achieving the main aim of the project. The experience learnt in this project will help us do better in the future projects, especially in those projects that require working in a team.
 	
 	%In this section: Critically evaluate your project: what worked well, and what didn’t? how did you do relative to your plan? what changes were the result of improved thinking and what changes were forced upon you? how did your team work together? etc. Note that you need to show that you understand the weaknesses in your work as well as its strengths. You may wish to identify relevant future work that could be done on your project.
-	
-	
-	% How did you do relative to your plan?
-	% Had weekly tasks - aimed to do them before the next meeting. Gave everyone a week to do it. If they were not completed, then a few more days was given.
-	
-	% What changes were the result of improved thinking and what changes were forced upon you?
-	% Video call instead of group meeting which led to 2 meetings per week??
-	
-	
-	% Mention both strengths and weaknesses!!
-	
-	
-	%DB-NOTE:
-	% Testing - we could have done more there. We made a decision not to test code that is dependant on the DOM which came to bite us in the end. Our tests would indicate all was working but in reality we broke the front end a bunch of times and and no way of knowing. There are two possible solution: stub the DOM functions with something like Sinon or implement UI testing with something like Selenium. Ideally we would have done both but Sinon would probably have been the best single solution because unit tests are ran more often - see testing pyramid. 
-	
-	
-	
 	\clearpage
-	\bibliographystyle{plain}
+	\bibliographystyle{plainurl}
 	\bibliography{references}
 \end{document}

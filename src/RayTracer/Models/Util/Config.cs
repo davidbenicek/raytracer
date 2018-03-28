@@ -155,5 +155,13 @@ namespace RayTracer.Models.Util
                 return 100.0;
             }
         }
+
+        public static int MAX_DEPTH
+        {
+            get
+            {
+                return 2;
+            }
+        }
     }
 }

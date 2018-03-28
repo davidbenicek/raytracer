@@ -1,6 +1,6 @@
 This is BibTeX, Version 0.99d (TeX Live 2017)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
-The top-level auxiliary file: team_group_of_7.aux
+The top-level auxiliary file: team_team_of_7.aux
 The style file: plainurl.bst
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=20001) to 20 items from 10.
@@ -10,7 +10,7 @@ Database file #1: references.bib
 Warning--empty publisher in tuckman_development_1965
 You've used 17 entries,
             2849 wiz_defined-function locations,
-            710 strings with 7574 characters,
+            710 strings with 7572 characters,
 and the built_in function-call counts, 6170 in all, are:
 = -- 635
 > -- 173
